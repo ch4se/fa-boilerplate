@@ -5,32 +5,41 @@ $font-lato: 'Lato', sans-serif;
 
 h1{
   font-family: $font-exo;
-  font-size:2.0em;
-  font-weight:100;
+  font-size:3em;
+  font-weight:300;
+  color: $off-white;
 }
 h2{
   font-family: $font-exo;
-  font-size:1.66em;
-  font-weight:300;
+  font-size:2em;
+  font-weight:100;
+  color: $off-white;
 }
 h3{
   font-family: $font-exo;
-  font-size:1.33em;
+  font-size:1.66em;
   font-weight:300;
+  color: $off-white;
 }
 h4{
   font-family: $font-exo;
-  font-size:1.0em;
+  font-size:1.5em;
   font-weight:500;
+  color: $off-white;
 }
 h5{
   font-family: $font-lato;
-  font-size:1.0em;
+  font-size:1.33em;
   font-weight:500;
+  color: $off-white;
 }
 p{
   font-family: $font-lato;
-  font-size:1.0em;
-  font-weight:300;
+  font-size:1.33em;
+  font-weight:500;
   line-height:1.33em;
+  color: $off-white;
+}
+a:link,a:visited{
+  color: $link-color;
 }

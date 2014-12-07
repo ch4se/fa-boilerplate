@@ -1,0 +1,139 @@
+<fa-modifier fa-size="content.section.size" fa-translate="content.section.position">
+  <fa-container-surface class="mh-onboard-controller">
+  <fa-modifier fa-translate="[0,0,-1000]">
+  <fa-modifier fa-origin="[0.5,0.5]" fa-align="[0.0,0.0]"  fa-scale="[20.0,20.0]">
+  <fa-surface fa-background-color="'rgba(3,3,4,1.0)'"></fa-surface>
+  </fa-modifier>
+  </fa-modifier>
+
+  <fa-view ng-repeat="vignette in model.sections track by $index">
+    <fa-modifier fa-scale="content.section.elements.copy.scale">
+    <fa-modifier
+    fa-size="content.section.elements.copy.size"
+    fa-align="[0.5,0.4]"
+    fa-origin="[0.5,0.5]"
+    fa-transform="p[$index].get()"
+    fa-opacity="c[$index].get()">
+      <fa-surface class="headline headline-{{$index}}">
+      <h1>{{vignette.headline}}</h1>
+      </fa-surface>
+    </fa-modifier>
+    </fa-modifier>
+
+    <fa-modifier fa-scale="content.section.elements.copy.scale">
+    <fa-modifier
+    fa-size="content.section.elements.copy.size"
+    fa-align="[0.5,0.55]"
+    fa-origin="[0.5,0.5]"
+    fa-transform="p[$index].get()"
+    fa-opacity="c[$index].get()">
+      <fa-surface class="subheadline">
+      <h2 ng-bind-html="vignette.subheadline" class="subheadline subheadline-{{$index}}"></h2>
+      </fa-surface>
+    </fa-modifier>
+    </fa-modifier>
+
+    <fa-modifier fa-scale="content.section.elements.copy.scale">
+    <fa-modifier
+    fa-size="content.section.elements.copy.size"
+    fa-align="[0.5,0.66]"
+    fa-origin="[0.5,0.5]"
+    fa-transform="p[$index].get()"
+    fa-opacity="c[$index].get()">
+      <fa-surface class="subheadline">
+      <p ng-bind-html="vignette.copy" class="copy copy-{{$index}}"></p>
+      </fa-surface>
+    </fa-modifier>
+    </fa-modifier>
+
+
+    <!-- different image content per $index
+
+    <fa-modifier ng-repeat="element in vignette.elements track by $index"
+    fa-origin="[0.5,0.5]"
+    fa-align="element.align"
+    fa-size="[309,336]"
+    fa-transform="p[$parent.$parent.$index].get()"
+    fa-opacity="c[$parent.$parent.$index].get()">
+    <fa-modifier
+      fa-origin="[0.5,0.5]"
+      fa-align="element.align"
+      fa-scale="{{element.scale}}">
+      <fa-surface class="mh-onboard-start-image">
+        <div class="mh-onboard-start-image-actual {{element.name}}"></div>
+          <div class="mh-onboard-contributor-container">
+            <ul>
+            <li ng-repeat="contributor in element.contributors" class="mh-onboard-contributor {{contributor.name}}"></li>
+            </ul>
+          </div>
+          <div class="mh-onboard-sources-container">
+            <ul>
+            <li ng-repeat="source in element.sources" class="mh-onboard-source">
+              <div class="ob-icon {{source.name}}"></div>
+            </li>
+            </ul>
+          </div>
+      </fa-surface>
+    </fa-modifier>
+    </fa-modifier>-->
+
+
+    <!-- $background
+    <fa-modifier fa-transform="p[$index].get()"  fa-opacity="op[$index].get()">
+      <fa-modifier ng-repeat="image in vignette.images"
+      fa-translate="image.position"
+      fa-align="image.align"
+      fa-origin="[0.5,0.5]"
+      fa-scale="[0.85,0.85]"
+      fa-opacity="o[$parent.$parent.$index][$index].get()"
+      fa-size="content.section.icons.size">
+        <fa-surface class="ob-bg-surface"><div class="ob-icon {{image.name}}"></div></fa-surface>
+      </fa-modifier>
+    </fa-modifier>-->
+  </fa-view>
+
+  <!-- nav -->
+  <fa-modifier fa-size="[16,60]" fa-align="[0.99,0.49]" fa-origin="[1.0,0.5]" fa-opacity="0.3">
+    <fa-surface class="dot-nav-container">
+    <ul class="dot-nav vert">
+      <li class="dot active"><!--<div class="label">Welcome</div>--></li>
+      <li class="dot"><!--<div class="label">Discover</div>--></li>
+      <li class="dot"><!--<div class="label">Collect</div>--></li>
+      <li class="dot"><!--<div class="label">Share</div>--></li>
+      <li class="dot"><!--<div class="label">Follow</div>--></li>
+    </ul>
+    </fa-surface>
+  </fa-modifier>
+
+
+  <fa-modifier
+    fa-align="[0.5,0.95]"
+    fa-origin="[0.5,0.5]"
+    fa-size="[64,64]"
+    fa-rotate-z="content.section.scrollButton.rotate">
+    <fa-surface ng-show="masterIndex !== 4" ng-click="nextVignette()" class="scroll-up">
+    </fa-surface>
+  </fa-modifier>
+
+  <fa-modifier
+    fa-align="[0.9,0.5]"
+    fa-origin="[0.5,0.5]"
+    fa-size="[64,64]"
+    fa-rotate-z="content.section.forwardButton.rotate"
+    fa-opacity="content.section.backButton.display">
+    <fa-surface class="scroll-right" ng-show="masterIndex === 4" ng-mousedown="moveFollowersForward()" ng-mouseup="endMoveFollowers()" fa-touchend="pageFollowersForward()">
+    </fa-surface>
+  </fa-modifier>
+
+  <fa-modifier
+    fa-align="[0.1,0.5]"
+    fa-origin="[0.5,0.5]"
+    fa-size="[64,64]"
+    fa-rotate-z="content.section.backButton.rotate"
+    fa-opacity="content.section.backButton.display">
+    <fa-surface class="scroll-left" ng-show="masterIndex === 4" ng-mousedown="moveFollowersBack()" ng-mouseup="endMoveFollowers()" fa-touchend="pageFollowersBack()">
+    </fa-surface>
+  </fa-modifier>
+
+  </fa-container-surface>
+<fa-modifier>
