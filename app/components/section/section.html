@@ -10,42 +10,17 @@
     <fa-modifier fa-scale="content.section.elements.copy.scale">
     <fa-modifier
     fa-size="content.section.elements.copy.size"
-    fa-align="[0.5,0.4]"
-    fa-origin="[0.5,0.5]"
+    fa-align="content.section.elements.copy.align"
+    fa-origin="[0.0,0.0]"
     fa-transform="p[$index].get()"
     fa-opacity="c[$index].get()">
       <fa-surface class="headline headline-{{$index}}">
       <h1>{{vignette.headline}}</h1>
-      </fa-surface>
-    </fa-modifier>
-    </fa-modifier>
-
-    <fa-modifier fa-scale="content.section.elements.copy.scale">
-    <fa-modifier
-    fa-size="content.section.elements.copy.size"
-    fa-align="[0.5,0.55]"
-    fa-origin="[0.5,0.5]"
-    fa-transform="p[$index].get()"
-    fa-opacity="c[$index].get()">
-      <fa-surface class="subheadline">
       <h2 ng-bind-html="vignette.subheadline" class="subheadline subheadline-{{$index}}"></h2>
-      </fa-surface>
-    </fa-modifier>
-    </fa-modifier>
-
-    <fa-modifier fa-scale="content.section.elements.copy.scale">
-    <fa-modifier
-    fa-size="content.section.elements.copy.size"
-    fa-align="[0.5,0.66]"
-    fa-origin="[0.5,0.5]"
-    fa-transform="p[$index].get()"
-    fa-opacity="c[$index].get()">
-      <fa-surface class="subheadline">
       <p ng-bind-html="vignette.copy" class="copy copy-{{$index}}"></p>
       </fa-surface>
     </fa-modifier>
     </fa-modifier>
-
 
     <!-- different image content per $index
 

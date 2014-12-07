@@ -13,7 +13,7 @@
 
       var SectionDirective = function( States, $famous ){
             // Returns Directive Creation Object
-            var Engine                  = $famous['famous/core/Engine'],
+            var Engine              = $famous['famous/core/Engine'],
             Transitionable          = $famous['famous/transitions/Transitionable'],
             TransitionableTransform = $famous['famous/transitions/TransitionableTransform'],
             Easing                  = $famous['famous/transitions/Easing'],
@@ -69,7 +69,8 @@
                       position: [0,0,0],
                       elements:{
                         copy:{
-                          scale:[]
+                          scale:[],
+                          align:[]
                         },
                         fore:{
                           scale:[],
@@ -225,8 +226,9 @@
                   scope.mobile = function(){
                     scope.content.section.icons.scale = [0.45,0.45];
                     scope.content.section.icons.size = [80,80];
-                    scope.content.section.elements.copy.size =  [380,true];
-                    scope.content.section.elements.copy.scale = [0.6,0.6];
+                    scope.content.section.elements.copy.align =  [0.1,0.1];
+                    scope.content.section.elements.copy.size =  [respond.grid.colSpan[4],true];
+                    scope.content.section.elements.copy.scale = [0.8,0.8];
                     scope.content.section.elements.fore.scale = [0.3,0.3];
                     scope.content.section.elements.back.scale = [0.15,0.15];
                     scope.content.section.elements.source.scale = [0.5,0.5];
@@ -244,8 +246,9 @@
                   scope.phablet = function(){
                     scope.content.section.icons.scale = [0.425,0.425];
                     scope.content.section.icons.size = [80,80];
-                    scope.content.section.elements.copy.size =  [420,true];
-                    scope.content.section.elements.copy.scale = [0.6,0.6];
+                    scope.content.section.elements.copy.align =  [0.1,0.1];
+                    scope.content.section.elements.copy.size =  [respond.grid.colSpan[4],true];
+                    scope.content.section.elements.copy.scale = [0.8,0.8];
                     scope.content.section.elements.fore.scale = [0.4,0.4];
                     scope.content.section.elements.back.scale = [0.3,0.3];
                     scope.content.section.elements.source.scale = [0.66,0.66];
@@ -263,7 +266,8 @@
                   scope.tablet = function(){
                     scope.content.section.icons.scale = [0.45,0.45];
                     scope.content.section.icons.size = [100,100];
-                    scope.content.section.elements.copy.size =  [480,true];
+                    scope.content.section.elements.copy.align =  [0.1,0.33];
+                    scope.content.section.elements.copy.size =  [respond.grid.colSpan[6],true];
                     scope.content.section.elements.copy.scale = [0.85,0.85];
                     scope.content.section.elements.fore.scale = [0.55,0.55];
                     scope.content.section.elements.back.scale = [0.3,0.3];
@@ -277,7 +281,8 @@
                   scope.small = function(){
                     scope.content.section.icons.scale = [0.5,0.5];
                     scope.content.section.icons.size = [128,128];
-                    scope.content.section.elements.copy.size =  [840,true];
+                    scope.content.section.elements.copy.align =  [0.2,0.33];
+                    scope.content.section.elements.copy.size =  [respond.grid.colSpan[6],true];
                     scope.content.section.elements.copy.scale = [1.0,1.0];
                     scope.content.section.elements.fore.scale = [0.75,0.75];
                     scope.content.section.elements.back.scale = [0.5,0.5];
@@ -291,7 +296,8 @@
                   scope.medium = function(){
                     scope.content.section.icons.scale = [0.75,0.75];
                     scope.content.section.icons.size = [200,200];
-                    scope.content.section.elements.copy.size =  [1200,true];
+                    scope.content.section.elements.copy.align =  [0.2,0.33];
+                    scope.content.section.elements.copy.size =  [respond.grid.colSpan[6],true];
                     scope.content.section.elements.copy.scale = [1.0,1.0];
                     scope.content.section.elements.fore.scale = [0.8,0.8];
                     scope.content.section.elements.back.scale = [0.6,0.6];
@@ -305,7 +311,8 @@
                   scope.large = function(){
                     scope.content.section.icons.scale = [1.0,1.0];
                     scope.content.section.icons.size = [256,256];
-                    scope.content.section.elements.copy.size =  [1200,true];
+                    scope.content.section.elements.copy.align =  [0.2,0.33];
+                    scope.content.section.elements.copy.size =  [respond.grid.colSpan[6],true];
                     scope.content.section.elements.copy.scale = [1.0,1.0];
                     scope.content.section.elements.fore.scale = [0.8,0.8];
                     scope.content.section.elements.back.scale = [0.5,0.5];
