@@ -20,6 +20,7 @@
     "angular-translate-loader-url": "=2.2.0",
     "angular-ui-router": "=0.2.10",
     "famous-angular": "=0.5.0",
-    "angular-sanitize": "=1.2.22"
+    "angular-sanitize": "=1.2.22",
+    "synth": "steveblue/synth"
   }
 }

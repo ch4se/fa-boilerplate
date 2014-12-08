@@ -10,6 +10,7 @@ var respond;
 
   head
     .load(
+      'lib/synth.js',
       'lib/angular.js',
       'lib/angular-ui-router.js',
       'lib/angular-sanitize.js',
@@ -33,7 +34,7 @@ var respond;
       require.config({
       //  baseUrl:'./',
         paths:{
-          'lodash'    : 'lib/lodash',
+          'synth'     : 'lib/synth',
           'routes'    : 'providers/route-manager'
         },
         shim:{

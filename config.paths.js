@@ -26,8 +26,7 @@ module.exports = {
       'bower_components/es6-promise/promise.js',
       'bower_components/requirejs/require.js',
       'bower_components/resjs/res.js',
-      'node_modules/angulartics/src/angulartics.js',
-      'node_modules/angulartics/src/angulartics-segmentio.js'
+      'bower_components/synth/js/dist/synth.js'
 
     ],
     min:[
@@ -46,8 +45,7 @@ module.exports = {
       'bower_components/es6-promise/promise.min.js',
       'bower_components/requirejs/require.js', // no min
       'bower_components/resjs/res.min.js',
-      'node_modules/angulartics/dist/angulartics.min.js',
-      'node_modules/angulartics/dist/angulartics-segmentio.min.js'
+      'bower_components/synth/js/dist/synth.min.js'
     ],
     dev:  devDir  + '/lib',
     prod: prodDir + '/lib'

@@ -36,28 +36,33 @@
                 $scope.model = {
                   sections:[{
                     headline:"Steve Belovarich",
-                    subheadline:"Web Engineer / Maker / Digital Artist",
+                    subheadline:"",
                     copy:""
                   },
                   {
                     headline:"Dependable Web Engineer",
-                    subheadline:"Angular / Famo.us / jQuery / Wordpress",
-                    copy:"Steve programs cutting edge HTML5 frameworks. He thinks responsive and can make your website look nice on multiple devices. Steve Belovarich is on GitHub, his CSS3 Ribbon Menu is an Editor's Pick on Codepen.io, and he was recently featured in Web Designer 199."
+                    subheadline:"Developing websites since 1998.",
+                    copy:"Steve currently develops on a MEAN stack and is active in the Famo.us / Angular community. He is in the top 100 Developers in L.A. according to GoodData, was featured in Web Designer magazine and has Editor's Picks on <a href='http://codepen.io/steveblue/'>Codepen.io</a>."
                   },
                   {
-                    headline:"Steve Curates Dev Magnet",
-                    subheadline:"A Flipboard magazine available at <a href='http://devmagnet.net'></a>.",
-                    copy:""
+                    headline:"Dev Magnet",
+                    subheadline:"Flipboard magazine about development.",
+                    copy:"Steve curates Dev Magnet on Flipboard. Updated regularly with news and tips for Developers and Makers, Dev Magnet is available on the web at <a href='http://devmagnet.net'>devmagnet.net</a>."
                   },
+                  // {
+                  //   headline:"Res.js",
+                  //   subheadline:"A lightweight JS library for Responsive web apps.",
+                  //   copy:"Res.js is a swiss army knife for Responsive web sites. This library weighing in at about 5kb gives developers easy access to User Agent and the ability to make thier web app stateful. Res.js is open source and <a href='https://github.com/steveblue/res'>available on Github</a>."
+                  // },
                   {
                     headline:"Synth",
-                    subheadline:"Steve created a video synthesizer for the web.",
-                    copy:"Recently acquiring an initial round of funding on Kickstarter, Synth is a web app for creative coders to show off interactive visualizations."
+                    subheadline:"Video synthesizer for the web.",
+                    copy:"Synth is a web app for creative coders to show off interactive visualizations. Originally a Chrome Experiment, this web app is going into beta after successfully being funded on Kickstarter."
                   },
                   {
                     headline:"Kinetic Light",
-                    subheadline:"Solo exhibition of photography in LA",
-                    copy:"Exhibition from March - July 2014 in Los Angeles was Steve's first solo exhbition of digital art. The exhbiit included original abstract digital photography and video art. Purchase <i>Kinetic Light</i> from the iBookstore and get the entire collection for display on all your devices."
+                    subheadline:"Solo exhibition of digital art in L.A.",
+                    copy:"Exhibition in Los Angeles is Steve's first solo exhbition of digital art. The exhibit included original abstract digital photography and video art. Purchase the Kinetic Light ebook from the iBookstore."
                   }]
                 };
 

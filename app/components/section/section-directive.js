@@ -1,14 +1,16 @@
-/* global respond */
+/* global respond, Synth */
+var s;
+
 (function( define ) {
   "use strict";
   /**
    * Register the Controller class with RequireJS
    */
   define([
-      // Deps,
+
     ],
     function (
-      // Deps Vars
+
     ){
 
       var SectionDirective = function( States, $famous ){
@@ -29,7 +31,6 @@
             var fTransform = 0;
             var masterLimit = 4;
             var vignetteHeight = window.innerHeight * 2;
-
             return {
               restrict: "AE",
               require:"ngModel",
@@ -42,7 +43,6 @@
                 post: function(scope, iElem, iAttrs, controller) {
 
                   scope.masterIndex = 0;
-                  scope.followCount = 0;
 
                   scope.zoom = false;
 
@@ -51,6 +51,33 @@
                   // add perspective to the container group
                   var group = $famous.find('.mh-onboard-controller')[0].renderNode._container;
                   group.classList.add('depth');
+
+                  var canvas = $famous.find('.background-canvas')[0].renderNode;
+                  canvas.on('deploy',function(){
+
+                    s = new Synth(canvas._currentTarget,false,false,[{
+                        "camera": "0.0,-1130.0,180.0",
+                        "shape": "plane",
+                        "detail": 720,
+                        "scale" : 10.0,
+                        "wireframe": true,
+                        "multiplier": 4.0,
+                        "displace": 1.5,
+                        "origin": "0,0,-2400.0",
+                        "opacity": 1.0,
+                        "hue": 0,
+                        "saturation": 1.0,
+                        "bgColor": "#030304"
+                    }]);
+                    s.defaultVideo('assets/flying-over-los-angeles-at-night.mp4');
+                    if(respond.os !== 'ios' && respond.device !=='iphone' && respond.device !=='ipod' ){
+                      document.getElementById('video').play();
+                    }
+                    else{
+                      document.getElementById('video').currentTime = 200;
+                    }
+
+                  });
 
                   // defaults
                   scope.content = {
@@ -63,6 +90,9 @@
                       speedLimit: 1,
                       paginated:true,
                       clipSize: window.innerHeight
+                    },
+                    canvas:{
+                      size:[window.innerWidth,window.innerHeight]
                     },
                     section:{
                       size: [window.innerWidth,window.innerHeight],
@@ -148,7 +178,7 @@
                     scope.content.section.size = [window.innerWidth,window.innerHeight];
                     vignetteHeight = window.innerHeight * 2;
                     scope.content.vignette.size = [window.innerWidth, vignetteHeight];
-                    transform = 100;
+                    transform = 150;
 
                   };
 
@@ -311,7 +341,7 @@
                   scope.large = function(){
                     scope.content.section.icons.scale = [1.0,1.0];
                     scope.content.section.icons.size = [256,256];
-                    scope.content.section.elements.copy.align =  [0.2,0.33];
+                    scope.content.section.elements.copy.align =  [0.2,0.1];
                     scope.content.section.elements.copy.size =  [respond.grid.colSpan[6],true];
                     scope.content.section.elements.copy.scale = [1.0,1.0];
                     scope.content.section.elements.fore.scale = [0.8,0.8];

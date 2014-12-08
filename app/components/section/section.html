@@ -1,8 +1,13 @@
+
 <fa-modifier fa-size="content.section.size" fa-translate="content.section.position">
   <fa-container-surface class="mh-onboard-controller">
+  <fa-modifier fa-translate="[0,0,0]">
+    <fa-surface class="background-canvas" fa-size="content.canvas.size"></fa-surface>
+  </fa-modifier>
   <fa-modifier fa-translate="[0,0,-1000]">
   <fa-modifier fa-origin="[0.5,0.5]" fa-align="[0.0,0.0]"  fa-scale="[20.0,20.0]">
-  <fa-surface fa-background-color="'rgba(3,3,4,1.0)'"></fa-surface>
+
+  <fa-surface fa-background-color="'rgba(3,3,4,0.0)'"></fa-surface>
   </fa-modifier>
   </fa-modifier>
 
@@ -14,10 +19,10 @@
     fa-origin="[0.0,0.0]"
     fa-transform="p[$index].get()"
     fa-opacity="c[$index].get()">
-      <fa-surface class="headline headline-{{$index}}">
+      <fa-surface class="headline headline-{{$index}}" >
       <h1>{{vignette.headline}}</h1>
-      <h2 ng-bind-html="vignette.subheadline" class="subheadline subheadline-{{$index}}"></h2>
-      <p ng-bind-html="vignette.copy" class="copy copy-{{$index}}"></p>
+      <h3 ng-bind-html="vignette.subheadline" class="subheadline subheadline-{{$index}}"></h3>
+      <p ng-bind-html="vignette.copy" class="copy copy-{{$index}}" ></p>
       </fa-surface>
     </fa-modifier>
     </fa-modifier>

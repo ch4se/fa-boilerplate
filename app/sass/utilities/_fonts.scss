@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Exo+2:400,900italic,900,800italic,800,700italic,700,600italic,600,500italic,500,400italic,300italic,300,200italic,200,100italic,100);
+@import url(http://fonts.googleapis.com/css?family=Exo:400,900italic,900,800italic,800,700italic,700,600italic,600,500italic,500,400italic,300italic,300,200italic,200,100italic,100);
 $font-exo: 'Exo 2', sans-serif;
 @import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
 $font-lato: 'Lato', sans-serif;
@@ -6,7 +6,7 @@ $font-lato: 'Lato', sans-serif;
 h1{
   font-family: $font-exo;
   font-size:3em;
-  font-weight:300;
+  font-weight:100;
   color: $off-white;
 }
 h2{
@@ -18,7 +18,7 @@ h2{
 h3{
   font-family: $font-exo;
   font-size:1.66em;
-  font-weight:300;
+  font-weight:500;
   color: $off-white;
 }
 h4{
@@ -43,4 +43,7 @@ p{
 }
 a:link,a:visited{
   color: $link-color;
+  font-weight: 700;
+  cursor:pointer;
+  cursor:hand;
 }
