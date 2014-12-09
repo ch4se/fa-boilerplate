@@ -52,30 +52,26 @@ var s;
                   var group = $famous.find('.mh-onboard-controller')[0].renderNode._container;
                   group.classList.add('depth');
 
+                  var initCanvas = function(){
+                    s = new Synth(canvas._currentTarget,false,false,scope.synth);
+                    s.presets = scope.synth;
+                    s.defaultVideo('assets/kinetic-light.mp4');
+                    document.getElementById('video').play();
+                  };
+
                   var canvas = $famous.find('.background-canvas')[0].renderNode;
                   canvas.on('deploy',function(){
 
-                    s = new Synth(canvas._currentTarget,false,false,[{
-                        "camera": "0.0,-1130.0,180.0",
-                        "shape": "plane",
-                        "detail": 720,
-                        "scale" : 10.0,
-                        "wireframe": true,
-                        "multiplier": 4.0,
-                        "displace": 1.5,
-                        "origin": "0,0,-2400.0",
-                        "opacity": 1.0,
-                        "hue": 0,
-                        "saturation": 1.0,
-                        "bgColor": "#030304"
-                    }]);
-                    s.defaultVideo('assets/flying-over-los-angeles-at-night.mp4');
-                    // if(respond.os !== 'ios' && respond.device !=='iphone' && respond.device !=='ipod' ){
-                      document.getElementById('video').play();
-                    // }
-                    // else{
-                    //   document.getElementById('video').currentTime = 200;
-                    // }
+                    if(scope.synth){
+                      initCanvas();
+                    }
+                    else{
+                      scope.$watch('synth',function(){
+                        initCanvas();
+                      });
+                    }
+
+
 
                   });
 
@@ -190,6 +186,7 @@ var s;
 
                   var offset = 0;
                   var inT = function(tIndex,v){
+
                       scope.content.section.scrollButton.display = 0;
                       scope.op[tIndex].set(0);
                       scope.c[tIndex].set(0);
@@ -203,6 +200,12 @@ var s;
                           scope.transition = false;
                         });
                       });
+
+                      if(s){
+
+                          s.setPreset(tIndex);
+
+                      }
 
                   };
 
@@ -223,7 +226,6 @@ var s;
                       scope.transition = false;
                     });
 
-
                   };
 
                   var fromT = function(tIndex,v){
@@ -238,6 +240,12 @@ var s;
                         scope.transition = false;
                       });
                     });
+
+
+                      if(s){
+                        s.setPreset(tIndex);
+                      }
+
                   };
 
                   for(var index=0; index<=masterLimit; index++){

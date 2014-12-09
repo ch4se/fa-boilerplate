@@ -38,6 +38,11 @@
                   console.log($scope.vignettes);
                 });
 
+                $http.get('./models/synth.json').then(function(res){
+                  $scope.synth = res.data;
+                  console.log($scope.synth);
+                });
+
               }
             });
           // end states
