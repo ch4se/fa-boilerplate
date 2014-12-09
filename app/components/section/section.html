@@ -11,7 +11,7 @@
   </fa-modifier>
   </fa-modifier>
 
-  <fa-view ng-repeat="vignette in model.sections track by $index">
+  <fa-view ng-repeat="vignette in vignettes track by $index">
     <fa-modifier fa-scale="content.section.elements.copy.scale">
     <fa-modifier
     fa-size="content.section.elements.copy.size"
@@ -20,9 +20,9 @@
     fa-transform="p[$index].get()"
     fa-opacity="c[$index].get()">
       <fa-surface class="headline headline-{{$index}}" >
-      <h1>{{vignette.headline}}</h1>
-      <h3 ng-bind-html="vignette.subheadline" class="subheadline subheadline-{{$index}}"></h3>
-      <p ng-bind-html="vignette.copy" class="copy copy-{{$index}}" ></p>
+      <h1>{{vignette.headline.text}}</h1>
+      <h3 ng-bind-html="vignette.subheadline.text" class="subheadline subheadline-{{$index}}"></h3>
+      <p ng-bind-html="vignette.copy.text" class="copy copy-{{$index}}" ></p>
       </fa-surface>
     </fa-modifier>
     </fa-modifier>

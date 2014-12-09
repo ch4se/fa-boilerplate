@@ -70,12 +70,12 @@ var s;
                         "bgColor": "#030304"
                     }]);
                     s.defaultVideo('assets/flying-over-los-angeles-at-night.mp4');
-                    if(respond.os !== 'ios' && respond.device !=='iphone' && respond.device !=='ipod' ){
+                    // if(respond.os !== 'ios' && respond.device !=='iphone' && respond.device !=='ipod' ){
                       document.getElementById('video').play();
-                    }
-                    else{
-                      document.getElementById('video').currentTime = 200;
-                    }
+                    // }
+                    // else{
+                    //   document.getElementById('video').currentTime = 200;
+                    // }
 
                   });
 

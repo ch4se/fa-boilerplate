@@ -1,0 +1,55 @@
+[{
+  "headline":{
+    "text": "Steve Belovarich"
+  },
+  "subheadline":{
+    "text": "Web Engineer, Maker, Digital Artist"
+  },
+  "copy":{
+    "text": ""
+  }
+},
+{
+  "headline":{
+    "text": "Dependable Web Engineer"
+  },
+  "subheadline":{
+    "text": "Developing websites since 1998."
+  },
+  "copy":{
+    "text": "Steve currently develops on a MEAN stack and is active in the Famo.us / Angular community. He is in the top 100 Developers in L.A. according to GoodData, was featured in Web Designer magazine and has Editor's Picks on <a href='http://codepen.io/steveblue/'>Codepen.io</a>."
+  }
+},
+{
+  "headline":{
+    "text": "Dev Magnet"
+  },
+  "subheadline":{
+    "text": "Flipboard magazine about development."
+  },
+  "copy":{
+    "text": "Steve curates Dev Magnet on Flipboard. Updated regularly with news and tips for Developers and Makers, Dev Magnet is available on the web at <a href='http://devmagnet.net'>devmagnet.net</a>."
+  }
+},
+{
+  "headline":{
+    "text": "Synth"
+  },
+  "subheadline":{
+    "text": "Video synthesizer for the web."
+  },
+  "copy":{
+    "text": "Synth is a web app for creative coders to show off interactive visualizations. Originally a Chrome Experiment, this web app is going into beta after successfully being funded on Kickstarter."
+  }
+},
+{
+  "headline":{
+    "text": "Kinetic Light"
+  },
+  "subheadline":{
+    "text": "Solo exhibition of digital art in L.A."
+  },
+  "copy":{
+    "text": "Exhibition in Los Angeles is Steve's first solo exhbition of digital art. The exhibit included original abstract digital photography and video art. Purchase the Kinetic Light ebook from the iBookstore."
+  }
+}]
