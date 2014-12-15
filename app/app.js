@@ -8,12 +8,14 @@
       //services
       'services/states',
       //components
-      'components/section/section-module'
+      'components/section/section-module',
+      'components/three/scene-module'
       ],
     function (
       RouteManager,
       StatesService,
-      SectionModule
+      SectionModule,
+      ThreeModule
     ){
 
       var app, appName = 'NewApp';
@@ -23,7 +25,8 @@
                 'ui.router',
                 'famous.angular',
                 'ngSanitize',
-                SectionModule
+                SectionModule,
+                ThreeModule
 
               ])
               .config( RouteManager )

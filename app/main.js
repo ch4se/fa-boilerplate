@@ -1,5 +1,37 @@
-/*global head, res, System */
+/*global head, res, System, THREE, famous*/
 var respond;
+var Scene = function(options,container) {
+  var that = this;
+  if(options === undefined){
+    options = {};
+  }
+  if(container === undefined){
+    console.log('no container specified, aborting...');
+    return;
+  }
+  this.setOptions(options);
+  container.on('deploy',function(){
+    that.init();
+    that.render();
+  });
+};
+
+Scene.prototype.setOptions = function(options){
+  this.options = options;
+};
+
+Scene.prototype.init = function(){/*noop*/};
+
+Scene.prototype.render = function(func,f){
+  if(f===undefined) { f=1; }
+  if (typeof func === 'function') {
+
+    famous.utilities.Timer.every(function(){
+      func();
+    },f);
+
+  }
+};
 (function( window, head ) {
   "use strict";
 
@@ -10,11 +42,13 @@ var respond;
 
   head
     .load(
-      'lib/synth.js',
+      'lib/famous-global.js',
+      'lib/three.js',
+      'components/shaders/shaders.js',
+      //'lib/synth.js',
       'lib/angular.js',
       'lib/angular-ui-router.js',
       'lib/angular-sanitize.js',
-      'lib/famous-global.js',
       'lib/famous-angular.js',
       'lib/res.js',
       'lib/require.js'
@@ -35,6 +69,7 @@ var respond;
       //  baseUrl:'./',
         paths:{
           'synth'     : 'lib/synth',
+          'three'     : 'lib/three',
           'routes'    : 'providers/route-manager'
         },
         shim:{

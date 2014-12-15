@@ -21,6 +21,7 @@
     "angular-ui-router": "=0.2.10",
     "famous-angular": "=0.5.0",
     "angular-sanitize": "=1.2.22",
-    "synth": "steveblue/synth"
+    "synth": "steveblue/synth",
+    "threejs": "*"
   }
 }

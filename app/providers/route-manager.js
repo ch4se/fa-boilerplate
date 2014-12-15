@@ -44,6 +44,19 @@
                 });
 
               }
+            }).state('three', {
+              url: "/three",
+              templateUrl: "views/three.html",
+              controller  : function($scope, $famous, States, $http){
+                var Engine = $famous['famous/core/Engine'];
+                var EventHandler = $famous['famous/core/EventHandler'];
+                var Transitionable = $famous['famous/transitions/Transitionable'];
+                var Timer = $famous['famous/utilities/Timer'];
+
+                $scope.Engine = Engine;
+                $scope.Engine = Engine;
+
+              }
             });
           // end states
     };

@@ -26,6 +26,7 @@ module.exports = {
       'bower_components/es6-promise/promise.js',
       'bower_components/requirejs/require.js',
       'bower_components/resjs/res.js',
+      'bower_components/threejs/build/three.js',
       'bower_components/synth/js/dist/synth.js'
 
     ],
@@ -45,6 +46,7 @@ module.exports = {
       'bower_components/es6-promise/promise.min.js',
       'bower_components/requirejs/require.js', // no min
       'bower_components/resjs/res.min.js',
+      'bower_components/threejs/build/three.min.js',
       'bower_components/synth/js/dist/synth.min.js'
     ],
     dev:  devDir  + '/lib',

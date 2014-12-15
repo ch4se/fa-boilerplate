@@ -53,15 +53,14 @@ var s;
                   group.classList.add('depth');
 
                   var initCanvas = function(){
-                    s = new Synth(canvas._currentTarget,false,false,scope.synth);
+                    s = new Synth(canvas._currentTarget,false,false,scope.synth,Timer);
                     s.presets = scope.synth;
-                    s.defaultVideo('assets/kinetic-light.mp4');
+                    s.defaultVideo('http://192.168.1.13:9000/assets/wavves-320x180-150kbps.mp4');
                     document.getElementById('video').play();
                   };
 
                   var canvas = $famous.find('.background-canvas')[0].renderNode;
                   canvas.on('deploy',function(){
-
                     if(scope.synth){
                       initCanvas();
                     }
@@ -70,9 +69,6 @@ var s;
                         initCanvas();
                       });
                     }
-
-
-
                   });
 
                   // defaults
@@ -201,7 +197,7 @@ var s;
                         });
                       });
 
-                      if(s){
+                      if(s!==undefined){
 
                           s.setPreset(tIndex);
 
@@ -242,7 +238,7 @@ var s;
                     });
 
 
-                      if(s){
+                      if(s!==undefined){
                         s.setPreset(tIndex);
                       }
 
