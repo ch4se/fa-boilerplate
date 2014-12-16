@@ -10,6 +10,9 @@
             // Returns Directive Creation Object
 
             var Engine              = $famous['famous/core/Engine'],
+            Modifier                = $famous['famous/core/Modifier'],
+            StateModifier           = $famous['famous/modifiers/StateModifier'],
+            Transform               = $famous['famous/core/Transform'],
             Transitionable          = $famous['famous/transitions/Transitionable'],
             TransitionableTransform = $famous['famous/transitions/TransitionableTransform'],
             Easing                  = $famous['famous/transitions/Easing'],
@@ -34,22 +37,7 @@
                       }
                     };
 
-                    /* begin scene */
-                    var scene = new Scene({
-                        scale : 10.0,
-                        multiplier : 128.0,
-                        displace : 128.0,
-                        origin : [0,0,0],
-                        opacity : 0.8,
-                        hue : 0.0,
-                        bloom : 3.5,
-                        saturation : 0.5,
-                        wireframe : true,
-                        texture : THREE.ImageUtils.loadTexture('assets/the-sky-is-burning.jpg')
-                    },$famous.find('.background-canvas')[0].renderNode);
-
-
-                    Scene.prototype.init = function() {
+                    var InfiniteZoom = function() {
 
                       var that = this;
                       var options = this.options;
@@ -62,8 +50,8 @@
                       this.canvas = $famous.find('.background-canvas')[0].renderNode;
                       this.scene = new THREE.Scene();
                       this.renderer = new THREE.WebGLRenderer({antialias:true});
-                      this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
-                      this.geometry = new THREE.PlaneBufferGeometry(120,120,120,120);
+                      this.camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 100000 );
+                      this.geometry = options.geometry || new THREE.PlaneBufferGeometry(120,120,120,120);
                       this.material = new THREE.ShaderMaterial({
                         uniforms: {
                           "tDiffuse": {
@@ -105,11 +93,16 @@
                       });
                       this.mesh = new THREE.Mesh(that.geometry,that.material);
                       this.fill = new THREE.PointLight(0xffffff);
-                      this.key = new THREE.SpotLight(0xffffff);
+                      this.key = new THREE.AmbientLight(0xffffff);
                       this.back = new THREE.SpotLight(0xffffff);
                       this.composer = new THREE.EffectComposer(that.renderer);
                       this.renderModel = new THREE.RenderPass(that.scene, that.camera);
                       this.effectHue = new THREE.ShaderPass(THREE.HueSaturationShader);
+
+                      var transitionable = new Transitionable([0, 0, 8000]);
+                      transitionable.set([0, 0, -200],{duration: 20000, curve: Easing.inOutCubic},function(){
+                        transitionable.set([0, 0, 8000],{duration: 20000, curve: Easing.inOutCubic});
+                      });
 
                       // sync
 
@@ -123,8 +116,8 @@
 
                       //camera
 
-                      this.camera.position.y = -33;
-                      this.camera.position.z = 100;
+                      //this.camera.position.y = -33;
+                      //this.camera.position.z = 100;
                       this.camera.lookAt(that.scene.position);
 
                       //lighting
@@ -132,7 +125,7 @@
                       this.fill.position.set(0, 0, 0).normalize();
                       this.scene.add(that.fill);
 
-                      this.key.position.set(0, 0, 5000).normalize();
+                      this.key.position.set(0, -50, 50).normalize();
                       this.key.target = that.mesh;
 
                       this.key.intensity = 5000;
@@ -163,20 +156,20 @@
 
                       // events
 
-                      this.sync.on("start", function(data) {
-                         that.material.uniforms.originX.value = data.position[0] * 0.5;
-                         that.material.uniforms.originY.value = data.position[1] * -0.5;
-                      });
+                      // this.sync.on("start", function(data) {
+                      //    that.material.uniforms.originX.value = data.position[0] * 0.5;
+                      //    that.material.uniforms.originY.value = data.position[1] * -0.5;
+                      // });
 
-                      this.sync.on("update", function(data) {
-                         that.material.uniforms.originX.value = data.position[0] * 0.5;
-                         that.material.uniforms.originY.value = data.position[1] * -0.5;
-                      });
+                      // this.sync.on("update", function(data) {
+                      //    that.material.uniforms.originX.value = data.position[0] * 0.5;
+                      //    that.material.uniforms.originY.value = data.position[1] * -0.5;
+                      // });
 
-                      this.sync.on("end", function(data) {
-                         that.material.uniforms.originX.value = data.position[0] * 0.5;
-                         that.material.uniforms.originY.value = data.position[1] * -0.5;
-                      });
+                      // this.sync.on("end", function(data) {
+                      //    that.material.uniforms.originX.value = data.position[0] * 0.5;
+                      //    that.material.uniforms.originY.value = data.position[1] * -0.5;
+                      // });
 
                       // postprocessing
 
@@ -195,11 +188,31 @@
                       this.render(function(){
                          that.composer.render();
                          that.renderer.render( that.scene, that.camera );
+                         that.camera.position.x = transitionable.get()[0];
+                         that.camera.position.y = transitionable.get()[1];
+                         that.camera.position.z = transitionable.get()[2];
+                         console.log(that.material.uniforms.originY.value);
                       });
 
                     };
 
+                    /* begin scene */
+                    var scene = new Scene({
+                        scale : 10.0,
+                        multiplier : 108.0,
+                        displace : 108.0,
+                        origin : [0,0,0],
+                        opacity : 0.8,
+                        hue : 0.0,
+                        bloom : 3.5,
+                        saturation : 0.5,
+                        wireframe : true,
+                        geometry: new THREE.TorusGeometry(120,120,120),
+                        texture : THREE.ImageUtils.loadTexture('assets/the-sky-is-burning.jpg')
+                    },$famous.find('.background-canvas')[0].renderNode);
 
+                    window.scene = scene;
+                    Scene.prototype.init = InfiniteZoom;
 
 
                 },

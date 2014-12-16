@@ -22,6 +22,7 @@
     "famous-angular": "=0.5.0",
     "angular-sanitize": "=1.2.22",
     "synth": "steveblue/synth",
-    "threejs": "*"
+    "threejs": "*",
+    "observe-js": "~0.5.2"
   }
 }

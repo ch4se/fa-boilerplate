@@ -24,6 +24,7 @@ module.exports = {
       'bower_components/headjs/dist/1.0.0/head.load.js',
       'bower_components/lodash/dist/lodash.js',
       'bower_components/es6-promise/promise.js',
+      'bower_components/observe-js/src/observe.js',
       'bower_components/requirejs/require.js',
       'bower_components/resjs/res.js',
       'bower_components/threejs/build/three.js',
@@ -44,6 +45,7 @@ module.exports = {
       'bower_components/headjs/dist/1.0.0/head.load.min.js',
       'bower_components/lodash/dist/lodash.min.js',
       'bower_components/es6-promise/promise.min.js',
+      'bower_components/observe-js/src/observe.js',
       'bower_components/requirejs/require.js', // no min
       'bower_components/resjs/res.min.js',
       'bower_components/threejs/build/three.min.js',
