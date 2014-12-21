@@ -37,7 +37,7 @@
                       }
                     };
 
-                    var InfiniteZoom = function() {
+                    var DynamicTexture = function() {
 
                       var that = this;
                       var options = this.options;
@@ -99,10 +99,10 @@
                       this.renderModel = new THREE.RenderPass(that.scene, that.camera);
                       this.effectHue = new THREE.ShaderPass(THREE.HueSaturationShader);
 
-                      var transitionable = new Transitionable([0, 0, 8000]);
-                      transitionable.set([0, 0, -200],{duration: 20000, curve: Easing.inOutCubic},function(){
-                        transitionable.set([0, 0, 8000],{duration: 20000, curve: Easing.inOutCubic});
-                      });
+                      // var transitionable = new Transitionable([0, 0, 8000]);
+                      // transitionable.set([0, 0, -200],{duration: 20000, curve: Easing.inOutCubic},function(){
+                      //   transitionable.set([0, 0, 8000],{duration: 20000, curve: Easing.inOutCubic});
+                      // });
 
                       // sync
 
@@ -156,20 +156,20 @@
 
                       // events
 
-                      // this.sync.on("start", function(data) {
-                      //    that.material.uniforms.originX.value = data.position[0] * 0.5;
-                      //    that.material.uniforms.originY.value = data.position[1] * -0.5;
-                      // });
+                      this.sync.on("start", function(data) {
+                         that.material.uniforms.originX.value = data.position[0] * 0.5;
+                         that.material.uniforms.originY.value = data.position[1] * -0.5;
+                      });
 
-                      // this.sync.on("update", function(data) {
-                      //    that.material.uniforms.originX.value = data.position[0] * 0.5;
-                      //    that.material.uniforms.originY.value = data.position[1] * -0.5;
-                      // });
+                      this.sync.on("update", function(data) {
+                         that.material.uniforms.originX.value = data.position[0] * 0.5;
+                         that.material.uniforms.originY.value = data.position[1] * -0.5;
+                      });
 
-                      // this.sync.on("end", function(data) {
-                      //    that.material.uniforms.originX.value = data.position[0] * 0.5;
-                      //    that.material.uniforms.originY.value = data.position[1] * -0.5;
-                      // });
+                      this.sync.on("end", function(data) {
+                         that.material.uniforms.originX.value = data.position[0] * 0.5;
+                         that.material.uniforms.originY.value = data.position[1] * -0.5;
+                      });
 
                       // postprocessing
 
@@ -188,31 +188,43 @@
                       this.render(function(){
                          that.composer.render();
                          that.renderer.render( that.scene, that.camera );
-                         that.camera.position.x = transitionable.get()[0];
-                         that.camera.position.y = transitionable.get()[1];
-                         that.camera.position.z = transitionable.get()[2];
-                         console.log(that.material.uniforms.originY.value);
+                         // that.camera.position.x = transitionable.get()[0];
+                         // that.camera.position.y = transitionable.get()[1];
+                         // that.camera.position.z = transitionable.get()[2];
+                         //that.mesh.rotation.y = 0;
+                         that.mesh.scale.x = that.mesh.scale.y = that.mesh.scale.z = options.scale;
+                         that.camera.position.x = 0;
+                         that.camera.position.y = 0;
+                         that.camera.position.z = 12;
+                         that.options.texture.needsUpdate = true;
+
+                         if(that.texture.inTransition === true){
+                           that.drawTexture(that.texture.images[that.texture.in], that.texture.fadeIn.get());
+                           that.drawTexture(that.texture.images[that.texture.out], that.texture.fadeOut.get());
+                         }
+                         //console.log(that.material.uniforms.originY.value);
                       });
 
                     };
 
                     /* begin scene */
                     var scene = new Scene({
-                        scale : 10.0,
-                        multiplier : 108.0,
-                        displace : 108.0,
-                        origin : [0,0,0],
-                        opacity : 0.8,
+                        scale : 1.0,
+                        multiplier : 4.0,
+                        displace : 4.0,
+                        origin : [0,0,1000],
+                        opacity : 0.6,
                         hue : 0.0,
                         bloom : 3.5,
                         saturation : 0.5,
                         wireframe : true,
-                        geometry: new THREE.TorusGeometry(120,120,120),
-                        texture : THREE.ImageUtils.loadTexture('assets/the-sky-is-burning.jpg')
-                    },$famous.find('.background-canvas')[0].renderNode);
+                        geometry: new THREE.PlaneGeometry(64,64,64,64),
+                        //texture : THREE.ImageUtils.loadTexture('assets/the-sky-is-burning.jpg')
+                        texture : ['assets/the-sky-is-burning.jpg','assets/a-momentary-revelation-of-the-nature-of-human-beings-by-steve-belovarich.jpg','assets/All-Those-Times-I-Find-The-Person-I-Know-I-Am-by-Steve-Belovarich.jpg']
+                    },$famous.find('.background-canvas')[0].renderNode, true);
 
                     window.scene = scene;
-                    Scene.prototype.init = InfiniteZoom;
+                    Scene.prototype.init = DynamicTexture;
 
 
                 },

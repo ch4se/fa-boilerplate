@@ -1,4 +1,4 @@
-/* global respond, Synth */
+/* global respond, THREE, RuttEtraShader, famous, Scene */
 var s;
 
 (function( define ) {
@@ -31,6 +31,177 @@ var s;
             var fTransform = 0;
             var masterLimit = 4;
             var vignetteHeight = window.innerHeight * 2;
+
+            var DynamicTexture = function() {
+
+              var that = this;
+              var options = this.options;
+
+              options.texture.minFilter = THREE.LinearFilter;
+              options.texture.magFilter = THREE.LinearFilter;
+              options.texture.format = THREE.RGBFormat;
+              options.texture.generateMipmaps = true;
+
+              this.canvas = $famous.find('.background-canvas')[0].renderNode;
+              this.scene = new THREE.Scene();
+              this.renderer = new THREE.WebGLRenderer({antialias:true});
+              this.camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 100000 );
+              this.geometry = options.geometry || new THREE.PlaneBufferGeometry(120,120,120,120);
+              this.material = new THREE.ShaderMaterial({
+                uniforms: {
+                  "tDiffuse": {
+                    type: "t",
+                    value: options.texture
+                  },
+                  "multiplier": {
+                    type: "f",
+                    value: options.multiplier
+                  },
+                  "displace": {
+                    type: "f",
+                    value: options.displace
+                  },
+                  "opacity": {
+                    type: "f",
+                    value: options.opacity
+                  },
+                  "originX": {
+                    type: "f",
+                    value: options.origin[0]
+                  },
+                  "originY": {
+                    type: "f",
+                    value: options.origin[1]
+                  },
+                  "originZ": {
+                    type: "f",
+                    value: options.origin[2]
+                  }
+                },
+                vertexShader: THREE.RuttEtraShader.vertexShader,
+                fragmentShader: THREE.RuttEtraShader.fragmentShader,
+                depthWrite: true,
+                depthTest: true,
+                wireframe: options.wireframe,
+                transparent: false,
+                overdraw: false
+              });
+              this.mesh = new THREE.Mesh(that.geometry,that.material);
+              this.fill = new THREE.PointLight(0xffffff);
+              this.key = new THREE.AmbientLight(0xffffff);
+              this.back = new THREE.SpotLight(0xffffff);
+              this.composer = new THREE.EffectComposer(that.renderer);
+              this.renderModel = new THREE.RenderPass(that.scene, that.camera);
+              this.effectHue = new THREE.ShaderPass(THREE.HueSaturationShader);
+
+              // var transitionable = new Transitionable([0, 0, 8000]);
+              // transitionable.set([0, 0, -200],{duration: 20000, curve: Easing.inOutCubic},function(){
+              //   transitionable.set([0, 0, 8000],{duration: 20000, curve: Easing.inOutCubic});
+              // });
+
+              // sync
+
+              GenericSync.register({
+                  mouse : MouseSync,
+                  touch : TouchSync
+              });
+
+              this.sync = new GenericSync(['mouse', 'touch']);
+              Engine.pipe(that.sync);
+
+              //camera
+
+              //this.camera.position.y = -33;
+              //this.camera.position.z = 100;
+              this.camera.lookAt(that.scene.position);
+
+              //lighting
+
+              this.fill.position.set(0, 0, 0).normalize();
+              this.scene.add(that.fill);
+
+              this.key.position.set(0, -50, 50).normalize();
+              this.key.target = that.mesh;
+
+              this.key.intensity = 5000;
+              this.key.castShadow = true;
+              this.scene.add(that.key);
+
+              this.back.position.set(0, 0, -5000).normalize();
+              this.back.target = that.mesh;
+
+              this.back.intensity = 5000;
+              this.back.castShadow = true;
+              this.scene.add(that.back);
+
+
+              // geometry
+
+              this.geometry.dynamic = true;
+              this.geometry.verticesNeedUpdate = true;
+
+              this.mesh.doubleSided = true;
+              //this.mesh.position.x = this.mesh.position.y = this.mesh.position.z = 0;
+              //this.mesh.scale.x = this.mesh.scale.y = this.mesh.scale.z = options.scale;
+
+              this.material.renderToScreen = true;
+              //this.material.uniforms.originZ.value = options.origin[2];
+
+              this.scene.add(that.mesh);
+
+              // events
+
+              this.sync.on("start", function(data) {
+                 that.material.uniforms.originX.value = data.position[0] * 0.5;
+                 that.material.uniforms.originY.value = data.position[1] * -0.5;
+              });
+
+              this.sync.on("update", function(data) {
+                 that.material.uniforms.originX.value = data.position[0] * 0.5;
+                 that.material.uniforms.originY.value = data.position[1] * -0.5;
+              });
+
+              this.sync.on("end", function(data) {
+                 that.material.uniforms.originX.value = data.position[0] * 0.5;
+                 that.material.uniforms.originY.value = data.position[1] * -0.5;
+              });
+
+              // postprocessing
+
+              this.composer.addPass(that.renderModel);
+              //effectBloom.renderToScreen = true;
+              //composer.addPass(effectBloom);
+              this.effectHue.renderToScreen = true;
+              this.effectHue.uniforms.hue.value = options.hue;
+              this.effectHue.uniforms.saturation.value = options.saturation;
+              this.composer.addPass(that.effectHue);
+
+              this.renderer.autoClear = false;
+              this.renderer.setSize( window.innerWidth, window.innerHeight );
+              this.canvas._currentTarget.childNodes[0].appendChild( that.renderer.domElement );
+
+              this.render(function(){
+                 that.composer.render();
+                 that.renderer.render( that.scene, that.camera );
+                 // that.camera.position.x = transitionable.get()[0];
+                 // that.camera.position.y = transitionable.get()[1];
+                 // that.camera.position.z = transitionable.get()[2];
+                 //that.mesh.rotation.y = 0;
+                 that.mesh.scale.x = that.mesh.scale.y = that.mesh.scale.z = options.scale;
+                 that.camera.position.x = 0;
+                 that.camera.position.y = 0;
+                 that.camera.position.z = 12;
+                 that.options.texture.needsUpdate = true;
+
+                 if(that.texture.inTransition === true){
+                   that.drawTexture(that.texture.images[that.texture.in], that.texture.fadeIn.get());
+                   that.drawTexture(that.texture.images[that.texture.out], that.texture.fadeOut.get());
+                 }
+                 //console.log(that.material.uniforms.originY.value);
+              });
+
+            };
+
             return {
               restrict: "AE",
               require:"ngModel",
@@ -52,23 +223,50 @@ var s;
                   var group = $famous.find('.mh-onboard-controller')[0].renderNode._container;
                   group.classList.add('depth');
 
+                  var scene;
+
                   var initCanvas = function(){
-                    s = new Synth(canvas._currentTarget,false,false,scope.synth,Timer);
-                    s.presets = scope.synth;
-                    s.defaultVideo('http://192.168.1.13:9000/assets/wavves-320x180-150kbps.mp4');
-                    document.getElementById('video').play();
+                    /* begin scene */
+                    scene = new Scene({
+                        scale : 1.0,
+                        multiplier : 4.0,
+                        displace : 4.0,
+                        origin : [0,0,1000],
+                        opacity : 0.6,
+                        hue : 0.0,
+                        bloom : 3.5,
+                        saturation : 0.5,
+                        wireframe : true,
+                        geometry: new THREE.PlaneGeometry(64,64,64,64),
+                        //texture : THREE.ImageUtils.loadTexture('assets/the-sky-is-burning.jpg')
+                        texture : ['assets/the-dawn-of-time-retouch-by-steve-belovarich.jpg',
+                                   'assets/the-ordinary-is-a-prison-retouch-by-steve-belovarich.jpg',
+                                   'assets/the-wonders-of-the-natural-world.jpg',
+                                   'assets/what-dreams-are-made-of-by-steve-belovarich.jpg',
+                                   'assets/crashing-1992-light-by-steve-belovarich.jpg',
+                                   'assets/flying-through-the-minds-eye-by-steve-belovarich.jpg',
+                                   'assets/into-the-void-by-steve-belovarich.jpg',
+                                   'assets/playing-with-fire-by-steve-belovarich.jpg',
+                                   'assets/staring-into-the-light-of-the-pheonix-by-steve-belovarich.jpg']
+                    },$famous.find('.background-canvas')[0].renderNode, true);
+
+                    window.scene = scene;
+                    Scene.prototype.init = DynamicTexture;
+                    inT(scope.masterIndex);
                   };
 
                   var canvas = $famous.find('.background-canvas')[0].renderNode;
                   canvas.on('deploy',function(){
-                    if(scope.synth){
-                      initCanvas();
-                    }
-                    else{
-                      scope.$watch('synth',function(){
-                        initCanvas();
-                      });
-                    }
+
+                    initCanvas();
+                    // if(scope.synth){
+                    //   initCanvas();
+                    // }
+                    // else{
+                    //   scope.$watch('synth',function(){
+                    //     initCanvas();
+                    //   });
+                    // }
                   });
 
                   // defaults
@@ -180,6 +378,7 @@ var s;
                   scope.op = [];
                   scope.i = [];
 
+
                   var offset = 0;
                   var inT = function(tIndex,v){
 
@@ -190,6 +389,8 @@ var s;
                       scope.i[tIndex].setTranslate([0,0,-2000]);
                       scope.op[tIndex].set(1,{duration: 10});
                       scope.c[tIndex].set(1,{duration: 500});
+
+                      scene.animateTextures(tIndex,1500,Easing.inOutQuart);
 
                       scope.p[tIndex].setTranslate([0,0,transform],{duration:800},function(){
                         scope.p[tIndex].setTranslate([0,0,(transform/2)],{duration:400},function(){
@@ -207,10 +408,11 @@ var s;
 
                   var outT = function(tIndex,v){
 
-                      scope.c[tIndex].set(0,{duration:500});
-                      scope.p[tIndex].setTranslate([0,0,3000],{duration:3000},function(){
-                        scope.p[tIndex].setTranslate([0,-10000,3000]);
-                      });
+                    scope.c[tIndex].set(0,{duration:500});
+                    scope.p[tIndex].setTranslate([0,0,3000],{duration:3000},function(){
+                      scope.p[tIndex].setTranslate([0,-10000,3000]);
+                    });
+
                   };
 
                   var backT = function(tIndex,v){
@@ -230,17 +432,15 @@ var s;
                     scope.p[tIndex].setTranslate([0,0,3000]);
                     scope.op[tIndex].set(1,{duration: 10});
                     scope.c[tIndex].set(1,{duration: 500});
-
+                    scene.animateTextures(tIndex,1500,Easing.inOutQuart);
                     scope.p[tIndex].setTranslate([0,0,transform],{duration:1200},function(){
                       scope.p[tIndex].setTranslate([0,0,(transform/2)],{duration:400},function(){
                         scope.transition = false;
                       });
                     });
-
-
-                      if(s!==undefined){
-                        s.setPreset(tIndex);
-                      }
+                    if(s!==undefined){
+                      s.setPreset(tIndex);
+                    }
 
                   };
 
@@ -449,7 +649,7 @@ var s;
 
                     scope.content.section.parentLayout.size = [window.innerWidth/1.5,140];
                     resetVignette();
-                    inT(scope.masterIndex);
+
                     console.log(respond.state);
 
                   });

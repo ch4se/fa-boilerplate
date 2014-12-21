@@ -9,3 +9,4 @@ build
 *.bak
 *.log
 #.DS_Store#
+app/assets/*

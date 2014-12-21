@@ -18,6 +18,7 @@ var respond;
       'lib/three.js',
       'components/three/scene.js',
       'components/shaders/shaders.js',
+      'components/scenes/scenes.js',
       //'lib/synth.js',
       'lib/angular.js',
       'lib/angular-ui-router.js',
@@ -41,7 +42,7 @@ var respond;
       require.config({
       //  baseUrl:'./',
         paths:{
-          'synth'     : 'lib/synth',
+          //'synth'     : 'lib/synth',
           'three'     : 'lib/three',
           'routes'    : 'providers/route-manager'
         },
