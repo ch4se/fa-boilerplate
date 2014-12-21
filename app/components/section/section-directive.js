@@ -29,7 +29,7 @@ var s;
             var fDelta = [0,0];
             var transform = 100;
             var fTransform = 0;
-            var masterLimit = 4;
+            var masterLimit = 5;
             var vignetteHeight = window.innerHeight * 2;
 
             var DynamicTexture = function() {
@@ -202,6 +202,8 @@ var s;
 
             };
 
+            var scene;
+
             return {
               restrict: "AE",
               require:"ngModel",
@@ -223,8 +225,6 @@ var s;
                   var group = $famous.find('.mh-onboard-controller')[0].renderNode._container;
                   group.classList.add('depth');
 
-                  var scene;
-
                   var initCanvas = function(){
                     /* begin scene */
                     scene = new Scene({
@@ -240,7 +240,6 @@ var s;
                         geometry: new THREE.PlaneGeometry(64,64,64,64),
                         //texture : THREE.ImageUtils.loadTexture('assets/the-sky-is-burning.jpg')
                         texture : ['assets/the-dawn-of-time-retouch-by-steve-belovarich.jpg',
-                                   'assets/the-ordinary-is-a-prison-retouch-by-steve-belovarich.jpg',
                                    'assets/the-wonders-of-the-natural-world.jpg',
                                    'assets/what-dreams-are-made-of-by-steve-belovarich.jpg',
                                    'assets/crashing-1992-light-by-steve-belovarich.jpg',
@@ -253,6 +252,7 @@ var s;
                     window.scene = scene;
                     Scene.prototype.init = DynamicTexture;
                     inT(scope.masterIndex);
+                    scene.animateTextures(3,5000,Easing.inOutQuart);
                   };
 
                   var canvas = $famous.find('.background-canvas')[0].renderNode;
@@ -389,8 +389,9 @@ var s;
                       scope.i[tIndex].setTranslate([0,0,-2000]);
                       scope.op[tIndex].set(1,{duration: 10});
                       scope.c[tIndex].set(1,{duration: 500});
-
-                      scene.animateTextures(tIndex,1500,Easing.inOutQuart);
+                      if(scene){
+                        scene.animateTextures(tIndex,1500,Easing.inOutQuart);
+                      }
 
                       scope.p[tIndex].setTranslate([0,0,transform],{duration:800},function(){
                         scope.p[tIndex].setTranslate([0,0,(transform/2)],{duration:400},function(){
@@ -432,7 +433,9 @@ var s;
                     scope.p[tIndex].setTranslate([0,0,3000]);
                     scope.op[tIndex].set(1,{duration: 10});
                     scope.c[tIndex].set(1,{duration: 500});
-                    scene.animateTextures(tIndex,1500,Easing.inOutQuart);
+                    if(scene){
+                      scene.animateTextures(tIndex,1500,Easing.inOutQuart);
+                    }
                     scope.p[tIndex].setTranslate([0,0,transform],{duration:1200},function(){
                       scope.p[tIndex].setTranslate([0,0,(transform/2)],{duration:400},function(){
                         scope.transition = false;
@@ -460,7 +463,8 @@ var s;
                   scope.mobile = function(){
                     scope.content.section.icons.scale = [0.45,0.45];
                     scope.content.section.icons.size = [80,80];
-                    scope.content.section.elements.copy.align =  [0.1,0.1];
+                    scope.content.section.elements.copy.align =  [0.2,0.1];
+                    scope.content.section.elements.copy.origin =  [0.0,0.0];
                     scope.content.section.elements.copy.size =  [respond.grid.colSpan[4],true];
                     scope.content.section.elements.copy.scale = [0.8,0.8];
                     scope.content.section.elements.fore.scale = [0.3,0.3];
@@ -480,7 +484,8 @@ var s;
                   scope.phablet = function(){
                     scope.content.section.icons.scale = [0.425,0.425];
                     scope.content.section.icons.size = [80,80];
-                    scope.content.section.elements.copy.align =  [0.1,0.1];
+                    scope.content.section.elements.copy.align =  [0.2,0.2];
+                    scope.content.section.elements.copy.origin =  [0.0,0.0];
                     scope.content.section.elements.copy.size =  [respond.grid.colSpan[4],true];
                     scope.content.section.elements.copy.scale = [0.8,0.8];
                     scope.content.section.elements.fore.scale = [0.4,0.4];
@@ -500,7 +505,8 @@ var s;
                   scope.tablet = function(){
                     scope.content.section.icons.scale = [0.45,0.45];
                     scope.content.section.icons.size = [100,100];
-                    scope.content.section.elements.copy.align =  [0.1,0.33];
+                    scope.content.section.elements.copy.align =  [0.3,0.5];
+                    scope.content.section.elements.copy.origin =  [0.0,0.0];
                     scope.content.section.elements.copy.size =  [respond.grid.colSpan[6],true];
                     scope.content.section.elements.copy.scale = [0.85,0.85];
                     scope.content.section.elements.fore.scale = [0.55,0.55];
@@ -515,7 +521,8 @@ var s;
                   scope.small = function(){
                     scope.content.section.icons.scale = [0.5,0.5];
                     scope.content.section.icons.size = [128,128];
-                    scope.content.section.elements.copy.align =  [0.2,0.33];
+                    scope.content.section.elements.copy.align =  [0.5,0.3];
+                    scope.content.section.elements.copy.origin =  [0.5,0.5];
                     scope.content.section.elements.copy.size =  [respond.grid.colSpan[6],true];
                     scope.content.section.elements.copy.scale = [1.0,1.0];
                     scope.content.section.elements.fore.scale = [0.75,0.75];
@@ -530,7 +537,8 @@ var s;
                   scope.medium = function(){
                     scope.content.section.icons.scale = [0.75,0.75];
                     scope.content.section.icons.size = [200,200];
-                    scope.content.section.elements.copy.align =  [0.2,0.33];
+                    scope.content.section.elements.copy.align =  [0.5,0.3];
+                    scope.content.section.elements.copy.origin =  [0.5,0.5];
                     scope.content.section.elements.copy.size =  [respond.grid.colSpan[6],true];
                     scope.content.section.elements.copy.scale = [1.0,1.0];
                     scope.content.section.elements.fore.scale = [0.8,0.8];
@@ -545,7 +553,8 @@ var s;
                   scope.large = function(){
                     scope.content.section.icons.scale = [1.0,1.0];
                     scope.content.section.icons.size = [256,256];
-                    scope.content.section.elements.copy.align =  [0.2,0.1];
+                    scope.content.section.elements.copy.align =  [0.5,0.3];
+                    scope.content.section.elements.copy.origin =  [0.5,0.5];
                     scope.content.section.elements.copy.size =  [respond.grid.colSpan[6],true];
                     scope.content.section.elements.copy.scale = [1.0,1.0];
                     scope.content.section.elements.fore.scale = [0.8,0.8];
@@ -555,6 +564,7 @@ var s;
                     scope.content.section.childLayout.size = [280,360];
                     scope.content.section.childLayout.child.size = [280,110];
                     scope.content.section.parentLayout.scale = [1.0,1.0];
+                    scope.scene.renderer.setSize( window.innerWidth, window.innerHeight );
                   };
 
                   scope.ultrahd = function(){

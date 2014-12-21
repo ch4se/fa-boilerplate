@@ -126,9 +126,9 @@ Scene.prototype.initTextures = function(src){
   this.texture.img.crossOrigin = 'anonymous';
   this.texture.c = that.texture.canvas.getContext('2d');
 
-  var initTexture = function(img){
+  var initTexture = function(img,action){
       img.onload = function(){
-        that.animateTextures(that.texture.in,1000,Easing.inOutQuart);
+        that.animateTextures(that.texture[action],5000,Easing.inOutQuart);
       };
   };
 
@@ -137,8 +137,11 @@ Scene.prototype.initTextures = function(src){
     img.crossOrigin = "anonymous";
     img.src = that.options.texture[i];
     that.texture.images.push(img);
-    if(i === that.texture.in){
-      initTexture(img);
+    if(i === that.texture.in ){
+      initTexture(img,"in");
+    }
+    if(i === that.texture.out ){
+      initTexture(img,"out");
     }
 
   }

@@ -1,7 +1,7 @@
 
 <fa-modifier fa-size="content.section.size" fa-translate="content.section.position">
   <fa-container-surface class="mh-onboard-controller">
-  <fa-modifier fa-translate="[0,0,0]">
+  <fa-modifier fa-translate="[0,0,0]" fa-size="content.canvas.size">
     <fa-surface class="background-canvas" fa-size="content.canvas.size"></fa-surface>
   </fa-modifier>
   <fa-modifier fa-translate="[0,0,-1000]">
@@ -16,7 +16,7 @@
     <fa-modifier
     fa-size="content.section.elements.copy.size"
     fa-align="content.section.elements.copy.align"
-    fa-origin="[0.0,0.0]"
+    fa-origin="content.section.elements.copy.origin"
     fa-transform="p[$index].get()"
     fa-opacity="c[$index].get()">
       <fa-surface class="headline headline-{{$index}}" >
@@ -80,6 +80,8 @@
       <li class="dot"><!--<div class="label">Discover</div>--></li>
       <li class="dot"><!--<div class="label">Collect</div>--></li>
       <li class="dot"><!--<div class="label">Share</div>--></li>
+      <li class="dot"><!--<div class="label">Follow</div>--></li>
+      <li class="dot"><!--<div class="label">Follow</div>--></li>
       <li class="dot"><!--<div class="label">Follow</div>--></li>
     </ul>
     </fa-surface>

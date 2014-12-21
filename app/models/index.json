@@ -6,18 +6,18 @@
     "text": "Web Engineer, Maker, Digital Artist"
   },
   "copy":{
-    "text": ""
+    "text": "I am active in the Famo.us / Angular community. One of the top 100 Developers in L.A. according to GoodData. Schedule me for a talk or to present at your next Meetup."
   }
 },
 {
   "headline":{
-    "text": "Dependable Web Engineer"
+    "text": "Mediahound Web App"
   },
   "subheadline":{
-    "text": "Developing websites since 1998."
+    "text": "A front end for the Entertainment Graph."
   },
   "copy":{
-    "text": "Steve currently develops on a MEAN stack and is active in the Famo.us / Angular community. He is in the top 100 Developers in L.A. according to GoodData, was featured in Web Designer magazine and has Editor's Picks on <a href='http://codepen.io/steveblue/'>Codepen.io</a>."
+    "text": "Lead Web Application Engineer at Mediahound, Inc., where I both develop and oversee the implementation of the Famo.us/Angular front end for the Entertainment Graph and the JS library that interfaces with the company's Restful API."
   }
 },
 {
@@ -44,12 +44,24 @@
 },
 {
   "headline":{
-    "text": "Kinetic Light"
+    "text": "Scene.js"
   },
   "subheadline":{
-    "text": "Solo exhibition of digital art in L.A."
+    "text": "A lightweight boilerplate for Three.js visualizations."
   },
   "copy":{
-    "text": "Exhibition in Los Angeles is Steve's first solo exhbition of digital art. The exhibit included original abstract digital photography and video art. Purchase the Kinetic Light ebook from the iBookstore."
+    "text": "Scene is a lightweight boilerplate for your next Three.js project."
   }
-}]
+},
+{
+  "headline":{
+    "text": "Res.js"
+  },
+  "subheadline":{
+    "text": "Swiss Army Knife for Responsive Web Apps"
+  },
+  "copy":{
+    "text": "Res is a Vanilla JS library for your next Responsive web app. Res.js is the perfect addition to Modernizer. This lightweight Javascript Object parses User Agent, makes a JS based site stateful, wires up a Responsive grid and detects input devices."
+  }
+}
+]
