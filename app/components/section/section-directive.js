@@ -375,10 +375,10 @@ var s;
                   scope.transition = true;
 
                   var alignElements = function(){
-                    for(var ind=0;ind<scope.vignettes[scope.masterIndex].elements.length;ind++){
-                      //console.log(scope.vignettes[scope.masterIndex].copy.align[respond.state]);
                       scope.content.section.elements.copy.align = scope.vignettes[scope.masterIndex].copy.align[respond.state];
                       scope.content.section.elements.copy.origin = scope.vignettes[scope.masterIndex].copy.origin[respond.state];
+                    for(var ind=0;ind<scope.vignettes[scope.masterIndex].elements.length;ind++){
+                      //console.log(scope.vignettes[scope.masterIndex].copy.align[respond.state]);
                       scope.content.section.elements.fore.align[ind] = scope.vignettes[scope.masterIndex].elements[ind].align[respond.state];
                       scope.content.section.elements.fore.scale[ind] = scope.vignettes[scope.masterIndex].elements[ind].scale[respond.state];
                     }
@@ -414,6 +414,7 @@ var s;
                       scope.i[tIndex].setTranslate([0,0,-2000]);
                       scope.op[tIndex].set(1,{duration: 10});
                       scope.c[tIndex].set(1,{duration: 500});
+
                       if(scene){
                         scene.animateTextures(tIndex+1,1500,Easing.inOutQuart);
                       }
@@ -434,7 +435,9 @@ var s;
 
                   var outT = function(tIndex,v){
 
-                    scope.c[tIndex].set(0,{duration:500});
+                    scope.c[tIndex].set(0,{duration:100},function(){
+                      resetVignette();
+                    });
                     scope.p[tIndex].setTranslate([0,0,3000],{duration:3000},function(){
                       scope.p[tIndex].setTranslate([0,-10000,3000]);
                     });
@@ -444,15 +447,19 @@ var s;
                   var backT = function(tIndex,v){
                     scope.content.section.scrollButton.display = 0;
 
-                    scope.c[tIndex].set(0,{duration:500});
+                    scope.c[tIndex].set(0,{duration:500},function(){
+                      resetVignette();
+                    });
                     scope.op[tIndex].set(0,{duration:500});
                     scope.p[tIndex].setTranslate([0,0,-1000],{duration:2000},function(){
                       scope.transition = false;
+
                     });
 
                   };
 
                   var fromT = function(tIndex,v){
+
                     scope.op[tIndex].set(0);
                     scope.c[tIndex].set(0);
                     scope.p[tIndex].setTranslate([0,0,3000]);
@@ -462,6 +469,7 @@ var s;
                       scene.animateTextures(tIndex+1,1500,Easing.inOutQuart);
                     }
                     scope.p[tIndex].setTranslate([0,0,transform],{duration:1200},function(){
+
                       scope.p[tIndex].setTranslate([0,0,(transform/2)],{duration:400},function(){
                         scope.transition = false;
                       });
@@ -692,13 +700,14 @@ var s;
                   });
 
                   scope.$on('contentLoaded',function(){
+                    States.stateChange(scope);
+                    resetVignette();
                     alignElements();
+                    inT(scope.masterIndex,scope.vignettes);
                   });
 
 
-                  States.stateChange(scope);
-                  resetVignette();
-                  inT(scope.masterIndex,scope.vignettes);
+
 
 
 

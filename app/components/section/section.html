@@ -12,7 +12,9 @@
   </fa-modifier>
 
   <fa-view ng-repeat="vignette in vignettes track by $index">
-    <fa-modifier fa-scale="content.section.elements.copy.scale">
+    <fa-modifier fa-scale="content.section.elements.copy.scale"
+        fa-align="content.section.elements.copy.align"
+       fa-origin="content.section.elements.copy.origin">
     <fa-modifier
     fa-size="content.section.elements.copy.size"
     fa-align="content.section.elements.copy.align"

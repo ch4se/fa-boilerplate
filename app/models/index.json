@@ -12,9 +12,9 @@
         "phablet"   : [0.5,0.05],
         "tablet"    : [0.5,0.1],
         "small"     : [0.5,0.1],
-        "medium"    : [0.5,0.25],
-        "large"     : [0.5,0.25],
-        "ultrahd"   : [0.65,0.25]
+        "medium"    : [0.475,0.25],
+        "large"     : [0.475,0.25],
+        "ultrahd"   : [0.475,0.25]
       },
      "origin":{
         "mobile"    : [0.5,0.0],
@@ -30,7 +30,7 @@
       "align":{
         "mobile"    : [0.36,0.445],
         "phablet"   : [0.5,0.5],
-        "tablet"    : [0.5,0.66],
+        "tablet"    : [0.5,0.6],
         "small"     : [0.5,0.66],
         "medium"    : [0.36,0.445],
         "large"     : [0.36,0.45],
@@ -39,10 +39,10 @@
       "scale":{
         "mobile"    : [0.25,0.25],
         "phablet"   : [0.5,0.5],
-        "tablet"    : [0.5,0.5],
+        "tablet"    : [0.35,0.35],
         "small"     : [0.3,0.3],
         "medium"    : [0.75,0.75],
-        "large"     : [0.75,0.75],
+        "large"     : [0.8,0.8],
         "ultrahd"   : [0.8,0.8]
       },
       "size":[320,320],
@@ -62,18 +62,36 @@
   },
   "copy":{
     "text": "I curate Dev Magnet via the Flipboard app. Updated regularly with news and tips for Developers and Makers, Dev Magnet is available on the web at <a href='http://devmagnet.net'>devmagnet.net</a> or search 'Dev Magnet' on Flipboard. Follow me on Twitter to learn about updates to Dev Magnet.",
-    "align":[0.5,0.5]
+    "align":{
+        "mobile"    : [0.5,0.1],
+        "phablet"   : [0.5,0.05],
+        "tablet"    : [0.5,0.5],
+        "small"     : [0.5,0.1],
+        "medium"    : [0.35,0.5],
+        "large"     : [0.35,0.5],
+        "ultrahd"   : [0.35,0.5]
+      },
+     "origin":{
+        "mobile"    : [0.5,0.0],
+        "phablet"   : [0.5,0.0],
+        "tablet"    : [0.5,0.5],
+        "small"     : [0.5,0.0],
+        "medium"    : [0.0,0.0],
+        "large"     : [0.0,0.0],
+        "ultrahd"   : [0.0,0.0]
+      }
+
   },
   "elements":[
     {
       "align":{
         "mobile"    : [0.36,0.445],
         "phablet"   : [0.5,0.5],
-        "tablet"    : [0.5,0.66],
+        "tablet"    : [0.5,0.33],
         "small"     : [0.5,0.66],
-        "medium"    : [0.36,0.445],
-        "large"     : [0.36,0.45],
-        "ultrahd"   : [0.36,0.445]
+        "medium"    : [0.5,0.3],
+        "large"     : [0.5,0.3],
+        "ultrahd"   : [0.5,0.3]
       },
       "scale":{
         "mobile"    : [0.25,0.25],
@@ -104,10 +122,10 @@
     "align":{
         "mobile"    : [0.5,0.1],
         "phablet"   : [0.5,0.05],
-        "tablet"    : [0.5,0.1],
+        "tablet"    : [0.5,0.33],
         "small"     : [0.5,0.1],
         "medium"    : [0.5,0.25],
-        "large"     : [0.5,0.25],
+        "large"     : [0.5,0.4],
         "ultrahd"   : [0.65,0.25]
       },
      "origin":{
@@ -125,10 +143,10 @@
       "align":{
         "mobile"    : [0.36,0.445],
         "phablet"   : [0.5,0.5],
-        "tablet"    : [0.5,0.66],
+        "tablet"    : [0.5,0.6],
         "small"     : [0.5,0.66],
         "medium"    : [0.36,0.445],
-        "large"     : [0.36,0.45],
+        "large"     : [0.36,0.3],
         "ultrahd"   : [0.36,0.445]
       },
       "scale":{
@@ -156,14 +174,14 @@
     "text": "A front end for the Entertainment Graph."
   },
   "copy":{
-    "text": "I develop and manage the implementation of the Famo.us/Angular web app that serves as the front end for the Entertainment Graph at Mediahound, Inc. Leading the web team, I oversee the development process, maintain code repositories, supervise a team of developers and provide consultation on REST API implementation, user experience, testing, design, professional developement and business practice at Mediahound, Inc. in El Segundo, CA.",
+    "text": "I develop and manage the implementation of the Famo.us/Angular web app that serves as the front end for the Entertainment Graph at Mediahound, Inc. Leading the web team, I oversee the development process, maintain code repositories, supervise a team of developers and provide consultation on user experience, testing, design, REST API implementation, and overall business practice at Mediahound, Inc.",
     "align":{
         "mobile"    : [0.5,0.1],
         "phablet"   : [0.5,0.05],
         "tablet"    : [0.5,0.1],
         "small"     : [0.5,0.1],
         "medium"    : [0.5,0.25],
-        "large"     : [0.5,0.25],
+        "large"     : [0.2,0.15],
         "ultrahd"   : [0.65,0.25]
       },
      "origin":{
@@ -181,10 +199,10 @@
       "align":{
         "mobile"    : [0.36,0.445],
         "phablet"   : [0.5,0.5],
-        "tablet"    : [0.5,0.66],
+        "tablet"    : [0.5,0.55],
         "small"     : [0.5,0.66],
         "medium"    : [0.36,0.445],
-        "large"     : [0.36,0.45],
+        "large"     : [0.6,0.5],
         "ultrahd"   : [0.36,0.445]
       },
       "scale":{
@@ -216,11 +234,11 @@
     "align":{
         "mobile"    : [0.5,0.1],
         "phablet"   : [0.5,0.05],
-        "tablet"    : [0.5,0.1],
+        "tablet"    : [0.5,0.5],
         "small"     : [0.5,0.1],
-        "medium"    : [0.5,0.25],
-        "large"     : [0.5,0.25],
-        "ultrahd"   : [0.65,0.25]
+        "medium"    : [0.15,0.5],
+        "large"     : [0.15,0.5],
+        "ultrahd"   : [0.15,0.5]
       },
      "origin":{
         "mobile"    : [0.5,0.0],
@@ -272,7 +290,7 @@
     "align":{
         "mobile"    : [0.5,0.1],
         "phablet"   : [0.5,0.05],
-        "tablet"    : [0.5,0.1],
+        "tablet"    : [0.6,0.44],
         "small"     : [0.5,0.1],
         "medium"    : [0.5,0.25],
         "large"     : [0.5,0.25],
@@ -281,7 +299,7 @@
      "origin":{
         "mobile"    : [0.5,0.0],
         "phablet"   : [0.5,0.0],
-        "tablet"    : [0.5,0.0],
+        "tablet"    : [0.5,0.5],
         "small"     : [0.5,0.0],
         "medium"    : [0.0,0.0],
         "large"     : [0.0,0.0],
