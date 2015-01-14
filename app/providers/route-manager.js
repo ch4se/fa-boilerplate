@@ -35,6 +35,7 @@
 
                 $http.get('./models/index.json').then(function(res){
                   $scope.vignettes = res.data;
+                  $scope.$broadcast('contentLoaded');
                   console.log($scope.vignettes);
                 });
 

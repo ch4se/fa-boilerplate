@@ -17,6 +17,7 @@ var s;
             // Returns Directive Creation Object
             var Engine              = $famous['famous/core/Engine'],
             Transitionable          = $famous['famous/transitions/Transitionable'],
+            Transform               = $famous['famous/core/Transform'],
             TransitionableTransform = $famous['famous/transitions/TransitionableTransform'],
             Easing                  = $famous['famous/transitions/Easing'],
             Timer                   = $famous['famous/utilities/Timer'],
@@ -29,7 +30,7 @@ var s;
             var fDelta = [0,0];
             var transform = 100;
             var fTransform = 0;
-            var masterLimit = 5;
+            var masterLimit = 6;
             var vignetteHeight = window.innerHeight * 2;
 
             var DynamicTexture = function() {
@@ -239,20 +240,24 @@ var s;
                         wireframe : true,
                         geometry: new THREE.PlaneGeometry(64,64,64,64),
                         //texture : THREE.ImageUtils.loadTexture('assets/the-sky-is-burning.jpg')
-                        texture : ['assets/the-dawn-of-time-retouch-by-steve-belovarich.jpg',
+                        texture : ['assets/black-slate.jpg',
                                    'assets/the-wonders-of-the-natural-world.jpg',
-                                   'assets/what-dreams-are-made-of-by-steve-belovarich.jpg',
                                    'assets/crashing-1992-light-by-steve-belovarich.jpg',
-                                   'assets/flying-through-the-minds-eye-by-steve-belovarich.jpg',
                                    'assets/into-the-void-by-steve-belovarich.jpg',
+                                   'assets/what-dreams-are-made-of-by-steve-belovarich.jpg',
+                                   'assets/Where-The-Subconscious-Meets-Conscious-Thought-by-Steve-Belovarich.jpg',
                                    'assets/playing-with-fire-by-steve-belovarich.jpg',
-                                   'assets/staring-into-the-light-of-the-pheonix-by-steve-belovarich.jpg']
+                                   'assets/flair-by-steve-belovarich.jpg']
                     },$famous.find('.background-canvas')[0].renderNode, true);
 
                     window.scene = scene;
                     Scene.prototype.init = DynamicTexture;
                     inT(scope.masterIndex);
-                    scene.animateTextures(3,5000,Easing.inOutQuart);
+
+                    setTimeout(function(){
+                      scene.animateTextures(1,3000,Easing.inOutQuart);
+                    },160);
+
                   };
 
                   var canvas = $famous.find('.background-canvas')[0].renderNode;
@@ -290,10 +295,12 @@ var s;
                       elements:{
                         copy:{
                           scale:[],
-                          align:[]
+                          align:[],
+                          origin:[]
                         },
                         fore:{
-                          scale:[],
+                          scale:{},
+                          align:{},
                           opacity: 1.0
                         },
                         back:{
@@ -320,15 +327,19 @@ var s;
                         position: [0,0,0]
                       },
                       scrollButton:{
-                        rotate: (Math.PI/180)*-90,
+                        rotate: 0,
                         display: 0
                       },
-                      forwardButton:{
+                      swipeButton:{
                         rotate: (Math.PI/180)*180,
                         display: 0
                       },
+                      forwardButton:{
+                        rotate: (Math.PI/180)*90,
+                        display: 0
+                      },
                       backButton:{
-                        rotate: 0,
+                        rotate: (Math.PI/180)*-90,
                         display: 1,
                         show: false
                       },
@@ -363,11 +374,25 @@ var s;
 
                   scope.transition = true;
 
+                  var alignElements = function(){
+                    for(var ind=0;ind<scope.vignettes[scope.masterIndex].elements.length;ind++){
+                      //console.log(scope.vignettes[scope.masterIndex].copy.align[respond.state]);
+                      scope.content.section.elements.copy.align = scope.vignettes[scope.masterIndex].copy.align[respond.state];
+                      scope.content.section.elements.copy.origin = scope.vignettes[scope.masterIndex].copy.origin[respond.state];
+                      scope.content.section.elements.fore.align[ind] = scope.vignettes[scope.masterIndex].elements[ind].align[respond.state];
+                      scope.content.section.elements.fore.scale[ind] = scope.vignettes[scope.masterIndex].elements[ind].scale[respond.state];
+                    }
+                  };
+
                   var resetVignette = function(){
 
                     scope.content.section.size = [window.innerWidth,window.innerHeight];
                     vignetteHeight = window.innerHeight * 2;
                     scope.content.vignette.size = [window.innerWidth, vignetteHeight];
+
+                    if(scope.vignettes){
+                      alignElements();
+                    }
                     transform = 150;
 
                   };
@@ -390,7 +415,7 @@ var s;
                       scope.op[tIndex].set(1,{duration: 10});
                       scope.c[tIndex].set(1,{duration: 500});
                       if(scene){
-                        scene.animateTextures(tIndex,1500,Easing.inOutQuart);
+                        scene.animateTextures(tIndex+1,1500,Easing.inOutQuart);
                       }
 
                       scope.p[tIndex].setTranslate([0,0,transform],{duration:800},function(){
@@ -434,7 +459,7 @@ var s;
                     scope.op[tIndex].set(1,{duration: 10});
                     scope.c[tIndex].set(1,{duration: 500});
                     if(scene){
-                      scene.animateTextures(tIndex,1500,Easing.inOutQuart);
+                      scene.animateTextures(tIndex+1,1500,Easing.inOutQuart);
                     }
                     scope.p[tIndex].setTranslate([0,0,transform],{duration:1200},function(){
                       scope.p[tIndex].setTranslate([0,0,(transform/2)],{duration:400},function(){
@@ -463,8 +488,8 @@ var s;
                   scope.mobile = function(){
                     scope.content.section.icons.scale = [0.45,0.45];
                     scope.content.section.icons.size = [80,80];
-                    scope.content.section.elements.copy.align =  [0.2,0.1];
-                    scope.content.section.elements.copy.origin =  [0.0,0.0];
+                    //scope.content.section.elements.copy.align =  [0.2,0.1];
+                    //scope.content.section.elements.copy.origin =  [0.0,0.0];
                     scope.content.section.elements.copy.size =  [respond.grid.colSpan[4],true];
                     scope.content.section.elements.copy.scale = [0.8,0.8];
                     scope.content.section.elements.fore.scale = [0.3,0.3];
@@ -484,8 +509,8 @@ var s;
                   scope.phablet = function(){
                     scope.content.section.icons.scale = [0.425,0.425];
                     scope.content.section.icons.size = [80,80];
-                    scope.content.section.elements.copy.align =  [0.2,0.2];
-                    scope.content.section.elements.copy.origin =  [0.0,0.0];
+                    //scope.content.section.elements.copy.align =  [0.2,0.2];
+                    //scope.content.section.elements.copy.origin =  [0.0,0.0];
                     scope.content.section.elements.copy.size =  [respond.grid.colSpan[4],true];
                     scope.content.section.elements.copy.scale = [0.8,0.8];
                     scope.content.section.elements.fore.scale = [0.4,0.4];
@@ -505,9 +530,9 @@ var s;
                   scope.tablet = function(){
                     scope.content.section.icons.scale = [0.45,0.45];
                     scope.content.section.icons.size = [100,100];
-                    scope.content.section.elements.copy.align =  [0.3,0.5];
-                    scope.content.section.elements.copy.origin =  [0.0,0.0];
-                    scope.content.section.elements.copy.size =  [respond.grid.colSpan[6],true];
+                    //scope.content.section.elements.copy.align =  [0.3,0.5];
+                    //scope.content.section.elements.copy.origin =  [0.0,0.0];
+                    scope.content.section.elements.copy.size =  [respond.grid.colSpan[8],true];
                     scope.content.section.elements.copy.scale = [0.85,0.85];
                     scope.content.section.elements.fore.scale = [0.55,0.55];
                     scope.content.section.elements.back.scale = [0.3,0.3];
@@ -521,8 +546,8 @@ var s;
                   scope.small = function(){
                     scope.content.section.icons.scale = [0.5,0.5];
                     scope.content.section.icons.size = [128,128];
-                    scope.content.section.elements.copy.align =  [0.5,0.3];
-                    scope.content.section.elements.copy.origin =  [0.5,0.5];
+                    //scope.content.section.elements.copy.align =  [0.5,0.3];
+                    //scope.content.section.elements.copy.origin =  [0.5,0.5];
                     scope.content.section.elements.copy.size =  [respond.grid.colSpan[6],true];
                     scope.content.section.elements.copy.scale = [1.0,1.0];
                     scope.content.section.elements.fore.scale = [0.75,0.75];
@@ -537,8 +562,8 @@ var s;
                   scope.medium = function(){
                     scope.content.section.icons.scale = [0.75,0.75];
                     scope.content.section.icons.size = [200,200];
-                    scope.content.section.elements.copy.align =  [0.5,0.3];
-                    scope.content.section.elements.copy.origin =  [0.5,0.5];
+                    //scope.content.section.elements.copy.align =  [0.5,0.3];
+                    //scope.content.section.elements.copy.origin =  [0.5,0.5];
                     scope.content.section.elements.copy.size =  [respond.grid.colSpan[6],true];
                     scope.content.section.elements.copy.scale = [1.0,1.0];
                     scope.content.section.elements.fore.scale = [0.8,0.8];
@@ -553,8 +578,8 @@ var s;
                   scope.large = function(){
                     scope.content.section.icons.scale = [1.0,1.0];
                     scope.content.section.icons.size = [256,256];
-                    scope.content.section.elements.copy.align =  [0.5,0.3];
-                    scope.content.section.elements.copy.origin =  [0.5,0.5];
+                    //scope.content.section.elements.copy.align =  [0.5,0.5];
+                    //scope.content.section.elements.copy.origin =  [0.5,0.5];
                     scope.content.section.elements.copy.size =  [respond.grid.colSpan[6],true];
                     scope.content.section.elements.copy.scale = [1.0,1.0];
                     scope.content.section.elements.fore.scale = [0.8,0.8];
@@ -564,7 +589,8 @@ var s;
                     scope.content.section.childLayout.size = [280,360];
                     scope.content.section.childLayout.child.size = [280,110];
                     scope.content.section.parentLayout.scale = [1.0,1.0];
-                    scope.scene.renderer.setSize( window.innerWidth, window.innerHeight );
+
+
                   };
 
                   scope.ultrahd = function(){
@@ -658,12 +684,16 @@ var s;
                   window.addEventListener('stateChange',function(){
 
                     scope.content.section.parentLayout.size = [window.innerWidth/1.5,140];
+                    scene.renderer.setSize( window.innerWidth, window.innerHeight );
                     resetVignette();
 
                     console.log(respond.state);
 
                   });
 
+                  scope.$on('contentLoaded',function(){
+                    alignElements();
+                  });
 
 
                   States.stateChange(scope);

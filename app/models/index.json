@@ -6,8 +6,147 @@
     "text": "Web Engineer, Maker, Digital Artist"
   },
   "copy":{
-    "text": "I am active in the Famo.us / Angular community. One of the top 100 Developers in L.A. according to GoodData. Schedule me for a talk or to present at your next Meetup."
-  }
+    "text": "Web consultant for startups, agencies and legal teams. My latest web app project Synth was funded on Kickstarter. Lead Web Application Engineer at Mediahound, Inc. Practicing fine art photographer and digital artist. Schedule me for a talk or to present at your next Meetup. Follow @iplayitofflegit on Twitter.",
+    "align":{
+        "mobile"    : [0.5,0.1],
+        "phablet"   : [0.5,0.05],
+        "tablet"    : [0.5,0.1],
+        "small"     : [0.5,0.1],
+        "medium"    : [0.5,0.25],
+        "large"     : [0.5,0.25],
+        "ultrahd"   : [0.65,0.25]
+      },
+     "origin":{
+        "mobile"    : [0.5,0.0],
+        "phablet"   : [0.5,0.0],
+        "tablet"    : [0.5,0.0],
+        "small"     : [0.5,0.0],
+        "medium"    : [0.0,0.0],
+        "large"     : [0.0,0.0],
+        "ultrahd"   : [0.0,0.0]
+      }
+  },
+  "elements":[{
+      "align":{
+        "mobile"    : [0.36,0.445],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.66],
+        "small"     : [0.5,0.66],
+        "medium"    : [0.36,0.445],
+        "large"     : [0.36,0.45],
+        "ultrahd"   : [0.36,0.445]
+      },
+      "scale":{
+        "mobile"    : [0.25,0.25],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.5],
+        "small"     : [0.3,0.3],
+        "medium"    : [0.75,0.75],
+        "large"     : [0.75,0.75],
+        "ultrahd"   : [0.8,0.8]
+      },
+      "size":[320,320],
+      "subheadline":"",
+      "caption":"",
+      "src":"assets/crop-avatar-square-1024.jpg",
+      "url":"http://stephenbelovarich.com/"
+    }
+  ]
+},
+{
+  "headline":{
+    "text": "Dev Magnet"
+  },
+  "subheadline":{
+    "text": "Flipboard magazine for developers."
+  },
+  "copy":{
+    "text": "I curate Dev Magnet via the Flipboard app. Updated regularly with news and tips for Developers and Makers, Dev Magnet is available on the web at <a href='http://devmagnet.net'>devmagnet.net</a> or search 'Dev Magnet' on Flipboard. Follow me on Twitter to learn about updates to Dev Magnet.",
+    "align":[0.5,0.5]
+  },
+  "elements":[
+    {
+      "align":{
+        "mobile"    : [0.36,0.445],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.66],
+        "small"     : [0.5,0.66],
+        "medium"    : [0.36,0.445],
+        "large"     : [0.36,0.45],
+        "ultrahd"   : [0.36,0.445]
+      },
+      "scale":{
+        "mobile"    : [0.25,0.25],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.5],
+        "small"     : [0.3,0.3],
+        "medium"    : [0.75,0.75],
+        "large"     : [0.75,0.75],
+        "ultrahd"   : [0.8,0.8]
+      },
+      "size":[320,240],
+      "subheadline":"",
+      "caption":"",
+      "src":"assets/dev-magnet-on-flipboard.jpg",
+      "url":"http://stephenbelovarich.com/"
+    }
+  ]
+},
+{
+  "headline":{
+    "text": "Synth"
+  },
+  "subheadline":{
+    "text": "A video synthesizer for the web."
+  },
+  "copy":{
+    "text": "Synth is a web app where developers can share interactive experiments. Originally a Chrome Experiment, Synth is going into beta after successfully being funded on Kickstarter. Synth is a playground for 3D experiences where the user can manipulate 3D scenes using controls inspired by analog signal processing.",
+    "align":{
+        "mobile"    : [0.5,0.1],
+        "phablet"   : [0.5,0.05],
+        "tablet"    : [0.5,0.1],
+        "small"     : [0.5,0.1],
+        "medium"    : [0.5,0.25],
+        "large"     : [0.5,0.25],
+        "ultrahd"   : [0.65,0.25]
+      },
+     "origin":{
+        "mobile"    : [0.5,0.0],
+        "phablet"   : [0.5,0.0],
+        "tablet"    : [0.5,0.0],
+        "small"     : [0.5,0.0],
+        "medium"    : [0.0,0.0],
+        "large"     : [0.0,0.0],
+        "ultrahd"   : [0.0,0.0]
+      }
+  },
+  "elements":[
+    {
+      "align":{
+        "mobile"    : [0.36,0.445],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.66],
+        "small"     : [0.5,0.66],
+        "medium"    : [0.36,0.445],
+        "large"     : [0.36,0.45],
+        "ultrahd"   : [0.36,0.445]
+      },
+      "scale":{
+        "mobile"    : [0.25,0.25],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.5],
+        "small"     : [0.3,0.3],
+        "medium"    : [0.75,0.75],
+        "large"     : [0.75,0.75],
+        "ultrahd"   : [0.8,0.8]
+      },
+      "size":[320,240],
+      "subheadline":"",
+      "caption":"",
+      "src":"",
+      "url":"http://stephenbelovarich.com/"
+    }
+  ]
 },
 {
   "headline":{
@@ -17,51 +156,320 @@
     "text": "A front end for the Entertainment Graph."
   },
   "copy":{
-    "text": "Lead Web Application Engineer at Mediahound, Inc., where I both develop and oversee the implementation of the Famo.us/Angular front end for the Entertainment Graph and the JS library that interfaces with the company's Restful API."
-  }
-},
-{
-  "headline":{
-    "text": "Dev Magnet"
+    "text": "I develop and manage the implementation of the Famo.us/Angular web app that serves as the front end for the Entertainment Graph at Mediahound, Inc. Leading the web team, I oversee the development process, maintain code repositories, supervise a team of developers and provide consultation on REST API implementation, user experience, testing, design, professional developement and business practice at Mediahound, Inc. in El Segundo, CA.",
+    "align":{
+        "mobile"    : [0.5,0.1],
+        "phablet"   : [0.5,0.05],
+        "tablet"    : [0.5,0.1],
+        "small"     : [0.5,0.1],
+        "medium"    : [0.5,0.25],
+        "large"     : [0.5,0.25],
+        "ultrahd"   : [0.65,0.25]
+      },
+     "origin":{
+        "mobile"    : [0.5,0.0],
+        "phablet"   : [0.5,0.0],
+        "tablet"    : [0.5,0.0],
+        "small"     : [0.5,0.0],
+        "medium"    : [0.0,0.0],
+        "large"     : [0.0,0.0],
+        "ultrahd"   : [0.0,0.0]
+      }
   },
-  "subheadline":{
-    "text": "Flipboard magazine about development."
-  },
-  "copy":{
-    "text": "Steve curates Dev Magnet on Flipboard. Updated regularly with news and tips for Developers and Makers, Dev Magnet is available on the web at <a href='http://devmagnet.net'>devmagnet.net</a>."
-  }
-},
-{
-  "headline":{
-    "text": "Synth"
-  },
-  "subheadline":{
-    "text": "Video synthesizer for the web."
-  },
-  "copy":{
-    "text": "Synth is a web app for creative coders to show off interactive visualizations. Originally a Chrome Experiment, this web app is going into beta after successfully being funded on Kickstarter."
-  }
-},
-{
-  "headline":{
-    "text": "Scene.js"
-  },
-  "subheadline":{
-    "text": "A lightweight boilerplate for Three.js visualizations."
-  },
-  "copy":{
-    "text": "Scene is a lightweight boilerplate for your next Three.js project."
-  }
+  "elements":[
+    {
+      "align":{
+        "mobile"    : [0.36,0.445],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.66],
+        "small"     : [0.5,0.66],
+        "medium"    : [0.36,0.445],
+        "large"     : [0.36,0.45],
+        "ultrahd"   : [0.36,0.445]
+      },
+      "scale":{
+        "mobile"    : [0.25,0.25],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.5],
+        "small"     : [0.3,0.3],
+        "medium"    : [0.75,0.75],
+        "large"     : [0.75,0.75],
+        "ultrahd"   : [0.8,0.8]
+      },
+      "size":[720,true],
+      "subheadline":"",
+      "caption":"",
+      "src":"assets/mediahound-web-app.png",
+      "url":"https://www.mediahound.com/"
+    }
+  ]
 },
 {
   "headline":{
     "text": "Res.js"
   },
   "subheadline":{
-    "text": "Swiss Army Knife for Responsive Web Apps"
+    "text": "A swiss army knife for responsive web apps."
   },
   "copy":{
-    "text": "Res is a Vanilla JS library for your next Responsive web app. Res.js is the perfect addition to Modernizer. This lightweight Javascript Object parses User Agent, makes a JS based site stateful, wires up a Responsive grid and detects input devices."
-  }
+    "text": "Res.js is a Javascript library that is a Responsive toolbox for your next web app. This lightweight library parses User Agent, makes a web app stateful, wires up an optional Responsive grid. Coming in 2015, Res.js will detect multiple peripheral devices. Res.js is available now and open source on Github.",
+    "align":{
+        "mobile"    : [0.5,0.1],
+        "phablet"   : [0.5,0.05],
+        "tablet"    : [0.5,0.1],
+        "small"     : [0.5,0.1],
+        "medium"    : [0.5,0.25],
+        "large"     : [0.5,0.25],
+        "ultrahd"   : [0.65,0.25]
+      },
+     "origin":{
+        "mobile"    : [0.5,0.0],
+        "phablet"   : [0.5,0.0],
+        "tablet"    : [0.5,0.0],
+        "small"     : [0.5,0.0],
+        "medium"    : [0.0,0.0],
+        "large"     : [0.0,0.0],
+        "ultrahd"   : [0.0,0.0]
+      }
+  },
+  "elements":[
+    {
+      "align":{
+        "mobile"    : [0.36,0.445],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.66],
+        "small"     : [0.5,0.66],
+        "medium"    : [0.36,0.445],
+        "large"     : [0.36,0.45],
+        "ultrahd"   : [0.36,0.445]
+      },
+      "scale":{
+        "mobile"    : [0.25,0.25],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.5],
+        "small"     : [0.3,0.3],
+        "medium"    : [0.75,0.75],
+        "large"     : [0.75,0.75],
+        "ultrahd"   : [0.8,0.8]
+      },
+      "size":[320,240],
+      "subheadline":"",
+      "caption":"",
+      "src":"",
+      "url":"http://stephenbelovarich.com/"
+    }
+  ]
+},
+{
+  "headline":{
+    "text": "Kinetic Light"
+  },
+  "subheadline":{
+    "text": "An exhibition of fine art photography."
+  },
+  "copy":{
+    "text": "Kinetic Light is an exhibition of fine art photography and video art featuring the work of digital artist Steve Belovarich. 16 limited edition prints are displayed alongside a video installation. The video displayed is 'Dreaming Past The Horizon', a collabortion between Steve Belovarich and composer Ryan Rapsis. For more information, visit the online gallery.",
+    "align":{
+        "mobile"    : [0.5,0.1],
+        "phablet"   : [0.5,0.05],
+        "tablet"    : [0.5,0.1],
+        "small"     : [0.5,0.1],
+        "medium"    : [0.5,0.25],
+        "large"     : [0.5,0.25],
+        "ultrahd"   : [0.65,0.25]
+      },
+     "origin":{
+        "mobile"    : [0.5,0.0],
+        "phablet"   : [0.5,0.0],
+        "tablet"    : [0.5,0.0],
+        "small"     : [0.5,0.0],
+        "medium"    : [0.0,0.0],
+        "large"     : [0.0,0.0],
+        "ultrahd"   : [0.0,0.0]
+      }
+  },
+  "elements":[
+    {
+      "align":{
+        "mobile"    : [0.36,0.445],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.66],
+        "small"     : [0.5,0.66],
+        "medium"    : [0.36,0.445],
+        "large"     : [0.36,0.45],
+        "ultrahd"   : [0.36,0.445]
+      },
+      "scale":{
+        "mobile"    : [0.25,0.25],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.5],
+        "small"     : [0.3,0.3],
+        "medium"    : [0.75,0.75],
+        "large"     : [0.75,0.75],
+        "ultrahd"   : [0.8,0.8]
+      },
+      "size":[320,240],
+      "subheadline":"",
+      "caption":"",
+      "src":"",
+      "url":"http://stephenbelovarich.com/"
+    }
+  ]
+},
+{
+  "headline":{
+    "text": "Learn more"
+  },
+  "subheadline":{
+    "text": "Follow me on social media."
+  },
+  "copy":{
+    "text": "I tweet about my thoughts on technology, web development, and the digital age. Active contributor to the Famous/Angular repo on Github. Follow me on Codepen to experience my latest web visualizations. I sell prints of my photography on 500px. I post new photos and digital artwork on tumblr. ",
+    "align":{
+        "mobile"    : [0.5,0.1],
+        "phablet"   : [0.5,0.05],
+        "tablet"    : [0.5,0.1],
+        "small"     : [0.5,0.1],
+        "medium"    : [0.5,0.25],
+        "large"     : [0.5,0.25],
+        "ultrahd"   : [0.65,0.25]
+      },
+     "origin":{
+        "mobile"    : [0.5,0.0],
+        "phablet"   : [0.5,0.0],
+        "tablet"    : [0.5,0.0],
+        "small"     : [0.5,0.0],
+        "medium"    : [0.0,0.0],
+        "large"     : [0.0,0.0],
+        "ultrahd"   : [0.0,0.0]
+      }
+  },
+  "elements":[
+    {
+      "align":{
+        "mobile"    : [0.36,0.445],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.66],
+        "small"     : [0.5,0.66],
+        "medium"    : [0.36,0.445],
+        "large"     : [0.36,0.45],
+        "ultrahd"   : [0.36,0.445]
+      },
+      "scale":{
+        "mobile"    : [0.25,0.25],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.5],
+        "small"     : [0.3,0.3],
+        "medium"    : [0.75,0.75],
+        "large"     : [0.75,0.75],
+        "ultrahd"   : [0.8,0.8]
+      },
+      "size":[320,320],
+      "subheadline":"twitter",
+      "caption":"",
+      "src":"",
+      "url":"http://stephenbelovarich.com/"
+    },
+    {
+      "align":{
+        "mobile"    : [0.36,0.445],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.66],
+        "small"     : [0.5,0.66],
+        "medium"    : [0.36,0.445],
+        "large"     : [0.36,0.45],
+        "ultrahd"   : [0.36,0.445]
+      },
+      "scale":{
+        "mobile"    : [0.25,0.25],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.5],
+        "small"     : [0.3,0.3],
+        "medium"    : [0.75,0.75],
+        "large"     : [0.75,0.75],
+        "ultrahd"   : [0.8,0.8]
+      },
+      "size":[320,320],
+      "subheadline":"github",
+      "caption":"",
+      "src":"",
+      "url":"http://stephenbelovarich.com/"
+    },
+    {
+      "align":{
+        "mobile"    : [0.36,0.445],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.66],
+        "small"     : [0.5,0.66],
+        "medium"    : [0.36,0.445],
+        "large"     : [0.36,0.45],
+        "ultrahd"   : [0.36,0.445]
+      },
+      "scale":{
+        "mobile"    : [0.25,0.25],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.5],
+        "small"     : [0.3,0.3],
+        "medium"    : [0.75,0.75],
+        "large"     : [0.75,0.75],
+        "ultrahd"   : [0.8,0.8]
+      },
+      "size":[320,320],
+      "subheadline":"codepen",
+      "caption":"",
+      "src":"",
+      "url":"http://stephenbelovarich.com/"
+    },
+    {
+      "align":{
+        "mobile"    : [0.36,0.445],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.66],
+        "small"     : [0.5,0.66],
+        "medium"    : [0.36,0.445],
+        "large"     : [0.36,0.45],
+        "ultrahd"   : [0.36,0.445]
+      },
+      "scale":{
+        "mobile"    : [0.25,0.25],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.5],
+        "small"     : [0.3,0.3],
+        "medium"    : [0.75,0.75],
+        "large"     : [0.75,0.75],
+        "ultrahd"   : [0.8,0.8]
+      },
+      "size":[320,320],
+      "subheadline":"500px",
+      "caption":"",
+      "src":"",
+      "url":"http://stephenbelovarich.com/"
+    },
+    {
+      "align":{
+        "mobile"    : [0.36,0.445],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.66],
+        "small"     : [0.5,0.66],
+        "medium"    : [0.36,0.445],
+        "large"     : [0.36,0.45],
+        "ultrahd"   : [0.36,0.445]
+      },
+      "scale":{
+        "mobile"    : [0.25,0.25],
+        "phablet"   : [0.5,0.5],
+        "tablet"    : [0.5,0.5],
+        "small"     : [0.3,0.3],
+        "medium"    : [0.75,0.75],
+        "large"     : [0.75,0.75],
+        "ultrahd"   : [0.8,0.8]
+      },
+      "size":[320,320],
+      "subheadline":"tumblr",
+      "caption":"",
+      "src":"",
+      "url":"http://stephenbelovarich.com/"
+    }
+  ]
 }
 ]

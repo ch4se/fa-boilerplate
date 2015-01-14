@@ -27,35 +27,27 @@
     </fa-modifier>
     </fa-modifier>
 
-    <!-- different image content per $index
+    <!-- different image content per $index -->
 
     <fa-modifier ng-repeat="element in vignette.elements track by $index"
     fa-origin="[0.5,0.5]"
-    fa-align="element.align"
-    fa-size="[309,336]"
+    fa-align="content.section.elements.fore.align[$index]"
+    fa-size="element.size"
     fa-transform="p[$parent.$parent.$index].get()"
     fa-opacity="c[$parent.$parent.$index].get()">
     <fa-modifier
       fa-origin="[0.5,0.5]"
-      fa-align="element.align"
-      fa-scale="{{element.scale}}">
-      <fa-surface class="mh-onboard-start-image">
-        <div class="mh-onboard-start-image-actual {{element.name}}"></div>
-          <div class="mh-onboard-contributor-container">
-            <ul>
-            <li ng-repeat="contributor in element.contributors" class="mh-onboard-contributor {{contributor.name}}"></li>
-            </ul>
-          </div>
-          <div class="mh-onboard-sources-container">
-            <ul>
-            <li ng-repeat="source in element.sources" class="mh-onboard-source">
-              <div class="ob-icon {{source.name}}"></div>
-            </li>
-            </ul>
-          </div>
+      fa-align="content.section.elements.fore.align[$index]"
+      fa-scale="content.section.elements.fore.scale[$index]">
+      <fa-surface class="image">
+        <div class="image-actual">
+        <a href="{{element.url}}"><img ng-src="{{element.src}}"></a>
+        <h5>{{element.subheadline}}</h5>
+        <p>{{element.caption}}</p>
+        </div>
       </fa-surface>
     </fa-modifier>
-    </fa-modifier>-->
+    </fa-modifier>
 
 
     <!-- $background
@@ -91,9 +83,10 @@
   <fa-modifier
     fa-align="[0.5,0.95]"
     fa-origin="[0.5,0.5]"
-    fa-size="[64,64]"
+    fa-size="[48,48]"
     fa-rotate-z="content.section.scrollButton.rotate">
-    <fa-surface ng-show="masterIndex !== 4" ng-click="nextVignette()" class="scroll-up">
+    <fa-surface ng-show="masterIndex !== 4" ng-click="nextVignette()" class="scroll-up" >
+      <img src="assets/arrow-down.png" width="48" height="48">
     </fa-surface>
   </fa-modifier>
 
