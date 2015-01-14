@@ -41,9 +41,9 @@
       fa-origin="[0.5,0.5]"
       fa-align="content.section.elements.fore.align[$index]"
       fa-scale="content.section.elements.fore.scale[$index]">
-      <fa-surface class="image">
+      <fa-surface class="image" ng-class="{user: element.src==='assets/crop-avatar-square-1024.jpg'}">
         <div class="image-actual">
-        <a href="{{element.url}}"><img ng-src="{{element.src}}"></a>
+        <a href="{{element.url}}" target="_blank"><img ng-src="{{element.src}}"></a>
         <h5>{{element.subheadline}}</h5>
         <p>{{element.caption}}</p>
         </div>

@@ -10,7 +10,15 @@
     width:100%;
     height:auto;
   }
+  &.user{
+    @include border-top-radius(180px);
+    @include border-right-radius(180px);
+    @include border-bottom-radius(180px);
+    @include border-left-radius(180px);
+    overflow:hidden;
+  }
 }
+
 video{
   display:none;
 }
