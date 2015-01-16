@@ -16,6 +16,7 @@ var s;
       var SectionDirective = function( States, $famous ){
             // Returns Directive Creation Object
             var Engine              = $famous['famous/core/Engine'],
+            EventHandler            = $famous['famous/core/EventHandler'],
             Transitionable          = $famous['famous/transitions/Transitionable'],
             Transform               = $famous['famous/core/Transform'],
             TransitionableTransform = $famous['famous/transitions/TransitionableTransform'],
@@ -398,6 +399,7 @@ var s;
                   };
 
                   scope.p = [];
+                  scope.d = [];
                   scope.c = [];
                   scope.o = [];
                   scope.op = [];
@@ -480,11 +482,17 @@ var s;
 
                   };
 
+                  scope.draggableOptions = {
+                    xRange: [0,0],
+                    yRange: [-240, 120]
+                  };
+
                   for(var index=0; index<=masterLimit; index++){
                   //setup transitionables for vignette 1
                     scope.o[index] = new Array(64);
                     scope.op[index] = new Transitionable(0);
                     scope.p[index] = new TransitionableTransform();
+                    scope.d[index] = new EventHandler();
                     scope.i[index] = new TransitionableTransform();
                     scope.c[index] = new Transitionable(0);
                     //scope.o[index] = new Transitionable(0);
@@ -666,18 +674,21 @@ var s;
                           }
                         }
                         else if (delta[1] < 0){
-                         // console.log('increase');
+                          //console.log('increase',transform);
                           transform = transform + 1;
                           scope.transition = true;
+
                           scope.p[scope.masterIndex].setTranslate([0,0,transform],{duration:10},function(){
                             scope.transition = false;
                             scope.zoom = false;
+
                           });
                         }
                         else if (delta[1] > 0){
-                          //console.log('decrease');
+                          // console.log('decrease',transform);
                           transform = transform - 1;
                           scope.transition = true;
+
                           scope.p[scope.masterIndex].setTranslate([0,0,transform],{duration:10},function(){
                             scope.transition = false;
                             scope.zoom = false;
@@ -694,8 +705,9 @@ var s;
                     scope.content.section.parentLayout.size = [window.innerWidth/1.5,140];
                     scene.renderer.setSize( window.innerWidth, window.innerHeight );
                     resetVignette();
-
+                    scope.state = respond.state;
                     console.log(respond.state);
+                      scope.removeElements();
 
                   });
 
@@ -712,8 +724,18 @@ var s;
                          console.log(index);
                        }
 
+
                      }
+                      scope.removeElements();
                   });
+
+                  scope.removeElements = function(){
+                    if(respond.state !== 'tablet' && respond.state !== 'phablet' &&  respond.state !== 'mobile'){
+                      return true;
+                    }else{
+                      return false;
+                    }
+                  };
 
 
 

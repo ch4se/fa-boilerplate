@@ -18,7 +18,38 @@
     overflow:hidden;
   }
 }
+.mobile-elements{
+  width:100%;
+  height:auto;
+}
+.mobile-element{
+  a,img{
+  width:50%;
+  height:auto;
+  padding-top:40px;
+  }
+  &.user{
+    img{
+    width:320px;
+    height:320px;
+    @include border-top-radius(180px);
+    @include border-right-radius(180px);
+    @include border-bottom-radius(180px);
+    @include border-left-radius(180px);
+    overflow:hidden;
+    }
+  }
 
+}
+.vignette-6{
+  .mobile-element{
+    a,img{
+      width:33%;
+      float:left;
+      position:relative;
+    }
+  }
+}
 video{
   display:none;
 }

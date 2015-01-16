@@ -12,6 +12,7 @@
   </fa-modifier>
 
   <fa-view ng-repeat="vignette in vignettes track by $index">
+    <fa-draggable fa-pipe-from="d[$index]" fa-options="draggableOptions">
     <fa-modifier fa-scale="content.section.elements.copy.scale"
         fa-align="content.section.elements.copy.align"
        fa-origin="content.section.elements.copy.origin">
@@ -21,14 +22,19 @@
     fa-origin="content.section.elements.copy.origin"
     fa-transform="p[$index].get()"
     fa-opacity="c[$index].get()">
-      <fa-surface class="headline headline-{{$index}}" >
+      <fa-surface class="headline headline-{{$index}}" fa-pipe-to="d[$index]">
       <h1>{{vignette.headline.text}}</h1>
       <h3 ng-bind-html="vignette.subheadline.text" class="subheadline subheadline-{{$index}}"></h3>
       <p ng-bind-html="vignette.copy.text" class="copy copy-{{$index}}" ></p>
+      <div ng-show="!removeElements()" class="mobile-elements vignette-{{$index}}">
+      <div ng-repeat="element in vignette.elements track by $index" class="mobile-element element-{{$index}}">
+         <a href="{{element.url}}" target="_blank"><img ng-src="{{element.src}}"></a>
+      </div>
+      </div>
       </fa-surface>
     </fa-modifier>
     </fa-modifier>
-
+    </fa-draggable>
     <!-- different image content per $index -->
 
     <fa-modifier ng-repeat="element in vignette.elements track by $index"
@@ -41,7 +47,7 @@
       fa-origin="[0.5,0.5]"
       fa-align="content.section.elements.fore.align[$index]"
       fa-scale="content.section.elements.fore.scale[$index]">
-      <fa-surface class="image" ng-class="{user: element.src==='assets/crop-avatar-square-1024.jpg'}">
+      <fa-surface class="image" ng-class="{user: element.src==='assets/crop-avatar-square-1024.jpg'}" ng-show="removeElements()">
         <div class="image-actual">
         <a href="{{element.url}}" target="_blank"><img ng-src="{{element.src}}"></a>
         <h5>{{element.subheadline}}</h5>
