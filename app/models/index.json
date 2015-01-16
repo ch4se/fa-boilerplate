@@ -61,7 +61,7 @@
     "text": "Flipboard magazine for developers."
   },
   "copy":{
-    "text": "I curate Dev Magnet via the Flipboard app. Updated regularly with news and tips for Developers and Makers, Dev Magnet is available on the web at <a href=\"http://devmagnet.net\" target=\"_blank\">devmagnet.net</a> or search 'Dev Magnet' on Flipboard. <a href=\"https://twitter.com/iplayitofflegit\" target=\"_blank\">Follow @iplayitofflegit on Twitter</a> to learn about updates to Dev Magnet.",
+    "text": "I curate Dev Magnet via the Flipboard app. Updated regularly with news and tips for Developers and Makers, Dev Magnet is available on the web at <a href=\"http://devmagnet.net\" target=\"_blank\">devmagnet.net</a> or search Dev Magnet on Flipboard. <a href=\"https://twitter.com/iplayitofflegit\" target=\"_blank\">Follow @iplayitofflegit on Twitter</a> to learn about updates to Dev Magnet.",
     "align":{
         "mobile"    : [0.5,0.1],
         "phablet"   : [0.5,0.05],

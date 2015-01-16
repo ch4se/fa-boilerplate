@@ -704,6 +704,15 @@ var s;
                     resetVignette();
                     alignElements();
                     inT(scope.masterIndex,scope.vignettes);
+                    console.log('content loaded');
+                    for(var index=0;index<scope.vignettes.length;index++){
+
+                       if(index!==scope.masterIndex){
+                         outT(index,scope.vignettes);
+                         console.log(index);
+                       }
+
+                     }
                   });
 
 
