@@ -37,7 +37,7 @@ var respond;
                        {"state": "medium","breakpoint": 1366,"cols": 16,"margin": 80,"gutter": 20},
                        {"state": "large","breakpoint": 1920,"cols": 16,"margin": 80,"gutter": 40},
                        {"state": "ultrahd","breakpoint": 10000,"cols": 16,"margin": 120,"gutter": 40}]);
-      console.log(respond);
+      //console.log(respond);
 
       // Main RequireJS Config
       require.config({

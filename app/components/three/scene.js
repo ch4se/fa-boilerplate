@@ -55,7 +55,7 @@ Scene.prototype.changeOptions = function(changes){
   var that = this;
    function watch(change) {
     //changeFunction(that.options[change.name]);
-    console.log(change.name + " was " + change.type + " and is now " + change.object[change.name]);
+    //  console.log(change.name + " was " + change.type + " and is now " + change.object[change.name]);
    }
    changes.forEach(watch);
 };
@@ -116,7 +116,7 @@ Scene.prototype.initTextures = function(src){
   this.texture.canvas.id = "texture-canvas";
   this.texture.canvas.setAttribute("width",1280);
   this.texture.canvas.setAttribute("height",720);
-  console.log(this.texture.canvas);
+  //console.log(this.texture.canvas);
   document.body.appendChild(this.texture.canvas);
 
   this.texture.img = document.createElement('img');

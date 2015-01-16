@@ -13,7 +13,7 @@ var s;
 
     ){
 
-      var SectionDirective = function( States, $famous ){
+      var SectionDirective = function( States, $famous, $http ){
             // Returns Directive Creation Object
             var Engine              = $famous['famous/core/Engine'],
             EventHandler            = $famous['famous/core/EventHandler'],
@@ -628,7 +628,7 @@ var s;
                   Engine.pipe(sync);
 
                   scope.nextVignette = function(){
-                    console.log('trigger next vignette');
+                   // console.log('trigger next vignette');
                     scope.transition = true;
                     //dotNav.children[scope.masterIndex].className = "dot";
                     outT(scope.masterIndex,scope.vignettes);
@@ -641,7 +641,7 @@ var s;
                     }
                   };
                   scope.lastVignette = function(){
-                    console.log('trigger last vignette');
+                   // console.log('trigger last vignette');
                     scope.transition = true;
                     //dotNav.children[scope.masterIndex].className = "dot";
                     backT(scope.masterIndex,scope.vignettes);
@@ -711,17 +711,19 @@ var s;
 
                   });
 
-                  scope.$on('contentLoaded',function(){
+
+
+                  $http.get('./models/index.json').then(function(res){
                     States.stateChange(scope);
                     resetVignette();
                     alignElements();
                     inT(scope.masterIndex,scope.vignettes);
-                    console.log('content loaded');
+                    //console.log('content loaded from event');
                     for(var index=0;index<scope.vignettes.length;index++){
 
                        if(index!==scope.masterIndex){
                          outT(index,scope.vignettes);
-                         console.log(index);
+                         //console.log(index);
                        }
 
 
@@ -749,7 +751,7 @@ var s;
 
 
       // If Using Angular Dep Injection
-      return [ "States", "$famous", SectionDirective ];
+      return [ "States", "$famous", "$http", SectionDirective ];
     } // end require function
   ); // end define call
 

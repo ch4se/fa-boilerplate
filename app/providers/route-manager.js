@@ -8,6 +8,9 @@
 
   ){
 
+    //var contentLoaded = new Event('contentLoaded');
+    //contentLoaded.initEvent('contentLoaded', true, true);
+
     var RouteManager = function ( $stateProvider, $urlRouterProvider, $locationProvider ){
 
           $locationProvider.html5Mode(true);
@@ -17,7 +20,7 @@
             .state('index', {
               url: "/",
               templateUrl: "views/index.html",
-              controller  : function($scope, $famous, States, $http){
+              controller  : function($rootScope, $scope, $famous, States, $http){
                 var Engine = $famous['famous/core/Engine'];
                 var EventHandler = $famous['famous/core/EventHandler'];
                 var Transitionable = $famous['famous/transitions/Transitionable'];
@@ -35,27 +38,15 @@
 
                 $http.get('./models/index.json').then(function(res){
                   $scope.vignettes = res.data;
-                  $scope.$broadcast('contentLoaded');
-                  console.log($scope.vignettes);
+                  //$rootScope.$broadcast('contentLoaded');
+                  //window.dispatchEvent(contentLoaded);
+                  //console.log($scope.vignettes);
                 });
 
                 $http.get('./models/synth.json').then(function(res){
                   $scope.synth = res.data;
-                  console.log($scope.synth);
+                  //console.log($scope.synth);
                 });
-
-              }
-            }).state('three', {
-              url: "/three",
-              templateUrl: "views/three.html",
-              controller  : function($scope, $famous, States, $http){
-                var Engine = $famous['famous/core/Engine'];
-                var EventHandler = $famous['famous/core/EventHandler'];
-                var Transitionable = $famous['famous/transitions/Transitionable'];
-                var Timer = $famous['famous/utilities/Timer'];
-
-                $scope.Engine = Engine;
-                $scope.Engine = Engine;
 
               }
             });
