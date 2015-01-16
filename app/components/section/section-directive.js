@@ -221,7 +221,7 @@ var s;
 
                   scope.zoom = false;
 
-                  var dotNav = document.querySelector('.dot-nav');
+                 // var dotNav = document.querySelector('.dot-nav');
 
                   // add perspective to the container group
                   var group = $famous.find('.mh-onboard-controller')[0].renderNode._container;
@@ -256,8 +256,8 @@ var s;
                     inT(scope.masterIndex);
 
                     setTimeout(function(){
-                      scene.animateTextures(1,2000,Easing.inOutQuart);
-                    },300);
+                      scene.animateTextures(1,1000,Easing.inOutQuart);
+                    },350);
 
                   };
 
@@ -564,7 +564,7 @@ var s;
                     scope.content.section.icons.size = [128,128];
                     //scope.content.section.elements.copy.align =  [0.5,0.3];
                     //scope.content.section.elements.copy.origin =  [0.5,0.5];
-                    scope.content.section.elements.copy.size =  [respond.grid.colSpan[6],true];
+                    scope.content.section.elements.copy.size =  [respond.grid.colSpan[8],true];
                     scope.content.section.elements.copy.scale = [1.0,1.0];
                     //scope.content.section.elements.fore.scale = [0.75,0.75];
                     scope.content.section.elements.back.scale = [0.5,0.5];
@@ -630,10 +630,10 @@ var s;
                   scope.nextVignette = function(){
                     console.log('trigger next vignette');
                     scope.transition = true;
-                    dotNav.children[scope.masterIndex].className = "dot";
+                    //dotNav.children[scope.masterIndex].className = "dot";
                     outT(scope.masterIndex,scope.vignettes);
                     scope.masterIndex++;
-                    dotNav.children[scope.masterIndex].className = "dot active";
+                    //dotNav.children[scope.masterIndex].className = "dot active";
                     inT(scope.masterIndex,scope.vignettes);
                     scope.zoom = true;
                     if(!scope.$$phase){
@@ -643,10 +643,10 @@ var s;
                   scope.lastVignette = function(){
                     console.log('trigger last vignette');
                     scope.transition = true;
-                    dotNav.children[scope.masterIndex].className = "dot";
+                    //dotNav.children[scope.masterIndex].className = "dot";
                     backT(scope.masterIndex,scope.vignettes);
                     scope.masterIndex--;
-                    dotNav.children[scope.masterIndex].className = "dot active";
+                    //dotNav.children[scope.masterIndex].className = "dot active";
                     fromT(scope.masterIndex,scope.vignettes);
                     scope.zoom = true;
                     if(!scope.$$phase){

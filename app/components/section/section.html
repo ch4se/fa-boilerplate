@@ -72,51 +72,19 @@
     </fa-modifier>-->
   </fa-view>
 
-  <!-- nav -->
-  <fa-modifier fa-size="[16,60]" fa-align="[0.99,0.49]" fa-origin="[1.0,0.5]" fa-opacity="0.3">
-    <fa-surface class="dot-nav-container">
-    <ul class="dot-nav vert">
-      <li class="dot active"><!--<div class="label">Welcome</div>--></li>
-      <li class="dot"><!--<div class="label">Discover</div>--></li>
-      <li class="dot"><!--<div class="label">Collect</div>--></li>
-      <li class="dot"><!--<div class="label">Share</div>--></li>
-      <li class="dot"><!--<div class="label">Follow</div>--></li>
-      <li class="dot"><!--<div class="label">Follow</div>--></li>
-      <li class="dot"><!--<div class="label">Follow</div>--></li>
-    </ul>
-    </fa-surface>
-  </fa-modifier>
+
 
 
   <fa-modifier
     fa-align="[0.5,0.95]"
     fa-origin="[0.5,0.5]"
-    fa-size="[48,48]"
+    fa-size="[40,40]"
     fa-rotate-z="content.section.scrollButton.rotate">
     <fa-surface ng-show="masterIndex !== 6" ng-click="nextVignette()" class="scroll-up" >
       <img src="assets/arrow-down.png" width="48" height="48">
     </fa-surface>
   </fa-modifier>
 
-  <fa-modifier
-    fa-align="[0.9,0.5]"
-    fa-origin="[0.5,0.5]"
-    fa-size="[64,64]"
-    fa-rotate-z="content.section.forwardButton.rotate"
-    fa-opacity="content.section.backButton.display">
-    <fa-surface class="scroll-right" ng-show="masterIndex === 4" ng-mousedown="moveFollowersForward()" ng-mouseup="endMoveFollowers()" fa-touchend="pageFollowersForward()">
-    </fa-surface>
-  </fa-modifier>
-
-  <fa-modifier
-    fa-align="[0.1,0.5]"
-    fa-origin="[0.5,0.5]"
-    fa-size="[64,64]"
-    fa-rotate-z="content.section.backButton.rotate"
-    fa-opacity="content.section.backButton.display">
-    <fa-surface class="scroll-left" ng-show="masterIndex === 4" ng-mousedown="moveFollowersBack()" ng-mouseup="endMoveFollowers()" fa-touchend="pageFollowersBack()">
-    </fa-surface>
-  </fa-modifier>
 
   </fa-container-surface>
 <fa-modifier>
