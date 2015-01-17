@@ -431,7 +431,7 @@ var s;
 
                   var outT = function(tIndex,v){
 
-                    scope.c[tIndex].set(0,{duration:100},function(){
+                    scope.c[tIndex].set(0,{duration:300},function(){
                       resetVignette();
                     });
                     scope.p[tIndex].setTranslate([0,0,3000],{duration:3000},function(){
@@ -640,7 +640,10 @@ var s;
                     outT(scope.masterIndex,scope.vignettes);
                     scope.masterIndex++;
                     //dotNav.children[scope.masterIndex].className = "dot active";
-                    inT(scope.masterIndex,scope.vignettes);
+                    setTimeout(function(){
+                      inT(scope.masterIndex,scope.vignettes);
+                    },500);
+
                     scope.zoom = true;
                     if(!scope.$$phase){
                       scope.$apply();
