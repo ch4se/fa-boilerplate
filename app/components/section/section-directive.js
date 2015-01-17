@@ -257,7 +257,7 @@ var s;
 
                     setTimeout(function(){
                       scene.animateTextures(1,1000,Easing.inOutQuart);
-                    },350);
+                    },500);
 
                   };
 
@@ -712,7 +712,7 @@ var s;
                   window.addEventListener('stateChange',function(){
 
                     scope.content.section.parentLayout.size = [window.innerWidth/1.5,140];
-                    scene.renderer.setSize( window.innerWidth, window.innerHeight );
+                    //scene.renderer.setSize( window.innerWidth, window.innerHeight );
                     resetVignette();
                     scope.state = respond.state;
                     console.log(respond.state);
