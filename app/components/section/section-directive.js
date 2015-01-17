@@ -265,14 +265,7 @@ var s;
                   canvas.on('deploy',function(){
 
                     initCanvas();
-                    // if(scope.synth){
-                    //   initCanvas();
-                    // }
-                    // else{
-                    //   scope.$watch('synth',function(){
-                    //     initCanvas();
-                    //   });
-                    // }
+
                   });
 
                   // defaults
@@ -421,6 +414,7 @@ var s;
                         scene.animateTextures(tIndex+1,1500,Easing.inOutQuart);
                       }
 
+
                       scope.p[tIndex].setTranslate([0,0,transform],{duration:800},function(){
                         scope.p[tIndex].setTranslate([0,0,(transform/2)],{duration:400},function(){
                           scope.transition = false;
@@ -441,7 +435,12 @@ var s;
                       resetVignette();
                     });
                     scope.p[tIndex].setTranslate([0,0,3000],{duration:3000},function(){
-                      scope.p[tIndex].setTranslate([0,-10000,3000]);
+
+                      for(var vo=0; vo<scope.vignettes.length; vo++){
+                        if(vo!==scope.masterIndex){
+                          scope.p[vo].setTranslate([0,-20000,transform],{duration:10});
+                        }
+                      }
                     });
 
                   };
@@ -452,9 +451,16 @@ var s;
                     scope.c[tIndex].set(0,{duration:500},function(){
                       resetVignette();
                     });
+
                     scope.op[tIndex].set(0,{duration:500});
                     scope.p[tIndex].setTranslate([0,0,-1000],{duration:2000},function(){
                       scope.transition = false;
+
+                      for(var bo=0; bo<scope.vignettes.length; bo++){
+                        if(bo!==scope.masterIndex){
+                          scope.p[bo].setTranslate([0,-20000,transform],{duration:10});
+                        }
+                      }
 
                     });
 
@@ -714,21 +720,21 @@ var s;
 
 
                   $http.get('./models/index.json').then(function(res){
+
+
                     States.stateChange(scope);
                     resetVignette();
                     alignElements();
                     inT(scope.masterIndex,scope.vignettes);
                     //console.log('content loaded from event');
                     for(var index=0;index<scope.vignettes.length;index++){
-
                        if(index!==scope.masterIndex){
                          outT(index,scope.vignettes);
                          //console.log(index);
                        }
+                    }
+                    scope.removeElements();
 
-
-                     }
-                      scope.removeElements();
                   });
 
                   scope.removeElements = function(){
