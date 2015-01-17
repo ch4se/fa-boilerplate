@@ -38,7 +38,9 @@ var respond;
                        {"state": "large","breakpoint": 1920,"cols": 16,"margin": 80,"gutter": 40},
                        {"state": "ultrahd","breakpoint": 10000,"cols": 16,"margin": 120,"gutter": 40}]);
       //console.log(respond);
-
+      document.ontouchmove = function(event){
+        event.preventDefault();
+      };
       // Main RequireJS Config
       require.config({
       //  baseUrl:'./',

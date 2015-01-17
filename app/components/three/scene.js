@@ -114,8 +114,15 @@ Scene.prototype.initTextures = function(src){
 
   this.texture.canvas = document.createElement('canvas');
   this.texture.canvas.id = "texture-canvas";
-  this.texture.canvas.setAttribute("width",1280);
-  this.texture.canvas.setAttribute("height",720);
+  this.texture.canvas.setAttribute("width",window.innerWidth);
+  this.texture.canvas.setAttribute("height",window.innerHeight);
+  this.texture.canvas.style.display = "none";
+  //this.texture.canvas.style.left="10000px";
+  window.addEventListener("orientationchange", function() {
+        that.texture.canvas.setAttribute("width",window.innerWidth);
+        that.texture.canvas.setAttribute("height",window.innerHeight);
+        //this.texture.canvas.style.left="10000px";
+  });
   //console.log(this.texture.canvas);
   document.body.appendChild(this.texture.canvas);
 
