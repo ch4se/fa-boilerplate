@@ -34,6 +34,8 @@ var s;
             var masterLimit = 6;
             var vignetteHeight = window.innerHeight * 2;
 
+            var camTrans = new Transitionable([0, 0, 20]);
+
             var DynamicTexture = function() {
 
               var that = this;
@@ -96,10 +98,6 @@ var s;
               this.renderModel = new THREE.RenderPass(that.scene, that.camera);
               this.effectHue = new THREE.ShaderPass(THREE.HueSaturationShader);
 
-              // var transitionable = new Transitionable([0, 0, 8000]);
-              // transitionable.set([0, 0, -200],{duration: 20000, curve: Easing.inOutCubic},function(){
-              //   transitionable.set([0, 0, 8000],{duration: 20000, curve: Easing.inOutCubic});
-              // });
 
               // sync
 
@@ -115,6 +113,9 @@ var s;
 
               //this.camera.position.y = -33;
               //this.camera.position.z = 100;
+              this.camera.position.x = 0;
+              this.camera.position.y = 0;
+              this.camera.position.z = 12;
               this.camera.lookAt(that.scene.position);
 
               //lighting
@@ -141,7 +142,7 @@ var s;
 
               this.geometry.dynamic = true;
               this.geometry.verticesNeedUpdate = true;
-
+              this.mesh.scale.x = this.mesh.scale.y = this.mesh.scale.z = options.scale;
               this.mesh.doubleSided = true;
               //this.mesh.position.x = this.mesh.position.y = this.mesh.position.z = 0;
               //this.mesh.scale.x = this.mesh.scale.y = this.mesh.scale.z = options.scale;
@@ -185,14 +186,12 @@ var s;
               this.render(function(){
                  that.composer.render();
                  that.renderer.render( that.scene, that.camera );
-                 // that.camera.position.x = transitionable.get()[0];
-                 // that.camera.position.y = transitionable.get()[1];
-                 // that.camera.position.z = transitionable.get()[2];
+                 that.camera.position.x = camTrans.get()[0];
+                 that.camera.position.y = camTrans.get()[1];
+                 that.camera.position.z = camTrans.get()[2];
                  //that.mesh.rotation.y = 0;
-                 that.mesh.scale.x = that.mesh.scale.y = that.mesh.scale.z = options.scale;
-                 that.camera.position.x = 0;
-                 that.camera.position.y = 0;
-                 that.camera.position.z = 12;
+
+
                  that.options.texture.needsUpdate = true;
 
                  if(that.texture.inTransition === true){
@@ -412,7 +411,29 @@ var s;
 
                       if(scene){
                         scene.animateTextures(tIndex+1,1500,Easing.inOutQuart);
+                        if(scope.masterIndex===0){
+                          camTrans.set([0, 0, 15],{duration: 2000, curve: Easing.inOutCubic});
+                        }
+                        if(scope.masterIndex===1){
+                          camTrans.set([2, -10, 20],{duration: 2000, curve: Easing.inOutCubic});
+                        }
+                        if(scope.masterIndex===2){
+                          camTrans.set([0, 5, 20],{duration: 2000, curve: Easing.inOutCubic});
+                        }
+                        if(scope.masterIndex===3){
+                          camTrans.set([-5, 8, 20],{duration: 2000, curve: Easing.inOutCubic});
+                        }
+                        if(scope.masterIndex===4){
+                          camTrans.set([0, -5, 10],{duration: 2000, curve: Easing.inOutCubic});
+                        }
+                        if(scope.masterIndex===5){
+                          camTrans.set([7, 0, 15],{duration: 2000, curve: Easing.inOutCubic});
+                        }
+                        if(scope.masterIndex===6){
+                          camTrans.set([0, 10, 20],{duration: 2000, curve: Easing.inOutCubic});
+                        }
                       }
+
 
 
                       scope.p[tIndex].setTranslate([0,0,transform],{duration:800},function(){
@@ -473,9 +494,31 @@ var s;
                     scope.p[tIndex].setTranslate([0,0,3000]);
                     scope.op[tIndex].set(1,{duration: 10});
                     scope.c[tIndex].set(1,{duration: 500});
-                    if(scene){
-                      scene.animateTextures(tIndex+1,1500,Easing.inOutQuart);
-                    }
+
+                   if(scene){
+                        scene.animateTextures(tIndex+1,1500,Easing.inOutQuart);
+                        if(scope.masterIndex===0){
+                          camTrans.set([0, 0, 15],{duration: 2000, curve: Easing.inOutCubic});
+                        }
+                        if(scope.masterIndex===1){
+                          camTrans.set([2, -10, 20],{duration: 2000, curve: Easing.inOutCubic});
+                        }
+                        if(scope.masterIndex===2){
+                          camTrans.set([0, 5, 20],{duration: 2000, curve: Easing.inOutCubic});
+                        }
+                        if(scope.masterIndex===3){
+                          camTrans.set([-5, 8, 20],{duration: 2000, curve: Easing.inOutCubic});
+                        }
+                        if(scope.masterIndex===4){
+                          camTrans.set([0, -5, 10],{duration: 2000, curve: Easing.inOutCubic});
+                        }
+                        if(scope.masterIndex===5){
+                          camTrans.set([7, 0, 15],{duration: 2000, curve: Easing.inOutCubic});
+                        }
+                        if(scope.masterIndex===6){
+                          camTrans.set([0, 10, 20],{duration: 2000, curve: Easing.inOutCubic});
+                        }
+                      }
                     scope.p[tIndex].setTranslate([0,0,transform],{duration:1200},function(){
 
                       scope.p[tIndex].setTranslate([0,0,(transform/2)],{duration:400},function(){
