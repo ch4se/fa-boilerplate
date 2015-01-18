@@ -1,18 +1,19 @@
 
 <fa-modifier fa-size="content.section.size" fa-translate="content.section.position">
   <fa-container-surface class="mh-onboard-controller">
+
   <fa-modifier fa-translate="[0,0,0]" fa-size="content.canvas.size">
     <fa-surface class="background-canvas" fa-size="content.canvas.size"></fa-surface>
   </fa-modifier>
-  <fa-modifier fa-translate="[0,0,-1000]">
-  <fa-modifier fa-origin="[0.5,0.5]" fa-align="[0.0,0.0]"  fa-scale="[20.0,20.0]">
 
-  <fa-surface fa-background-color="'rgba(3,3,4,0.0)'"></fa-surface>
-  </fa-modifier>
+  <fa-modifier fa-translate="[0,0,-1000]">
+    <fa-modifier fa-origin="[0.5,0.5]" fa-align="[0.0,0.0]"  fa-scale="[20.0,20.0]">
+      <fa-surface fa-background-color="'rgba(3,3,4,0.0)'"></fa-surface>
+    </fa-modifier>
   </fa-modifier>
 
   <fa-view ng-repeat="vignette in vignettes track by $index">
-    <fa-draggable fa-pipe-from="d[$index]" fa-options="draggableOptions">
+    <fa-draggable fa-pipe-from="d[$index]" fa-options="draggableOptions" class="draggable">
     <fa-modifier fa-scale="content.section.elements.copy.scale"
         fa-align="content.section.elements.copy.align"
        fa-origin="content.section.elements.copy.origin">
@@ -57,23 +58,7 @@
     </fa-modifier>
     </fa-modifier>
 
-
-    <!-- $background
-    <fa-modifier fa-transform="p[$index].get()"  fa-opacity="op[$index].get()">
-      <fa-modifier ng-repeat="image in vignette.images"
-      fa-translate="image.position"
-      fa-align="image.align"
-      fa-origin="[0.5,0.5]"
-      fa-scale="[0.85,0.85]"
-      fa-opacity="o[$parent.$parent.$index][$index].get()"
-      fa-size="content.section.icons.size">
-        <fa-surface class="ob-bg-surface"><div class="ob-icon {{image.name}}"></div></fa-surface>
-      </fa-modifier>
-    </fa-modifier>-->
   </fa-view>
-
-
-
 
   <fa-modifier
     fa-align="[0.5,0.925]"

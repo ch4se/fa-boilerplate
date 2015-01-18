@@ -493,6 +493,7 @@ var s;
                     yRange: [-240, 120]
                   };
 
+
                   for(var index=0; index<=masterLimit; index++){
                   //setup transitionables for vignette 1
                     scope.o[index] = new Array(64);
@@ -586,7 +587,7 @@ var s;
                     scope.content.section.icons.size = [200,200];
                     //scope.content.section.elements.copy.align =  [0.5,0.3];
                     //scope.content.section.elements.copy.origin =  [0.5,0.5];
-                    scope.content.section.elements.copy.size =  [respond.grid.colSpan[6],true];
+                    scope.content.section.elements.copy.size =  [respond.grid.colSpan[8],true];
                     scope.content.section.elements.copy.scale = [1.0,1.0];
                     //scope.content.section.elements.fore.scale = [0.8,0.8];
                     scope.content.section.elements.back.scale = [0.6,0.6];
@@ -670,6 +671,7 @@ var s;
                       //position = data.position;
                       delta = data.delta;
 
+
                       if(scope.transition === false){
 
                         if(delta[1] < -30){
@@ -685,9 +687,10 @@ var s;
                         else if (delta[1] < 0){
                           //console.log('increase',transform);
                           transform = transform + 1;
+                          //transform = ;
                           scope.transition = true;
 
-                          scope.p[scope.masterIndex].setTranslate([0,0,transform],{duration:10},function(){
+                          scope.p[scope.masterIndex].setTranslate([0,0,(transform/2)],{duration:10},function(){
                             scope.transition = false;
                             scope.zoom = false;
 
@@ -698,7 +701,7 @@ var s;
                           transform = transform - 1;
                           scope.transition = true;
 
-                          scope.p[scope.masterIndex].setTranslate([0,0,transform],{duration:10},function(){
+                          scope.p[scope.masterIndex].setTranslate([0,0,(transform/2)],{duration:10},function(){
                             scope.transition = false;
                             scope.zoom = false;
                           });

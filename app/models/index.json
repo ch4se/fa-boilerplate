@@ -12,7 +12,7 @@
         "phablet"   : [0.5,0.05],
         "tablet"    : [0.5,0.1],
         "small"     : [0.5,0.05],
-        "medium"    : [0.5,0.255],
+        "medium"    : [0.45,0.255],
         "large"     : [0.45,0.255],
         "ultrahd"   : [0.435,0.255]
       },
@@ -174,7 +174,7 @@
     "text": "A front end for the Entertainment Graph."
   },
   "copy":{
-    "text": "I develop and manage the implementation of the Famo.us/Angular <a href=\"https://www.mediahound.com\">web app</a> that serves as the front end for the Entertainment Graph at Mediahound, Inc. Leading the web team, I oversee the development process, maintain code repositories, supervise a team of developers and provide consultation on user experience, testing, design, and REST API implementation at <a href=\"https://www.mediahound.com\" target=\"_blank\">Mediahound, Inc.</a>",
+    "text": "I develop and manage the implementation of the Famous Angular web app that serves as the front end for the Entertainment Graph at <a href=\"https://www.mediahound.com\">Mediahound, Inc</a>. Leading the web team, I oversee the development process, maintain code repositories, supervise a team of developers and provide consultation on user experience, testing, design, and REST API implementation at <a href=\"https://www.mediahound.com\" target=\"_blank\">Mediahound, Inc.</a>",
     "align":{
         "mobile"    : [0.5,0.1],
         "phablet"   : [0.5,0.05],
@@ -201,7 +201,7 @@
         "phablet"   : [0.5,0.5],
         "tablet"    : [0.5,0.55],
         "small"     : [0.5,0.55],
-        "medium"    : [0.6,0.2],
+        "medium"    : [0.6,0.45],
         "large"     : [0.6,0.4],
         "ultrahd"   : [0.36,0.445]
       },
@@ -342,7 +342,7 @@
     "text": ""
   },
   "copy":{
-    "text": "I <a href=\"https://twitter.com/iplayitofflegit\" target=\"_blank\">tweet</a> about my thoughts on technology, web development, and the digital age. <a href=\"http://codepen.io/steveblue\" target=\"_blank\">Follow me on Codepen</a> to experience my latest web visualizations. View my most recent photography on <a href=\"https://500px.com/stevebelovarich\" target=\"_blank\">500px</a>. I post new photos and digital artwork on <a href=\"https://www.tumblr.com/blog/photokinetica\" target=\"_blank\">tumblr</a>. ",
+    "text": "<a href=\"https://twitter.com/iplayitofflegit\" target=\"_blank\">Follow me on Twitter</a> to hear my my thoughts on technology, web development, and the digital age. <a href=\"https://www.linkedin.com/in/steveblue\">View my resume</a> on LinkedIn. <a href=\"http://codepen.io/steveblue\" target=\"_blank\">Follow me on Codepen</a> to see my code snippets and blog posts about development. <a href=\"https://github.com/steveblue\">Fork my open source repos</a> on Github. View my most recent photography on <a href=\"https://500px.com/stevebelovarich\" target=\"_blank\">500px</a>. I post about <a href=\"https://www.tumblr.com/blog/photokinetica\" target=\"_blank\">new photos and digital artwork</a> on Tumblr.",
     "align":{
         "mobile"    : [0.5,0.1],
         "phablet"   : [0.5,0.05],
@@ -363,13 +363,13 @@
       }
   },
   "elements":[
-    {
+      {
       "align":{
         "mobile"    : [0.65,0.65],
         "phablet"   : [0.65,0.65],
         "tablet"    : [0.65,0.65],
         "small"     : [0.65,0.65],
-        "medium"    : [0.35,0.65],
+        "medium"    : [0.35,0.75],
         "large"     : [0.35,0.65],
         "ultrahd"   : [0.35,0.65]
       },
@@ -388,13 +388,13 @@
       "src":"assets/twitter.png",
       "url":"https://twitter.com/iplayitofflegit"
     },
-    {
+      {
       "align":{
         "mobile"    : [0.65,0.55],
         "phablet"   : [0.65,0.55],
         "tablet"    : [0.65,0.55],
         "small"     : [0.65,0.55],
-        "medium"    : [0.25,0.65],
+        "medium"    : [0.25,0.75],
         "large"     : [0.25,0.65],
         "ultrahd"   : [0.25,0.65]
       },
@@ -410,8 +410,8 @@
       "size":[60,60],
       "subheadline":"",
       "caption":"",
-      "src":"assets/facebook.png",
-      "url":"https://www.facebook.com/stephen.belovarich"
+      "src":"assets/linkedin-gray.png",
+      "url":"https://www.linkedin.com/in/steveblue"
     },
     {
       "align":{
@@ -419,7 +419,7 @@
         "phablet"   : [0.65,0.75],
         "tablet"    : [0.65,0.75],
         "small"     : [0.65,0.75],
-        "medium"    : [0.45,0.65],
+        "medium"    : [0.45,0.75],
         "large"     : [0.45,0.65],
         "ultrahd"   : [0.45,0.65]
       },
@@ -435,7 +435,7 @@
       "size":[60,60],
       "subheadline":"",
       "caption":"",
-      "src":"assets/github.png",
+      "src":"assets/github-logo.png",
       "url":"https://github.com/steveblue"
     },
     {
@@ -444,7 +444,7 @@
         "phablet"   : [0.35,0.55],
         "tablet"    : [0.35,0.55],
         "small"     : [0.35,0.55],
-        "medium"    : [0.55,0.65],
+        "medium"    : [0.55,0.75],
         "large"     : [0.55,0.65],
         "ultrahd"   : [0.55,0.65]
       },
@@ -469,7 +469,7 @@
         "phablet"   : [0.35,0.65],
         "tablet"    : [0.35,0.65],
         "small"     : [0.35,0.65],
-        "medium"    : [0.65,0.65],
+        "medium"    : [0.65,0.75],
         "large"     : [0.65,0.65],
         "ultrahd"   : [0.65,0.65]
       },
@@ -485,7 +485,7 @@
       "size":[60,60],
       "subheadline":"",
       "caption":"",
-      "src":"assets/500px.png",
+      "src":"assets/500px-icon.png",
       "url":"https://500px.com/stevebelovarich"
     },
     {
@@ -494,7 +494,7 @@
         "phablet"   : [0.35,0.75],
         "tablet"    : [0.35,0.75],
         "small"     : [0.35,0.75],
-        "medium"    : [0.75,0.65],
+        "medium"    : [0.75,0.75],
         "large"     : [0.75,0.65],
         "ultrahd"   : [0.75,0.65]
       },

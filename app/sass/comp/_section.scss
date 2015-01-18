@@ -49,12 +49,54 @@ body{
   }
 
 }
+.vignette-0{
+  .element-0{
+      width:180px;
+      display:block;
+      @include border-top-radius(90px);
+      @include border-right-radius(90px);
+      @include border-bottom-radius(90px);
+      @include border-left-radius(90px);
+  }
+  .mobile-element{
+      width:180px;
+      height:180px;
+    a{
+      width:100%;
+      float:left;
+      position:relative;
+
+    }
+    img{
+      width:180px;
+
+    }
+  }
+}
+.vignette-3{
+  .mobile-element{
+    a{
+      width:100%;
+      float:left;
+      position:relative;
+    }
+    img{
+      width:100%;
+
+    }
+  }
+}
 .vignette-6{
   .mobile-element{
-    a,img{
+    a{
       width:33%;
       float:left;
       position:relative;
+    }
+    img{
+      width:50%;
+      position:relative;
+      left:12%;
     }
   }
 }
