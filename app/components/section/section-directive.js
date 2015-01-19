@@ -13,6 +13,109 @@ var s;
 
     ){
 
+
+
+      Scene.prototype.drawTexture = function(img, opacity) {
+          this.texture.c.save();
+          this.texture.c.globalAlpha = opacity;
+          this.texture.c.drawImage(img, 0, 0, this.texture.canvas.width, this.texture.canvas.height);
+          this.texture.c.restore();
+      };
+
+      Scene.prototype.animateTextures = function(index, duration, curve){
+          var that = this;
+          var Transitionable = famous.transitions.Transitionable;
+          var Easing = famous.transitions.Easing;
+
+          that.texture.in = index;
+          that.texture.fadeIn = new Transitionable(0);
+          that.texture.fadeOut = new Transitionable(1);
+
+          if(duration===undefined){
+            duration = 1000;
+          }
+
+          if(curve===undefined){
+            curve = Easing.inOutCubic;
+          }
+
+          that.texture.fadeIn.set(1,{duration: duration, curve: curve},function(){
+            that.texture.inTransition = false;
+            that.texture.out = index;
+          });
+          that.texture.fadeOut.set(0,{duration: duration, curve: curve},function(){
+            that.texture.inTransition = false;
+          });
+
+          that.texture.inTransition = true;
+      };
+
+
+      Scene.prototype.initTextures = function(src){
+
+        var that = this;
+        var Easing = famous.transitions.Easing;
+
+        this.texture = {};
+        this.texture.images = [];
+
+        this.texture.out = 0;
+        this.texture.in = 1;
+        this.texture.currentFade = 0;
+
+
+        if(document.getElementById('texture-canvas')){
+          document.body.removeChild(that.texture.canvas);
+          document.body.removeChild(that.texture.img);
+        }
+
+        this.texture.canvas = document.createElement('canvas');
+        this.texture.canvas.id = "texture-canvas";
+        this.texture.canvas.setAttribute("width",window.innerWidth);
+        this.texture.canvas.setAttribute("height",window.innerHeight);
+        this.texture.canvas.style.display = "none";
+        //this.texture.canvas.style.left="10000px";
+        window.addEventListener("orientationchange", function() {
+              that.texture.canvas.setAttribute("width",window.innerWidth);
+              that.texture.canvas.setAttribute("height",window.innerHeight);
+              //this.texture.canvas.style.left="10000px";
+        });
+        //console.log(this.texture.canvas);
+        document.body.appendChild(this.texture.canvas);
+
+        this.texture.img = document.createElement('img');
+        this.texture.img.id = "texture-image";
+        document.body.appendChild(that.texture.img);
+
+        this.texture.img.crossOrigin = 'anonymous';
+        this.texture.c = that.texture.canvas.getContext('2d');
+
+        var initTexture = function(img,action){
+
+            img.onload = function(){
+              that.animateTextures(that.texture[action],5000,Easing.inOutQuart);
+            };
+        };
+
+        for (var i = 0; i < that.options.texture.length; i++) {
+          var img = new Image();
+          img.crossOrigin = "anonymous";
+          img.src = that.options.texture[i];
+          that.texture.images.push(img);
+          if(i === that.texture.in ){
+            initTexture(img,"in");
+          }
+          if(i === that.texture.out ){
+            initTexture(img,"out");
+          }
+
+        }
+
+        return that.texture.canvas;
+
+      };
+
+
       var SectionDirective = function( States, $famous, $http ){
             // Returns Directive Creation Object
             var Engine              = $famous['famous/core/Engine'],
@@ -27,13 +130,13 @@ var s;
             TouchSync               = $famous["famous/inputs/TouchSync"],
             ScrollSync              = ["famous/inputs/ScrollSync"];
 
+
             var delta = [0,0];
             var fDelta = [0,0];
             var transform = 100;
             var fTransform = 0;
             var masterLimit = 6;
             var vignetteHeight = window.innerHeight * 2;
-
             var camTrans = new Transitionable([0, 0, 20]);
 
             var DynamicTexture = function() {
@@ -201,6 +304,7 @@ var s;
                  //console.log(that.material.uniforms.originY.value);
               });
 
+
             };
 
             var scene;
@@ -252,6 +356,10 @@ var s;
 
                     window.scene = scene;
                     Scene.prototype.init = DynamicTexture;
+
+                    var tex = scene.initTextures(scene.options.texture[0]);
+                    scene.options.texture = new THREE.Texture(tex);
+
                     inT(scope.masterIndex);
 
                     setTimeout(function(){
@@ -430,7 +538,7 @@ var s;
                           camTrans.set([7, 0, 15],{duration: 2000, curve: Easing.inOutCubic});
                         }
                         if(scope.masterIndex===6){
-                          camTrans.set([0, 10, 20],{duration: 2000, curve: Easing.inOutCubic});
+                          camTrans.set([0, -5, 20],{duration: 2000, curve: Easing.inOutCubic});
                         }
                       }
 
@@ -516,7 +624,7 @@ var s;
                           camTrans.set([7, 0, 15],{duration: 2000, curve: Easing.inOutCubic});
                         }
                         if(scope.masterIndex===6){
-                          camTrans.set([0, 10, 20],{duration: 2000, curve: Easing.inOutCubic});
+                          camTrans.set([0, -5, 20],{duration: 2000, curve: Easing.inOutCubic});
                         }
                       }
                     scope.p[tIndex].setTranslate([0,0,transform],{duration:1200},function(){
