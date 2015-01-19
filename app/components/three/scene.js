@@ -1,6 +1,4 @@
 /* global famous, THREE */
-var Transitionable = famous.transitions.Transitionable;
-var Easing = famous.transitions.Easing;
 var Scene = function(options,container,dynamic) {
 
   var that = this;

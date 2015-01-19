@@ -507,6 +507,31 @@ var s;
 
 
                   var offset = 0;
+
+                  var transportCamera = function(){
+                    if(scope.masterIndex===0){
+                      camTrans.set([0, 0, 15],{duration: 2000, curve: Easing.inOutCubic});
+                    }
+                    if(scope.masterIndex===1){
+                      camTrans.set([2, -10, 20],{duration: 2000, curve: Easing.inOutCubic});
+                    }
+                    if(scope.masterIndex===2){
+                      camTrans.set([0, 5, 20],{duration: 2000, curve: Easing.inOutCubic});
+                    }
+                    if(scope.masterIndex===3){
+                      camTrans.set([-5, 8, 20],{duration: 2000, curve: Easing.inOutCubic});
+                    }
+                    if(scope.masterIndex===4){
+                      camTrans.set([-5, -5, 10],{duration: 2000, curve: Easing.inOutCubic});
+                    }
+                    if(scope.masterIndex===5){
+                      camTrans.set([7, 0, 15],{duration: 2000, curve: Easing.inOutCubic});
+                    }
+                    if(scope.masterIndex===6){
+                      camTrans.set([0, -5, 20],{duration: 2000, curve: Easing.inOutCubic});
+                    }
+                  };
+
                   var inT = function(tIndex,v){
 
                       scope.content.section.scrollButton.display = 0;
@@ -519,30 +544,8 @@ var s;
 
                       if(scene){
                         scene.animateTextures(tIndex+1,1500,Easing.inOutQuart);
-                        if(scope.masterIndex===0){
-                          camTrans.set([0, 0, 15],{duration: 2000, curve: Easing.inOutCubic});
-                        }
-                        if(scope.masterIndex===1){
-                          camTrans.set([2, -10, 20],{duration: 2000, curve: Easing.inOutCubic});
-                        }
-                        if(scope.masterIndex===2){
-                          camTrans.set([0, 5, 20],{duration: 2000, curve: Easing.inOutCubic});
-                        }
-                        if(scope.masterIndex===3){
-                          camTrans.set([-5, 8, 20],{duration: 2000, curve: Easing.inOutCubic});
-                        }
-                        if(scope.masterIndex===4){
-                          camTrans.set([0, -5, 10],{duration: 2000, curve: Easing.inOutCubic});
-                        }
-                        if(scope.masterIndex===5){
-                          camTrans.set([7, 0, 15],{duration: 2000, curve: Easing.inOutCubic});
-                        }
-                        if(scope.masterIndex===6){
-                          camTrans.set([0, -5, 20],{duration: 2000, curve: Easing.inOutCubic});
-                        }
+                        transportCamera();
                       }
-
-
 
                       scope.p[tIndex].setTranslate([0,0,transform],{duration:800},function(){
                         scope.p[tIndex].setTranslate([0,0,(transform/2)],{duration:400},function(){
@@ -603,30 +606,10 @@ var s;
                     scope.op[tIndex].set(1,{duration: 10});
                     scope.c[tIndex].set(1,{duration: 500});
 
-                   if(scene){
-                        scene.animateTextures(tIndex+1,1500,Easing.inOutQuart);
-                        if(scope.masterIndex===0){
-                          camTrans.set([0, 0, 15],{duration: 2000, curve: Easing.inOutCubic});
-                        }
-                        if(scope.masterIndex===1){
-                          camTrans.set([2, -10, 20],{duration: 2000, curve: Easing.inOutCubic});
-                        }
-                        if(scope.masterIndex===2){
-                          camTrans.set([0, 5, 20],{duration: 2000, curve: Easing.inOutCubic});
-                        }
-                        if(scope.masterIndex===3){
-                          camTrans.set([-5, 8, 20],{duration: 2000, curve: Easing.inOutCubic});
-                        }
-                        if(scope.masterIndex===4){
-                          camTrans.set([0, -5, 10],{duration: 2000, curve: Easing.inOutCubic});
-                        }
-                        if(scope.masterIndex===5){
-                          camTrans.set([7, 0, 15],{duration: 2000, curve: Easing.inOutCubic});
-                        }
-                        if(scope.masterIndex===6){
-                          camTrans.set([0, -5, 20],{duration: 2000, curve: Easing.inOutCubic});
-                        }
-                      }
+                    if(scene){
+                      scene.animateTextures(tIndex+1,1500,Easing.inOutQuart);
+                      transportCamera();
+                    }
                     scope.p[tIndex].setTranslate([0,0,transform],{duration:1200},function(){
 
                       scope.p[tIndex].setTranslate([0,0,(transform/2)],{duration:400},function(){
