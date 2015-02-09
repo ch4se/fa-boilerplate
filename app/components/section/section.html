@@ -2,7 +2,7 @@
 <fa-modifier fa-size="content.section.size" fa-translate="content.section.position">
   <fa-container-surface class="mh-onboard-controller">
 
-  <fa-modifier fa-translate="[0,0,0]" fa-size="content.canvas.size">
+  <fa-modifier fa-translate="[0,0,0]" fa-size="content.canvas.size" fa-opacity="canvasOpacity">
     <fa-surface class="background-canvas" fa-size="content.canvas.size"></fa-surface>
   </fa-modifier>
 
@@ -13,7 +13,7 @@
   </fa-modifier>
 
   <fa-view ng-repeat="vignette in vignettes track by $index">
-    <fa-draggable fa-pipe-from="d[$index]" fa-options="draggableOptions" class="draggable">
+    <fa-draggable fa-pipe-from="d[$index]"  class="draggable">
     <fa-modifier fa-scale="content.section.elements.copy.scale"
         fa-align="content.section.elements.copy.align"
        fa-origin="content.section.elements.copy.origin">

@@ -23,6 +23,7 @@
     "angular-sanitize": "=1.2.22",
     "synth": "steveblue/synth",
     "threejs": "*",
-    "observe-js": "~0.5.2"
+    "observe-js": "~0.5.2",
+    "500px-js-sdk":"https://github.com/500px/500px-js-sdk.git"
   }
 }

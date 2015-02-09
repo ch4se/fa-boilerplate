@@ -1,5 +1,97 @@
-/* global respond, THREE, RuttEtraShader, famous, Scene */
+/* global respond, THREE, RuttEtraShader, famous, Scene,  $rootScope, $state */
 var s;
+Scene.prototype.drawTexture = function(img, opacity) {
+    this.texture.c.save();
+    this.texture.c.globalAlpha = opacity;
+    this.texture.c.drawImage(img, 0, 0, this.texture.canvas.width, this.texture.canvas.height);
+    this.texture.c.restore();
+};
+
+Scene.prototype.animateTextures = function(index, duration, curve){
+    var that = this;
+    var Transitionable = famous.transitions.Transitionable;
+    var Easing = famous.transitions.Easing;
+
+    that.texture.in = index;
+    that.texture.fadeIn = new Transitionable(0);
+    that.texture.fadeOut = new Transitionable(1);
+
+    if(duration===undefined){
+      duration = 1000;
+    }
+
+    if(curve===undefined){
+      curve = Easing.inOutCubic;
+    }
+
+    that.texture.fadeIn.set(1,{duration: duration, curve: curve},function(){
+      that.texture.inTransition = false;
+      that.texture.out = index;
+    });
+    that.texture.fadeOut.set(0,{duration: duration, curve: curve},function(){
+      that.texture.inTransition = false;
+    });
+
+    that.texture.inTransition = true;
+};
+
+
+Scene.prototype.initTextures = function(src){
+
+  var that = this;
+  var Easing = famous.transitions.Easing;
+
+  this.texture = {};
+  this.texture.images = [];
+
+  this.texture.out = 0;
+  this.texture.in = 1;
+  this.texture.currentFade = 0;
+
+  // if(document.getElementById('texture-canvas')){
+  //   document.body.removeChild(that.texture.canvas);
+  //   document.body.removeChild(that.texture.img);
+  // }
+
+  this.texture.canvas = document.createElement('canvas');
+  this.texture.canvas.id = "texture-canvas";
+  this.texture.canvas.setAttribute("width",window.innerWidth);
+  this.texture.canvas.setAttribute("height",window.innerHeight);
+  this.texture.canvas.style.display = "none";
+  //this.texture.canvas.style.left="10000px";
+  window.addEventListener("orientationchange", function() {
+        that.texture.canvas.setAttribute("width",window.innerWidth);
+        that.texture.canvas.setAttribute("height",window.innerHeight);
+        //this.texture.canvas.style.left="10000px";
+  });
+  //console.log(this.texture.canvas);
+  document.body.appendChild(this.texture.canvas);
+
+  this.texture.img = document.createElement('img');
+  this.texture.img.id = "texture-image";
+  document.body.appendChild(that.texture.img);
+
+  this.texture.img.crossOrigin = 'anonymous';
+  this.texture.c = that.texture.canvas.getContext('2d');
+
+
+  for (var i = 0; i < that.options.texture.length; i++) {
+    var img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = that.options.texture[i];
+    that.texture.images.push(img);
+    // if(i === that.texture.in ){
+    //   initTexture(img,"in");
+    // }
+    // if(i === that.texture.out ){
+    //   initTexture(img,"out");
+    // }
+
+  }
+
+  return that.texture.canvas;
+
+};
 
 (function( define ) {
   "use strict";
@@ -13,110 +105,7 @@ var s;
 
     ){
 
-
-
-      Scene.prototype.drawTexture = function(img, opacity) {
-          this.texture.c.save();
-          this.texture.c.globalAlpha = opacity;
-          this.texture.c.drawImage(img, 0, 0, this.texture.canvas.width, this.texture.canvas.height);
-          this.texture.c.restore();
-      };
-
-      Scene.prototype.animateTextures = function(index, duration, curve){
-          var that = this;
-          var Transitionable = famous.transitions.Transitionable;
-          var Easing = famous.transitions.Easing;
-
-          that.texture.in = index;
-          that.texture.fadeIn = new Transitionable(0);
-          that.texture.fadeOut = new Transitionable(1);
-
-          if(duration===undefined){
-            duration = 1000;
-          }
-
-          if(curve===undefined){
-            curve = Easing.inOutCubic;
-          }
-
-          that.texture.fadeIn.set(1,{duration: duration, curve: curve},function(){
-            that.texture.inTransition = false;
-            that.texture.out = index;
-          });
-          that.texture.fadeOut.set(0,{duration: duration, curve: curve},function(){
-            that.texture.inTransition = false;
-          });
-
-          that.texture.inTransition = true;
-      };
-
-
-      Scene.prototype.initTextures = function(src){
-
-        var that = this;
-        var Easing = famous.transitions.Easing;
-
-        this.texture = {};
-        this.texture.images = [];
-
-        this.texture.out = 0;
-        this.texture.in = 1;
-        this.texture.currentFade = 0;
-
-
-        if(document.getElementById('texture-canvas')){
-          document.body.removeChild(that.texture.canvas);
-          document.body.removeChild(that.texture.img);
-        }
-
-        this.texture.canvas = document.createElement('canvas');
-        this.texture.canvas.id = "texture-canvas";
-        this.texture.canvas.setAttribute("width",window.innerWidth);
-        this.texture.canvas.setAttribute("height",window.innerHeight);
-        this.texture.canvas.style.display = "none";
-        //this.texture.canvas.style.left="10000px";
-        window.addEventListener("orientationchange", function() {
-              that.texture.canvas.setAttribute("width",window.innerWidth);
-              that.texture.canvas.setAttribute("height",window.innerHeight);
-              //this.texture.canvas.style.left="10000px";
-        });
-        //console.log(this.texture.canvas);
-        document.body.appendChild(this.texture.canvas);
-
-        this.texture.img = document.createElement('img');
-        this.texture.img.id = "texture-image";
-        document.body.appendChild(that.texture.img);
-
-        this.texture.img.crossOrigin = 'anonymous';
-        this.texture.c = that.texture.canvas.getContext('2d');
-
-        var initTexture = function(img,action){
-
-            img.onload = function(){
-              that.animateTextures(that.texture[action],5000,Easing.inOutQuart);
-            };
-        };
-
-        for (var i = 0; i < that.options.texture.length; i++) {
-          var img = new Image();
-          img.crossOrigin = "anonymous";
-          img.src = that.options.texture[i];
-          that.texture.images.push(img);
-          if(i === that.texture.in ){
-            initTexture(img,"in");
-          }
-          if(i === that.texture.out ){
-            initTexture(img,"out");
-          }
-
-        }
-
-        return that.texture.canvas;
-
-      };
-
-
-      var SectionDirective = function( States, $famous, $http ){
+      var SectionDirective = function( States, $famous, $rootScope, $state , $http ){
             // Returns Directive Creation Object
             var Engine              = $famous['famous/core/Engine'],
             EventHandler            = $famous['famous/core/EventHandler'],
@@ -128,8 +117,7 @@ var s;
             GenericSync             = $famous["famous/inputs/GenericSync"],
             MouseSync               = $famous["famous/inputs/MouseSync"],
             TouchSync               = $famous["famous/inputs/TouchSync"],
-            ScrollSync              = ["famous/inputs/ScrollSync"];
-
+            ScrollSync              = $famous["famous/inputs/ScrollSync"];
 
             var delta = [0,0];
             var fDelta = [0,0];
@@ -292,8 +280,328 @@ var s;
                  that.camera.position.x = camTrans.get()[0];
                  that.camera.position.y = camTrans.get()[1];
                  that.camera.position.z = camTrans.get()[2];
-                 //that.mesh.rotation.y = 0;
 
+                 that.options.texture.needsUpdate = true;
+
+                 if(that.texture.inTransition === true){
+                   that.drawTexture(that.texture.images[that.texture.in], that.texture.fadeIn.get());
+                   that.drawTexture(that.texture.images[that.texture.out], that.texture.fadeOut.get());
+                 }
+                 //console.log(that.material.uniforms.originY.value);
+              });
+
+
+            };
+
+            var BackgroundTexture = function() {
+
+              var that = this;
+              var options = this.options;
+
+              options.texture.minFilter = THREE.LinearFilter;
+              options.texture.magFilter = THREE.LinearFilter;
+              options.texture.format = THREE.RGBFormat;
+              options.texture.generateMipmaps = true;
+
+              this.canvas = $famous.find('.background-canvas')[0].renderNode;
+              this.scene = new THREE.Scene();
+              this.renderer = new THREE.WebGLRenderer({antialias:true});
+              this.camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 100000 );
+              this.geometry = options.geometry || new THREE.PlaneBufferGeometry(120,120,120,120);
+              this.material = new THREE.ShaderMaterial({
+                uniforms: {
+                  "tDiffuse": {
+                    type: "t",
+                    value: options.texture
+                  },
+                  "multiplier": {
+                    type: "f",
+                    value: options.multiplier
+                  },
+                  "displace": {
+                    type: "f",
+                    value: options.displace
+                  },
+                  "opacity": {
+                    type: "f",
+                    value: options.opacity
+                  },
+                  "originX": {
+                    type: "f",
+                    value: options.origin[0]
+                  },
+                  "originY": {
+                    type: "f",
+                    value: options.origin[1]
+                  },
+                  "originZ": {
+                    type: "f",
+                    value: options.origin[2]
+                  }
+                },
+                vertexShader: THREE.RuttEtraShader.vertexShader,
+                fragmentShader: THREE.RuttEtraShader.fragmentShader,
+                depthWrite: true,
+                depthTest: true,
+                wireframe: options.wireframe,
+                transparent: false,
+                overdraw: false
+              });
+              this.mesh = new THREE.Mesh(that.geometry,that.material);
+              this.fill = new THREE.PointLight(0xffffff);
+              this.key = new THREE.AmbientLight(0xffffff);
+              this.back = new THREE.SpotLight(0xffffff);
+              this.composer = new THREE.EffectComposer(that.renderer);
+              this.renderModel = new THREE.RenderPass(that.scene, that.camera);
+              this.effectHue = new THREE.ShaderPass(THREE.HueSaturationShader);
+
+
+              //camera
+
+              //this.camera.position.y = -33;
+              //this.camera.position.z = 100;
+              this.camera.position.x = 0;
+              this.camera.position.y = 0;
+              this.camera.position.z = 12;
+              this.camera.lookAt(that.scene.position);
+
+              //lighting
+
+              this.fill.position.set(0, 0, 0).normalize();
+              this.scene.add(that.fill);
+
+              this.key.position.set(0, -50, 50).normalize();
+              this.key.target = that.mesh;
+
+              this.key.intensity = 5000;
+              this.key.castShadow = true;
+              this.scene.add(that.key);
+
+              this.back.position.set(0, 0, -5000).normalize();
+              this.back.target = that.mesh;
+
+              this.back.intensity = 5000;
+              this.back.castShadow = true;
+              this.scene.add(that.back);
+
+
+              // geometry
+
+              this.geometry.dynamic = true;
+              this.geometry.verticesNeedUpdate = true;
+              this.mesh.scale.x = this.mesh.scale.y = this.mesh.scale.z = options.scale;
+              this.mesh.doubleSided = true;
+              //this.mesh.position.x = this.mesh.position.y = this.mesh.position.z = 0;
+              //this.mesh.scale.x = this.mesh.scale.y = this.mesh.scale.z = options.scale;
+
+              this.material.renderToScreen = true;
+              //this.material.uniforms.originZ.value = options.origin[2];
+
+              this.scene.add(that.mesh);
+
+              // events
+
+              this.sync.on("start", function(data) {
+                 that.material.uniforms.originX.value = data.position[0] * 0.5;
+                 that.material.uniforms.originY.value = data.position[1] * -0.5;
+              });
+
+              this.sync.on("update", function(data) {
+                 that.material.uniforms.originX.value = data.position[0] * 0.5;
+                 that.material.uniforms.originY.value = data.position[1] * -0.5;
+              });
+
+              this.sync.on("end", function(data) {
+                 that.material.uniforms.originX.value = data.position[0] * 0.5;
+                 that.material.uniforms.originY.value = data.position[1] * -0.5;
+              });
+
+              // postprocessing
+
+              this.composer.addPass(that.renderModel);
+              //effectBloom.renderToScreen = true;
+              //composer.addPass(effectBloom);
+              this.effectHue.renderToScreen = true;
+              this.effectHue.uniforms.hue.value = options.hue;
+              this.effectHue.uniforms.saturation.value = options.saturation;
+              this.composer.addPass(that.effectHue);
+
+              this.renderer.autoClear = false;
+              this.renderer.setSize( window.innerWidth, window.innerHeight );
+              this.canvas._currentTarget.childNodes[0].appendChild( that.renderer.domElement );
+
+              this.render(function(){
+                 that.composer.render();
+                 that.renderer.render( that.scene, that.camera );
+                 that.camera.position.x = camTrans.get()[0];
+                 that.camera.position.y = camTrans.get()[1];
+                 that.camera.position.z = camTrans.get()[2];
+
+                 that.options.texture.needsUpdate = true;
+
+                 if(that.texture.inTransition === true){
+                   that.drawTexture(that.texture.images[that.texture.in], that.texture.fadeIn.get());
+                   that.drawTexture(that.texture.images[that.texture.out], that.texture.fadeOut.get());
+                 }
+                 //console.log(that.material.uniforms.originY.value);
+              });
+
+
+            };
+
+            var SelfObsessionTexture = function() {
+
+              var that = this;
+              var options = this.options;
+
+              options.texture.minFilter = THREE.LinearFilter;
+              options.texture.magFilter = THREE.LinearFilter;
+              options.texture.format = THREE.RGBFormat;
+              options.texture.generateMipmaps = true;
+
+              this.canvas = $famous.find('.background-canvas')[0].renderNode;
+              this.scene = new THREE.Scene();
+              this.renderer = new THREE.WebGLRenderer({antialias:true});
+              this.camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 100000 );
+              this.geometry = options.geometry || new THREE.PlaneBufferGeometry(120,120,120,120);
+              this.material = new THREE.ShaderMaterial({
+                uniforms: {
+                  "tDiffuse": {
+                    type: "t",
+                    value: options.texture
+                  },
+                  "multiplier": {
+                    type: "f",
+                    value: options.multiplier
+                  },
+                  "displace": {
+                    type: "f",
+                    value: options.displace
+                  },
+                  "opacity": {
+                    type: "f",
+                    value: options.opacity
+                  },
+                  "originX": {
+                    type: "f",
+                    value: options.origin[0]
+                  },
+                  "originY": {
+                    type: "f",
+                    value: options.origin[1]
+                  },
+                  "originZ": {
+                    type: "f",
+                    value: options.origin[2]
+                  }
+                },
+                vertexShader: THREE.RuttEtraShader.vertexShader,
+                fragmentShader: THREE.RuttEtraShader.fragmentShader,
+                depthWrite: true,
+                depthTest: true,
+                wireframe: options.wireframe,
+                transparent: false,
+                overdraw: false
+              });
+              this.mesh = new THREE.Mesh(that.geometry,that.material);
+              this.fill = new THREE.PointLight(0xffffff);
+              this.key = new THREE.AmbientLight(0xffffff);
+              this.back = new THREE.SpotLight(0xffffff);
+              this.composer = new THREE.EffectComposer(that.renderer);
+              this.renderModel = new THREE.RenderPass(that.scene, that.camera);
+              this.effectHue = new THREE.ShaderPass(THREE.HueSaturationShader);
+
+
+              // sync
+
+              GenericSync.register({
+                  mouse : MouseSync,
+                  touch : TouchSync
+              });
+
+              this.sync = new GenericSync(['mouse', 'touch']);
+              Engine.pipe(that.sync);
+
+              //camera
+
+              //this.camera.position.y = -33;
+              //this.camera.position.z = 100;
+              this.camera.position.x = 0;
+              this.camera.position.y = 0;
+              this.camera.position.z = 12;
+              this.camera.lookAt(that.scene.position);
+
+              //lighting
+
+              this.fill.position.set(0, 0, 0).normalize();
+              this.scene.add(that.fill);
+
+              this.key.position.set(0, -50, 50).normalize();
+              this.key.target = that.mesh;
+
+              this.key.intensity = 5000;
+              this.key.castShadow = true;
+              this.scene.add(that.key);
+
+              this.back.position.set(0, 0, -5000).normalize();
+              this.back.target = that.mesh;
+
+              this.back.intensity = 5000;
+              this.back.castShadow = true;
+              this.scene.add(that.back);
+
+
+              // geometry
+
+              this.geometry.dynamic = true;
+              this.geometry.verticesNeedUpdate = true;
+              this.mesh.scale.x = this.mesh.scale.y = this.mesh.scale.z = options.scale;
+              this.mesh.doubleSided = true;
+              //this.mesh.position.x = this.mesh.position.y = this.mesh.position.z = 0;
+              //this.mesh.scale.x = this.mesh.scale.y = this.mesh.scale.z = options.scale;
+
+              this.material.renderToScreen = true;
+              //this.material.uniforms.originZ.value = options.origin[2];
+
+              this.scene.add(that.mesh);
+
+              // events
+
+              this.sync.on("start", function(data) {
+                 that.material.uniforms.originX.value = data.position[0] * 0.5;
+                 that.material.uniforms.originY.value = data.position[1] * -0.5;
+              });
+
+              this.sync.on("update", function(data) {
+                 that.material.uniforms.originX.value = data.position[0] * 0.5;
+                 that.material.uniforms.originY.value = data.position[1] * -0.5;
+              });
+
+              this.sync.on("end", function(data) {
+                 that.material.uniforms.originX.value = data.position[0] * 0.5;
+                 that.material.uniforms.originY.value = data.position[1] * -0.5;
+              });
+
+              // postprocessing
+
+              this.composer.addPass(that.renderModel);
+              //effectBloom.renderToScreen = true;
+              //composer.addPass(effectBloom);
+              this.effectHue.renderToScreen = true;
+              this.effectHue.uniforms.hue.value = options.hue;
+              this.effectHue.uniforms.saturation.value = options.saturation;
+              this.composer.addPass(that.effectHue);
+
+              this.renderer.autoClear = false;
+              this.renderer.setSize( window.innerWidth, window.innerHeight );
+              this.canvas._currentTarget.childNodes[0].appendChild( that.renderer.domElement );
+
+              this.render(function(){
+                 that.composer.render();
+                 that.renderer.render( that.scene, that.camera );
+                 that.camera.position.x = camTrans.get()[0];
+                 that.camera.position.y = camTrans.get()[1];
+                 that.camera.position.z = camTrans.get()[2];
 
                  that.options.texture.needsUpdate = true;
 
@@ -330,7 +638,7 @@ var s;
                   var group = $famous.find('.mh-onboard-controller')[0].renderNode._container;
                   group.classList.add('depth');
 
-                  var initCanvas = function(){
+                  var initCanvas = function(textures){
                     /* begin scene */
                     scene = new Scene({
                         scale : 1.0,
@@ -344,18 +652,15 @@ var s;
                         wireframe : true,
                         geometry: new THREE.PlaneGeometry(64,64,64,64),
                         //texture : THREE.ImageUtils.loadTexture('assets/the-sky-is-burning.jpg')
-                        texture : ['assets/black-slate.jpg',
-                                   'assets/the-wonders-of-the-natural-world.jpg',
-                                   'assets/crashing-1992-light-by-steve-belovarich.jpg',
-                                   'assets/into-the-void-by-steve-belovarich.jpg',
-                                   'assets/what-dreams-are-made-of-by-steve-belovarich.jpg',
-                                   'assets/Where-The-Subconscious-Meets-Conscious-Thought-by-Steve-Belovarich.jpg',
-                                   'assets/playing-with-fire-by-steve-belovarich.jpg',
-                                   'assets/flair-by-steve-belovarich.jpg']
+                        texture : textures
                     },$famous.find('.background-canvas')[0].renderNode, true);
 
                     window.scene = scene;
-                    Scene.prototype.init = DynamicTexture;
+
+
+                      Scene.prototype.init = DynamicTexture;
+
+
 
                     var tex = scene.initTextures(scene.options.texture[0]);
                     scene.options.texture = new THREE.Texture(tex);
@@ -368,10 +673,23 @@ var s;
 
                   };
 
+
                   var canvas = $famous.find('.background-canvas')[0].renderNode;
                   canvas.on('deploy',function(){
+                    console.log(iAttrs);
 
-                    initCanvas();
+
+                    var textures = [];
+
+                    if(iAttrs.canvas !== 'false'){
+                      scope.canvasOpacity = 1.0;
+                      initCanvas(scope.textures);
+                    }
+                    else{
+                      scope.canvasOpacity = 0.8;
+                      initCanvas(scope.textures);
+                    }
+
 
                   });
 
@@ -809,7 +1127,7 @@ var s;
                       if(scope.transition === false){
 
                         if(delta[1] < -30){
-                          if(scope.masterIndex < masterLimit){
+                          if(scope.masterIndex < masterLimit - 1){
                            scope.nextVignette();
                           }
                         }
@@ -877,6 +1195,8 @@ var s;
 
                   });
 
+
+
                   scope.removeElements = function(){
                     if(respond.state !== 'tablet' && respond.state !== 'phablet' &&  respond.state !== 'mobile'){
                       return true;
@@ -886,8 +1206,29 @@ var s;
                   };
 
 
+                  controller.$render = function(){
+
+                      masterLimit = scope.vignettes.length;
+
+                  };
 
 
+                  $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
+
+                    //lastState = from.name.split('.');
+                    //currentState = to.name.split('.');
+
+                    console.log(from.url,to.url);
+                    if(from.url === '/login' && to.url === '/feed'){
+                      scope.transition = false;
+                    }
+                    else{
+                      scope.transition = true;
+                      scope.navTransitionOpacity = 0;
+                      camTrans.set([0, 0, 1000],{duration: 2000, curve: Easing.inOutCubic});
+                    }
+
+                  });
 
 
                 },
@@ -897,7 +1238,7 @@ var s;
 
 
       // If Using Angular Dep Injection
-      return [ "States", "$famous", "$http", SectionDirective ];
+      return [ "States", "$famous", "$rootScope", "$state", "$http", SectionDirective ];
     } // end require function
   ); // end define call
 

@@ -1,4 +1,4 @@
-/*global head, res, System, THREE, famous*/
+/*global head, res, System, THREE, famous, _500px*/
 var respond;
 (function( window, head ) {
   "use strict";
@@ -14,6 +14,7 @@ var respond;
 
   head
     .load(
+      'lib/500px.js',
       'lib/famous-global.js',
       'lib/three.js',
       'components/three/scene.js',
@@ -52,7 +53,9 @@ var respond;
         shim:{
           'routes' : {
             init:function(){
-
+              _500px.init({
+                sdk_key: '66cc3cfa7850aa63b595fafb5db74365a44bbf98'
+              });
             }
           }
         }

@@ -7,7 +7,7 @@
     function (
      SceneDirective
     ){
-      var moduleName = "NewApp.Scene";
+      var moduleName = "Portfolio.Scene";
 
       angular.module( moduleName, [] )
         .directive( "scene", SceneDirective );

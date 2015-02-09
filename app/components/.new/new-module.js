@@ -9,7 +9,7 @@
       NewController,
       NewDirective
     ){
-      var moduleName = "NewApp.New";
+      var moduleName = "Portfolio.New";
 
       angular.module( moduleName, [] )
         .directive( "newTag", NewDirective )

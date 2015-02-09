@@ -8,23 +8,25 @@
       //services
       'services/states',
       //components
-      'components/section/section-module'
+      'components/section/section-module',
+      'components/photo-portfolio/portfolio-module'
       ],
     function (
       RouteManager,
       StatesService,
-      SectionModule
+      SectionModule,
+      PhotoPortfolioModule
     ){
 
-      var app, appName = 'NewApp';
+      var app, appName = 'Portfolio';
 
       app = angular
               .module(appName, [
                 'ui.router',
                 'famous.angular',
                 'ngSanitize',
-                SectionModule
-
+                SectionModule,
+                PhotoPortfolioModule
               ])
               .config( RouteManager )
               .service('States', StatesService );

@@ -2,10 +2,10 @@
   "use strict";
 
   define([
-
+    'famous/scrollHandler'
   ],
   function (
-
+    ScrollHandler
   ){
 
     //var contentLoaded = new Event('contentLoaded');
@@ -36,6 +36,20 @@
                   clipSize: window.innerHeight
                 };
 
+                $scope.transitions = {
+                    opacity: new Transitionable(0),
+                    position: new Transitionable([0,0,0])
+                };
+
+                $scope.textures = ['assets/black-slate.jpg',
+                                   'assets/the-wonders-of-the-natural-world.jpg',
+                                   'assets/crashing-1992-light-by-steve-belovarich.jpg',
+                                   'assets/into-the-void-by-steve-belovarich.jpg',
+                                   'assets/what-dreams-are-made-of-by-steve-belovarich.jpg',
+                                   'assets/Where-The-Subconscious-Meets-Conscious-Thought-by-Steve-Belovarich.jpg',
+                                   'assets/playing-with-fire-by-steve-belovarich.jpg',
+                                   'assets/flair-by-steve-belovarich.jpg'];
+
                 $http.get('./models/index.json').then(function(res){
                   $scope.vignettes = res.data;
                   //$rootScope.$broadcast('contentLoaded');
@@ -50,6 +64,68 @@
 
               }
             });
+
+          $stateProvider
+            .state('photo', {
+              url: "/photography",
+              templateUrl: "views/photo-portfolio/photo.html",
+              controller  : function($rootScope, $scope, $famous, States, $http){
+                var Engine = $famous['famous/core/Engine'];
+                var EventHandler = $famous['famous/core/EventHandler'];
+                var Transitionable = $famous['famous/transitions/Transitionable'];
+                var Timer = $famous['famous/utilities/Timer'];
+
+                $scope.scroller = new ScrollHandler({
+                  direction:'y',
+                  min:-400,
+                  max:0
+                });
+                console.log($scope.scroller);
+                $scope.scrollHandler = $scope.scroller.sync;
+                Engine.pipe($scope.scrollHandler);
+
+
+
+                $scope.scrollOptions = {
+                  paginated: false,
+                  speedLimit: 2,
+                  direction: 1,
+                  clipSize: window.innerHeight
+                };
+
+
+                $scope.textures = ['assets/black-slate.jpg',
+                                   'assets/black-slate.jpg'];
+
+                $http.get('./models/photo-portfolio.json').then(function(res){
+                  $scope.vignettes = res.data;
+                });
+
+                $http.get('./models/500px.json').then(function(res){
+
+                  $scope.photos = res.data;
+                  $scope.collection = $scope.photos.collections[2].photos;
+
+                });
+
+
+              }
+            });
+
+          $stateProvider
+            .state('tunnel', {
+              url: "/tunnel-by-digital-artist-steve-belovarich-digital-art-2015",
+              templateUrl: "views/photo-portfolio/photo.html",
+              controller  : function($rootScope, $scope, $famous, States, $http){
+
+
+                $scope.textures = ['assets/black-slate.jpg',
+                                   'assets/black-slate.jpg'];
+
+
+              }
+            });
+
           // end states
     };
 

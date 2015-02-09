@@ -1,5 +1,5 @@
 /* global famous, THREE */
-var Scene = function(options,container,dynamic) {
+var Scene = function(options,container) {
 
   var that = this;
 
@@ -42,8 +42,9 @@ Scene.prototype.setOptions = function(options){
 Scene.prototype.changeOptions = function(changes){
   var that = this;
    function watch(change) {
+    // TODO: add support for listeners that fire when options change.
     //changeFunction(that.options[change.name]);
-    //  console.log(change.name + " was " + change.type + " and is now " + change.object[change.name]);
+    console.log(change.name + " was " + change.type + " and is now " + change.object[change.name]);
    }
    changes.forEach(watch);
 };
@@ -60,13 +61,13 @@ Scene.prototype.render = function(func,f){
   }
 
   if (typeof func === 'function') {
-    //check if container is a Surface TODO: change to famous?
+
     if(this.container.constructor.name === 'Surface'){
       famous.utilities.Timer.every(function(){
         func();
       },f);
-    } //else assume its Three.js and fallback to requestAnimationFrame
-    else{
+    }
+    else{ // assume its Three.js and fallback to requestAnimationFrame
       animate();
     }
   }

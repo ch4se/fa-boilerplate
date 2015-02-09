@@ -7,7 +7,7 @@
     function (
       sectionDirective
     ){
-      var moduleName = "NewApp.Section";
+      var moduleName = "Portfolio.Section";
 
       angular.module( moduleName, [] )
         .directive( "pSection", sectionDirective );
