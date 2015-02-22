@@ -18,6 +18,7 @@ var respond;
       'lib/famous-global.js',
       'lib/three.js',
       'components/three/scene.js',
+      'components/three/FirstPersonControls.js',
       'components/shaders/shaders.js',
       'components/scenes/scenes.js',
       //'lib/synth.js',

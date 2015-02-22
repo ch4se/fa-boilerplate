@@ -11,7 +11,7 @@
       // Deps Vars
     ){
 
-      var mhNewDirective = function( /* angular deps injection */ ){
+      var newDirective = function( /* angular deps injection */ ){
             // Returns Directive Creation Object
             return {
               restrict: "AE",
@@ -29,9 +29,9 @@
 
 
       // If Using Angular Dep Injection
-      //return [ "$rootScope", "Respond", "States", mhNewDirective ];
+      //return [ "$rootScope", "States", newDirective ];
 
-      return mhNewDirective;
+      return newDirective;
     } // end require function
   ); // end define call
 

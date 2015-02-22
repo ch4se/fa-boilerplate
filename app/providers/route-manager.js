@@ -114,15 +114,43 @@
 
           $stateProvider
             .state('tunnel', {
-              url: "/tunnel-by-digital-artist-steve-belovarich-digital-art-2015",
-              templateUrl: "views/photo-portfolio/photo.html",
+              url: "/tunnel",
+              templateUrl: "views/tunnel/tunnel.html",
               controller  : function($rootScope, $scope, $famous, States, $http){
 
 
-                $scope.textures = ['assets/black-slate.jpg',
-                                   'assets/black-slate.jpg'];
+                $scope.textures = ['assets/Where-The-Subconscious-Meets-Conscious-Thought-by-Steve-Belovarich.jpg',
+                                   'assets/the-wonders-of-the-natural-world.jpg',
+                                   'assets/crashing-1992-light-by-steve-belovarich.jpg',
+                                   'assets/into-the-void-by-steve-belovarich.jpg',
+                                   'assets/what-dreams-are-made-of-by-steve-belovarich.jpg',
+                                   'assets/Where-The-Subconscious-Meets-Conscious-Thought-by-Steve-Belovarich.jpg',
+                                   'assets/playing-with-fire-by-steve-belovarich.jpg',
+                                   'assets/flair-by-steve-belovarich.jpg'];
+
+                $http.get('./models/self-obsession.json').then(function(res){
+                  $scope.vignettes = res.data;
+                });
 
 
+              }
+            });
+
+          $stateProvider
+            .state('landscape', {
+              url: "/landscape",
+              templateUrl: "views/landmass/landmass.html",
+              controller  : function($rootScope, $scope, $famous, States, $http){
+
+
+                $scope.textures = ['assets/the-wonders-of-the-natural-world.jpg',
+                                   'assets/the-wonders-of-the-natural-world.jpg',
+                                   'assets/crashing-1992-light-by-steve-belovarich.jpg',
+                                   'assets/into-the-void-by-steve-belovarich.jpg',
+                                   'assets/what-dreams-are-made-of-by-steve-belovarich.jpg',
+                                   'assets/Where-The-Subconscious-Meets-Conscious-Thought-by-Steve-Belovarich.jpg',
+                                   'assets/playing-with-fire-by-steve-belovarich.jpg',
+                                   'assets/flair-by-steve-belovarich.jpg'];
               }
             });
 

@@ -107,8 +107,6 @@
 
       };
       // If Using Angular Dep Injection
-      //return [ "$rootScope", "Respond", "States", mhNewDirective ];
-
       return [ "$famous", "States", PhotoPortfolioDirective];
     } // end require function
   ); // end define call

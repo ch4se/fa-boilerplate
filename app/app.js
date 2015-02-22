@@ -9,13 +9,17 @@
       'services/states',
       //components
       'components/section/section-module',
-      'components/photo-portfolio/portfolio-module'
+      'components/photo-portfolio/portfolio-module',
+      'components/tunnel/tunnel-module',
+      'components/landmass/land-module',
       ],
     function (
       RouteManager,
       StatesService,
       SectionModule,
-      PhotoPortfolioModule
+      PhotoPortfolioModule,
+      TunnelModule,
+      LandModule
     ){
 
       var app, appName = 'Portfolio';
@@ -26,7 +30,9 @@
                 'famous.angular',
                 'ngSanitize',
                 SectionModule,
-                PhotoPortfolioModule
+                PhotoPortfolioModule,
+                TunnelModule,
+                LandModule
               ])
               .config( RouteManager )
               .service('States', StatesService );

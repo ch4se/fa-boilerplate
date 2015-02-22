@@ -43,25 +43,19 @@ define(function(require, exports, module) {
       }
     });
 
-    // private vars
+    // private vars?
 
     this._onEdge = false;
     this._stopScroll = false;
     this._pos = 0.0;
     this._posArray = [0, 0, 0];
 
+    //setup sync
     this.sync = new GenericSync({
-      "mouse": {},
-      "touch": {
-        rails: true,
-        scale: 0.5
-      },
-      "scroll": {
-        rails: true,
-        scale: 0.5
-      }
+      "mouse": this.options.mouse instanceof Object ? this.options.mouse : {},
+      "touch": this.options.touch instanceof Object ? this.options.touch : {},
+      "scroll": this.options.scroll instanceof Object ? this.options.scroll : {}
     });
-
     //private methods
 
     function _hitEdge() {
@@ -149,11 +143,40 @@ define(function(require, exports, module) {
 
   };
 
+  /**
+   * Default options for the ScrollHandler.
+   *
+   * @param direction ('x' or 'y') depending on direction.
+   * @param min (Number) the miniumum value the scroller's position can equal
+   * @param max (Number) the maximum value the scroller's position can equal
+   * @param {mouse} Object custom options for mouseSync
+   * @param {touch} Object custom options for touchSync
+   * @param {scroll} Object custom options for scrollSync
+   *
+   *   ScrollHandler.setOptions({
+   *     direction: Utility.Direction.X,
+   *     min: -1200,
+   *     max: 0,
+   *     mouse:{
+   *        rails: true
+   *     },
+   *     touch:{
+   *        rails: true
+   *     },
+   *     scroll:{
+   *
+   *     }
+   *   });
+   *
+   */
+
   ScrollHandler.DEFAULT_OPTIONS = {
-    direction: Utility.Direction.X,
-    min: -260,
-    max: 20,
-    easing: Easing.outElastic
+    direction: Utility.Direction.Y,
+    min: -1000,
+    max: 0,
+    mouse:{},
+    touch:{},
+    scroll:{}
   };
 
   /**
@@ -172,9 +195,11 @@ define(function(require, exports, module) {
       }
     }
 
-    if (options.easing === undefined) {
-      options.easing = Easing.outBounce;
-    }
+    this.sync = new GenericSync({
+      "mouse": options.mouse instanceof Object ? options.mouse : {},
+      "touch": options.touch instanceof Object ? options.touch : {},
+      "scroll": options.scroll instanceof Object ? options.scroll : {}
+    });
 
     //TODO: QA check after stateChanges if the position is outside the min and max
 
@@ -207,13 +232,13 @@ define(function(require, exports, module) {
    * @param position
    */
 
-  ScrollHandler.prototype.setPosition = function(pos,force) {
+  ScrollHandler.prototype.setPosition = function(pos) {
 
-    if(pos < this.options.min && force === false) {
+    if(pos < this.options.min) {
       pos = this.options.min;
     }
 
-    if(pos > this.options.max && force === false) {
+    if(pos > this.options.max) {
       pos = this.options.max;
     }
 
@@ -233,18 +258,18 @@ define(function(require, exports, module) {
   /**
   * Scrolls the scroller automatically.
   *
-  * @method setPosition
+  * @method scrollTo
   * @param position
   */
 
-  ScrollHandler.prototype.scrollTo = function(pos,force) {
+  ScrollHandler.prototype.scrollTo = function(pos) {
     var self = this;
 
-    if(pos < this.options.min && force === false) {
+    if(pos < this.options.min) {
       pos = this.options.min;
     }
 
-    if(pos > this.options.max && force === false) {
+    if(pos > this.options.max) {
       pos = this.options.max;
     }
 

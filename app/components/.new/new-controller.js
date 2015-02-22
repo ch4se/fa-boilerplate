@@ -22,7 +22,7 @@
 
 
       // If you are injecting things with angular, list their names in an array before returning controller function
-      //return [ "$rootScope", ActivityController ];
+      //return [ "$rootScope", NewController ];
 
       return NewController;
     }

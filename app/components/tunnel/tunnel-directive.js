@@ -1,5 +1,24 @@
 /* global respond, THREE, RuttEtraShader, famous, Scene,  $rootScope, $state */
 var s;
+
+// Rotate an object around an arbitrary axis in object space
+var rotObjectMatrix,rotWorldMatrix;
+function rotateAroundObjectAxis(object, axis, radians) {
+    rotObjectMatrix = new THREE.Matrix4();
+    rotObjectMatrix.makeRotationAxis(axis.normalize(), radians);
+    object.matrix.multiply(rotObjectMatrix);
+    object.rotation.setFromRotationMatrix(object.matrix);
+}
+
+
+// Rotate an object around an arbitrary axis in world space
+function rotateAroundWorldAxis(object, axis, radians) {
+    rotWorldMatrix = new THREE.Matrix4();
+    rotWorldMatrix.makeRotationAxis(axis.normalize(), radians);
+    rotWorldMatrix.multiply(object.matrix);                // pre-multiply
+    object.matrix = rotWorldMatrix;
+    object.rotation.setFromRotationMatrix(object.matrix);
+}
 Scene.prototype.drawTexture = function(img, opacity) {
     this.texture.c.save();
     this.texture.c.globalAlpha = opacity;
@@ -127,10 +146,118 @@ Scene.prototype.initTextures = function(src){
             var vignetteHeight = window.innerHeight * 2;
             var camTrans = new Transitionable([0, 0, 20]);
 
-            var DynamicTexture = function() {
+
+            var SelfObsessionTexture = function() {
 
               var that = this;
               var options = this.options;
+
+              console.log(this.options);
+
+              this.videoInput = document.getElementById('video');
+
+
+              console.log(this.videoInput);
+
+              navigator.getUserMedia = navigator.getUserMedia ||
+                                       navigator.webkitGetUserMedia ||
+                                       navigator.mozGetUserMedia ||
+                                       navigator.msGetUserMedia;
+              console.log(navigator.getUserMedia);
+              if (navigator.getUserMedia) {
+
+                navigator.getUserMedia({
+                  video: true,
+                  audio: false
+                }, function(stream) {
+                  //on webcam enabled
+                  console.log(stream);
+                  if (navigator.mozGetUserMedia) {
+                    //that.videoInput.mozSrcObject = stream;
+                  } else {
+                    that.videoStream = stream;
+
+                    that.videoObject = window.webkitURL.createObjectURL(stream);
+                    that.videoInput.src = that.videoObject;
+
+                    that.faceTexture = new THREE.Texture(that.videoInput);
+                    that.faceTexture.minFilter = THREE.LinearFilter;
+                    that.faceTexture.magFilter = THREE.LinearFilter;
+                    that.faceTexture.format = THREE.RGBFormat;
+                    that.faceTexture.generateMipmaps = true;
+
+                    that.faceOptions = {
+                        scale : 0.75,
+                        multiplier :2.0,
+                        displace : 6.0,
+                        origin : [0,0,100],
+                        opacity : 1.0
+                    };
+
+                    that.faceGeometry = new THREE.PlaneBufferGeometry(256,256,256,256);
+
+                    that.faceMaterial = new THREE.ShaderMaterial({
+                      uniforms: {
+                        "tDiffuse": {
+                          type: "t",
+                          value: that.faceTexture
+                        },
+                        "multiplier": {
+                          type: "f",
+                          value: that.faceOptions.multiplier
+                        },
+                        "displace": {
+                          type: "f",
+                          value: that.faceOptions.displace
+                        },
+                        "opacity": {
+                          type: "f",
+                          value: that.faceOptions.opacity
+                        },
+                        "originX": {
+                          type: "f",
+                          value: that.faceOptions.origin[0]
+                        },
+                        "originY": {
+                          type: "f",
+                          value: that.faceOptions.origin[1]
+                        },
+                        "originZ": {
+                          type: "f",
+                          value: that.faceOptions.origin[2]
+                        }
+                      },
+                      vertexShader: THREE.RuttEtraShader.vertexShader,
+                      fragmentShader: THREE.RuttEtraShader.fragmentShader,
+                      depthWrite: true,
+                      depthTest: true,
+                      wireframe: true,
+                      transparent: true,
+                      overdraw: false
+                    });
+                    that.faceMaterial.wireframe = true;
+
+
+                    that.faceMesh = new THREE.Mesh(that.faceGeometry,that.faceMaterial);
+                    that.faceMesh.scale.x = that.faceMesh.scale.y = that.faceOptions.scale;
+                    that.faceMesh.position.set(0,0,0);
+                    var xAxis = new THREE.Vector3(1,0,0);
+                    rotateAroundWorldAxis(that.faceMesh, xAxis, Math.PI / 180);
+
+
+                    console.log(that.faceMesh);
+                    that.scene.add(that.faceMesh);
+
+                    //that.options.texture = new THREE.Texture(that.videoInput);
+                  }
+
+
+                }, function(error) {
+                  console.log('Unable to capture WebCam. Please reload the page or try with Google Chrome.');
+                });
+              }
+
+
 
               options.texture.minFilter = THREE.LinearFilter;
               options.texture.magFilter = THREE.LinearFilter;
@@ -182,9 +309,9 @@ Scene.prototype.initTextures = function(src){
                 overdraw: false
               });
               this.mesh = new THREE.Mesh(that.geometry,that.material);
-              this.fill = new THREE.PointLight(0xffffff);
-              this.key = new THREE.AmbientLight(0xffffff);
-              this.back = new THREE.SpotLight(0xffffff);
+              this.fill = new THREE.AmbientLight(0xffffff);
+              this.key = new THREE.SpotLight(0xffffff);
+              this.back = new THREE.AmbientLight(0xffffff);
               this.composer = new THREE.EffectComposer(that.renderer);
               this.renderModel = new THREE.RenderPass(that.scene, that.camera);
               this.effectHue = new THREE.ShaderPass(THREE.HueSaturationShader);
@@ -205,8 +332,8 @@ Scene.prototype.initTextures = function(src){
               //this.camera.position.y = -33;
               //this.camera.position.z = 100;
               this.camera.position.x = 0;
-              this.camera.position.y = 0;
-              this.camera.position.z = 12;
+              this.camera.position.y = -45;
+              this.camera.position.z = -100;
               this.camera.lookAt(that.scene.position);
 
               //lighting
@@ -214,14 +341,14 @@ Scene.prototype.initTextures = function(src){
               this.fill.position.set(0, 0, 0).normalize();
               this.scene.add(that.fill);
 
-              this.key.position.set(0, -50, 50).normalize();
-              this.key.target = that.mesh;
+              this.key.position.set(0, -45, -200).normalize();
+              this.key.target = that.scene;
 
               this.key.intensity = 5000;
               this.key.castShadow = true;
               this.scene.add(that.key);
 
-              this.back.position.set(0, 0, -5000).normalize();
+              this.back.position.set(0, 0, -200).normalize();
               this.back.target = that.mesh;
 
               this.back.intensity = 5000;
@@ -234,8 +361,11 @@ Scene.prototype.initTextures = function(src){
               this.geometry.dynamic = true;
               this.geometry.verticesNeedUpdate = true;
               this.mesh.scale.x = this.mesh.scale.y = this.mesh.scale.z = options.scale;
+              this.mesh.position.z = 20;
+              this.mesh.rotation.x = -90;
               this.mesh.doubleSided = true;
-              //this.mesh.position.x = this.mesh.position.y = this.mesh.position.z = 0;
+              this.mesh.position.y = 0;
+              this.mesh.position.z = 45;
               //this.mesh.scale.x = this.mesh.scale.y = this.mesh.scale.z = options.scale;
 
               this.material.renderToScreen = true;
@@ -281,13 +411,39 @@ Scene.prototype.initTextures = function(src){
                  that.camera.position.y = camTrans.get()[1];
                  that.camera.position.z = camTrans.get()[2];
 
+                 that.camera.lookAt(that.scene.position);
+
                  that.options.texture.needsUpdate = true;
 
                  if(that.texture.inTransition === true){
                    that.drawTexture(that.texture.images[that.texture.in], that.texture.fadeIn.get());
                    that.drawTexture(that.texture.images[that.texture.out], that.texture.fadeOut.get());
                  }
-                 //console.log(that.material.uniforms.originY.value);
+
+                 if (that.videoInput.readyState === that.videoInput.HAVE_ENOUGH_DATA) {
+                    that.videoInput.play();
+                   if (that.faceTexture) {
+                    that.faceTexture.needsUpdate = true;
+
+                   }
+                   if (that.faceMaterial) {
+                    that.faceGeometry.dynamic = true;
+                    that.faceGeometry.verticesNeedUpdate = true;
+                    that.faceMaterial.renderToScreen = true;
+                    that.faceMaterial.uniforms.displace.value = that.faceOptions.displace;
+                    that.faceMaterial.uniforms.multiplier.value = that.faceOptions.multiplier;
+                    that.faceMaterial.uniforms.opacity.value = parseFloat(that.faceOptions.opacity);
+                    that.faceMaterial.uniforms.originX.value = parseFloat(that.faceOptions.origin[0]);
+                    that.faceMaterial.uniforms.originY.value = parseFloat(that.faceOptions.origin[1]);
+                    that.faceMaterial.uniforms.originZ.value = parseFloat(that.faceOptions.origin[2]);
+                   }
+                    that.material.uniforms.displace.value = that.options.displace;
+                    that.material.uniforms.multiplier.value = that.options.multiplier;
+                    that.material.uniforms.opacity.value = parseFloat(that.options.opacity);
+                    that.material.uniforms.originX.value = parseFloat(that.options.origin[0]);
+                    that.material.uniforms.originY.value = parseFloat(that.options.origin[1]);
+                    that.material.uniforms.originZ.value = parseFloat(that.options.origin[2]);
+                 }
               });
 
 
@@ -298,7 +454,7 @@ Scene.prototype.initTextures = function(src){
             return {
               restrict: "AE",
               require:"ngModel",
-              templateUrl: "./components/section/section.html",
+              templateUrl: "./components/tunnel/tunnel.html",
               scope:true,
               link: {
                 pre: function(scope, iElem, iAttrs, controller) {
@@ -307,6 +463,7 @@ Scene.prototype.initTextures = function(src){
                 post: function(scope, iElem, iAttrs, controller) {
 
                   scope.masterIndex = 0;
+                  scope.masterLimit = 4;
 
                   scope.zoom = false;
 
@@ -320,15 +477,15 @@ Scene.prototype.initTextures = function(src){
                     /* begin scene */
                     scene = new Scene({
                         scale : 1.0,
-                        multiplier : 4.0,
-                        displace : 4.0,
-                        origin : [0,0,1000],
+                        multiplier : 2.0,
+                        displace : 6.0,
+                        origin : [0,0,-120],
                         opacity : 0.6,
                         hue : 0.0,
                         bloom : 3.5,
                         saturation : 0.5,
                         wireframe : true,
-                        geometry: new THREE.PlaneGeometry(64,64,64,64),
+                        geometry: new THREE.CylinderGeometry(64,64,120,64,64,true,false),
                         //texture : THREE.ImageUtils.loadTexture('assets/the-sky-is-burning.jpg')
                         texture : textures
                     },$famous.find('.background-canvas')[0].renderNode, true);
@@ -336,16 +493,18 @@ Scene.prototype.initTextures = function(src){
                     window.scene = scene;
 
 
-                      Scene.prototype.init = DynamicTexture;
+                    Scene.prototype.init = SelfObsessionTexture;
 
-                     var tex = scene.initTextures(scene.options.texture[0]);
-                     scene.options.texture = new THREE.Texture(tex);
+                    var tex = scene.initTextures(scene.options.texture[0]);
+                    scene.options.texture = new THREE.Texture(tex);
 
-                     inT(scope.masterIndex);
+                    inT(scope.masterIndex);
+                    setTimeout(function(){
 
-                     setTimeout(function(){
-                       scene.animateTextures(1,1000,Easing.inOutQuart);
-                     },500);
+                      scene.animateTextures(scope.masterIndex,1000,Easing.outElastic);
+
+
+                    },300);
 
 
 
@@ -507,25 +666,25 @@ Scene.prototype.initTextures = function(src){
 
                   var transportCamera = function(){
                     if(scope.masterIndex===0){
-                      camTrans.set([0, 0, 15],{duration: 2000, curve: Easing.inOutCubic});
+                      camTrans.set([0, -45, -100],{duration: 2000, curve: Easing.inOutCubic});
                     }
                     if(scope.masterIndex===1){
-                      camTrans.set([2, -10, 20],{duration: 2000, curve: Easing.inOutCubic});
+                      camTrans.set([0, -25, -100],{duration: 2000, curve: Easing.inOutCubic});
                     }
                     if(scope.masterIndex===2){
-                      camTrans.set([0, 5, 20],{duration: 2000, curve: Easing.inOutCubic});
+                      camTrans.set([0, -45, -100],{duration: 2000, curve: Easing.inOutCubic});
                     }
                     if(scope.masterIndex===3){
-                      camTrans.set([-5, 8, 20],{duration: 2000, curve: Easing.inOutCubic});
+                      camTrans.set([0, -25, -100],{duration: 2000, curve: Easing.inOutCubic});
                     }
                     if(scope.masterIndex===4){
-                      camTrans.set([-5, -5, 10],{duration: 2000, curve: Easing.inOutCubic});
+                      camTrans.set([0, -45, -100],{duration: 2000, curve: Easing.inOutCubic});
                     }
                     if(scope.masterIndex===5){
-                      camTrans.set([7, 0, 15],{duration: 2000, curve: Easing.inOutCubic});
+                      camTrans.set([0, -25, -100],{duration: 2000, curve: Easing.inOutCubic});
                     }
                     if(scope.masterIndex===6){
-                      camTrans.set([0, -5, 20],{duration: 2000, curve: Easing.inOutCubic});
+                      camTrans.set([0, -45, -100],{duration: 2000, curve: Easing.inOutCubic});
                     }
                   };
 
@@ -534,20 +693,18 @@ Scene.prototype.initTextures = function(src){
                       scope.content.section.scrollButton.display = 0;
                       scope.op[tIndex].set(0);
                       scope.c[tIndex].set(0);
-                      scope.p[tIndex].setTranslate([0,0,-1000]);
-                      scope.i[tIndex].setTranslate([0,0,-2000]);
+                      scope.p[tIndex].setTranslate([0,0,0]);
+                      scope.i[tIndex].setTranslate([0,0,0]);
                       scope.op[tIndex].set(1,{duration: 10});
                       scope.c[tIndex].set(1,{duration: 500});
 
                       if(scene){
-                        if(!$state.is('tunnel')){
                           scene.animateTextures(tIndex+1,1500,Easing.inOutQuart);
                           transportCamera();
-                        }
                       }
 
-                      scope.p[tIndex].setTranslate([0,0,transform],{duration:800},function(){
-                        scope.p[tIndex].setTranslate([0,0,(transform/2)],{duration:400},function(){
+                      scope.p[tIndex].setTranslate([0,0,0],{duration:800},function(){
+                        scope.p[tIndex].setTranslate([0,0,0],{duration:400},function(){
                           scope.transition = false;
                         });
                       });
@@ -565,11 +722,11 @@ Scene.prototype.initTextures = function(src){
                     scope.c[tIndex].set(0,{duration:300},function(){
                       resetVignette();
                     });
-                    scope.p[tIndex].setTranslate([0,0,3000],{duration:3000},function(){
+                    scope.p[tIndex].setTranslate([0,0,0],{duration:3000},function(){
 
                       for(var vo=0; vo<scope.vignettes.length; vo++){
                         if(vo!==scope.masterIndex){
-                          scope.p[vo].setTranslate([0,-20000,transform],{duration:10});
+                          scope.p[vo].setTranslate([0,0,0],{duration:10});
                         }
                       }
                     });
@@ -584,12 +741,12 @@ Scene.prototype.initTextures = function(src){
                     });
 
                     scope.op[tIndex].set(0,{duration:500});
-                    scope.p[tIndex].setTranslate([0,0,-1000],{duration:2000},function(){
+                    scope.p[tIndex].setTranslate([0,0,0],{duration:2000},function(){
                       scope.transition = false;
 
                       for(var bo=0; bo<scope.vignettes.length; bo++){
                         if(bo!==scope.masterIndex){
-                          scope.p[bo].setTranslate([0,-20000,transform],{duration:10});
+                          scope.p[bo].setTranslate([0,0,0],{duration:10});
                         }
                       }
 
@@ -601,19 +758,18 @@ Scene.prototype.initTextures = function(src){
 
                     scope.op[tIndex].set(0);
                     scope.c[tIndex].set(0);
-                    scope.p[tIndex].setTranslate([0,0,3000]);
+                    scope.p[tIndex].setTranslate([0,0,0]);
                     scope.op[tIndex].set(1,{duration: 10});
                     scope.c[tIndex].set(1,{duration: 500});
 
                     if(scene){
-                      if(!$state.is('tunnel')){
+
                        scene.animateTextures(tIndex+1,1500,Easing.inOutQuart);
                        transportCamera();
-                      }
                     }
-                    scope.p[tIndex].setTranslate([0,0,transform],{duration:1200},function(){
+                    scope.p[tIndex].setTranslate([0,0,0],{duration:1200},function(){
 
-                      scope.p[tIndex].setTranslate([0,0,(transform/2)],{duration:400},function(){
+                      scope.p[tIndex].setTranslate([0,0,0],{duration:400},function(){
                         scope.transition = false;
                       });
                     });
@@ -825,7 +981,7 @@ Scene.prototype.initTextures = function(src){
                           //transform = ;
                           scope.transition = true;
 
-                          scope.p[scope.masterIndex].setTranslate([0,0,(transform/2)],{duration:10},function(){
+                          scope.p[scope.masterIndex].setTranslate([0,0,(transform/2)],{duration:500, curve:Easing.outElastic},function(){
                             scope.transition = false;
                             scope.zoom = false;
 
@@ -836,7 +992,7 @@ Scene.prototype.initTextures = function(src){
                           transform = transform - 1;
                           scope.transition = true;
 
-                          scope.p[scope.masterIndex].setTranslate([0,0,(transform/2)],{duration:10},function(){
+                          scope.p[scope.masterIndex].setTranslate([0,0,(transform/2)],{duration:500, curve:Easing.outElastic},function(){
                             scope.transition = false;
                             scope.zoom = false;
                           });
